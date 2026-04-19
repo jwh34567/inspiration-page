@@ -1548,12 +1548,21 @@ const renderFood = () => {
 const renderSchedule = () => {
     dom.scheduleHeaderTr.innerHTML = '<th>日本时间</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th>';
     dom.scheduleBody.innerHTML = '';
+
     sectionNames.forEach((sec, idx) => {
+
+        // ✅ 如果是“18:30-20:00 六限”，且没有课程，就跳过这一行
+        if (idx === 5) {
+            const hasCourse = scheduleList.some(s => Number(s.section) === 6);
+            if (!hasCourse) return;
+        }
+
         const tr = document.createElement('tr');
+
         if (idx === 6) {
             tr.innerHTML = `<td>${sec}</td><td colspan="5"></td>`;
             const td = tr.querySelector('td[colspan]');
-            const courses = scheduleList.filter(s => s.section == idx + 1);
+            const courses = scheduleList.filter(s => Number(s.section) === idx + 1);
             td.innerHTML = courses.map(c => `
                 <div class="course-item" data-id="${c.id}" style="color:${getCourseColor(c.name)}">
                    ${c.name}
@@ -1561,13 +1570,15 @@ const renderSchedule = () => {
                 <div class="course-room-credit">
                    ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
                 </div>
-            </div>
-        `).join('');
+                </div>
+            `).join('');
         } else {
             tr.innerHTML = `<td>${sec}</td>`;
             for (let day = 1; day <= 6; day++) {
                 const td = document.createElement('td');
-                const courses = scheduleList.filter(s => s.day == day && s.section == idx + 1);
+                const courses = scheduleList.filter(
+                    s => Number(s.day) === day && Number(s.section) === idx + 1
+                );
                 td.innerHTML = courses.map(c => `
                     <div class="course-item" data-id="${c.id}" style="color:${getCourseColor(c.name)}">
                        ${c.name}
@@ -1575,25 +1586,30 @@ const renderSchedule = () => {
                     <div class="course-room-credit">
                        ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
                     </div>
-                </div>
-            `).join('');
+                    </div>
+                `).join('');
                 tr.appendChild(td);
             }
         }
+
         dom.scheduleBody.appendChild(tr);
     });
+
     updateTotalCredit();
+
     setTimeout(() => {
         const table = document.getElementById('scheduleTable');
         const headerCells = table.querySelectorAll('thead th');
         const rows = table.querySelectorAll('tbody tr');
         let saturdayHasCourse = false;
+
         rows.forEach(row => {
             const cells = row.querySelectorAll('td');
             if (cells[6] && cells[6].querySelector('.course-item')) {
                 saturdayHasCourse = true;
             }
         });
+
         if (!saturdayHasCourse) {
             headerCells[6].style.display = 'none';
             rows.forEach(row => {
