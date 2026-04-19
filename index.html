@@ -1292,10 +1292,46 @@ const dom = {
     foodCancelEdit: $('#foodCancelEdit')
 };
 let currentDate = new Date(), selectedDate = '';
-let todoList = JSON.parse(localStorage.getItem('collegeTodo')) || [];
-let scheduleList = JSON.parse(localStorage.getItem('collegeSchedule')) || [];
-let guideContent = localStorage.getItem('collegeGuide') || '';
-let foodList = JSON.parse(localStorage.getItem('collegeFood')) || [];
+// ========== GitHub Gist 云端配置（小白必填区） ==========
+const GITHUB_TOKEN = "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";
+const GIST_ID = "66e140eb5b9c0f9e895ba5f1e11a9071";
+const GIST_FILENAME = "college-data.json";
+// ======================================================
+
+// 云端数据初始化
+let todoList = [];
+let scheduleList = [];
+let guideContent = '';
+let foodList = [];
+
+// 从Gist拉取云端数据
+async function loadCloudData() {
+  try {
+    const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      headers: { Authorization: `token ${GITHUB_TOKEN}` }
+    });
+    const gistData = await res.json();
+    const data = JSON.parse(gistData.files[GIST_FILENAME].content);
+    
+    todoList = data.todo || [];
+    scheduleList = data.schedule || [];
+    guideContent = data.guide || '';
+    foodList = data.food || [];
+
+    renderCalendar();
+    renderTodoList();
+    renderSchedule();
+    renderFood();
+    dom.guideContent.value = guideContent;
+    renderRecentTodo();
+  } catch (err) {
+    todoList = [];
+    scheduleList = [];
+    guideContent = '';
+    foodList = [];
+    alert("云端加载失败，使用空数据");
+  }
+}
 let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '';
 let prevTodo = JSON.stringify(todoList);
 let prevSchedule = JSON.stringify(scheduleList);
@@ -1323,10 +1359,40 @@ const getCourseColor = (courseName) => {
   return color;
 };
 // 基础保存函数
-const saveTodo = () => { localStorage.setItem('collegeTodo', JSON.stringify(todoList)); autoBackup(); renderRecentTodo();};
-const saveSchedule = () => { localStorage.setItem('collegeSchedule', JSON.stringify(scheduleList)); autoBackup(); };
-const saveGuide = () => { localStorage.setItem('collegeGuide', dom.guideContent.value); alert('使用说明保存成功！'); autoBackup(); };
-const saveFood = () => { localStorage.setItem('collegeFood', JSON.stringify(foodList)); autoBackup(); };
+// 上传数据到Gist云端
+async function saveCloudData() {
+  try {
+    const data = {
+      todo: todoList,
+      schedule: scheduleList,
+      guide: dom.guideContent.value,
+      food: foodList
+    };
+    await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
+      })
+    });
+    renderRecentTodo();
+    alert("数据已同步云端✅");
+  } catch (err) {
+    alert("云端同步失败❌");
+  }
+}
+
+// 替换本地保存为云端保存
+const saveTodo = () => { saveCloudData(); };
+const saveSchedule = () => { saveCloudData(); };
+const saveGuide = () => { 
+  saveCloudData(); 
+  alert('使用说明已同步云端！'); 
+};
+const saveFood = () => { saveCloudData(); };
 // 自动备份
 const autoBackup = () => {
     const currentTodo = JSON.stringify(todoList);
@@ -1751,8 +1817,11 @@ const init = () => {
     };
     dom.foodCancelEdit.onclick = closeModal;
 };
-// 页面加载完成后初始化
-window.addEventListener('DOMContentLoaded', init);
+// 页面加载先拉云端数据，再初始化
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadCloudData();
+  init();
+});
 </script>
 </body>
 </html>
