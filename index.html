@@ -1,3 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟Inspiration🌟</title>
+    <style>
+        .course-teacher,
+        .course-room-credit {
+            font-size: 11px;
+            color: #9CA3AF;
+            font-weight: normal;
+            line-height: 1.4;
+}
+        .course-teacher {
+            margin-top: 6px;
+}
+        .course-room-credit {
+            margin-top: 2px;
+}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC","Microsoft YaHei",Inter,sans-serif}
+        :root {
+            --primary: #E6F7F2;       
+            --primary-dark: #52B788; 
+            --success: #34D399;      
+            --warning: #FBBF24;       
+            --purple: #A78BFA;        
+            --danger: #F87171;        
+            --gray: #4B5563;          
+            --light-gray: #F9FAFB;
+            --border-color: #E5E7EB;
+            --bg-img: url('https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/48848370d3e741028d374212eccab22d.png~tplv-a9rns2rl98-24:720:720.png');
+        }
+        body{
+            background-color:#FCFCFD;
+            padding:24px;
+            background-image:var(--bg-img);
+            background-size:180px;
+            background-position:center 80px;
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+            opacity:0.98;
+            min-height:100vh;
+            overflow-x: hidden;
+        }
+        .container{
+            max-width:1400px;
+            width: 100%;
+            margin:0 auto;
+            background:rgba(255,255,255,.92);
+            border-radius:20px;
+            box-shadow:0 8px 32px rgba(0,0,0,.06);
+            padding:28px;
+            backdrop-filter:blur(10px);
+        }
+        .header{
+            text-align:center;
+            margin-bottom:28px;
+            color:var(--primary-dark);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
+        }
+        .header h1{
+            font-size:28px;
+            font-weight:700;
+            letter-spacing:1px;
+        }
+        .header-logo{
+            width:44px;
+            height:44px;
+            background-image:var(--bg-img);
+            background-size:100% 100%;
+            background-repeat:no-repeat;
+            border-radius:12px;
+        }
+        
+        .tab-bar{
+            display:flex;
+            gap:12px;
+            margin-bottom:28px;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+        .tab-btn{
+            padding:12px 28px;
+            border:none;
+            border-radius:12px;
+            background:var(--light-gray);
+            color:var(--gray);
+            cursor:pointer;
+            font-size:16px;
+            font-weight:600;
+            transition:all 0.3s ease;
+            border:1px solid transparent;
+        }
+        .tab-btn.active{
+            background:var(--primary);
+            color:var(--primary-dark);
+            border:1px solid var(--primary-dark);
+            transform:translateY(-2px);
+            box-shadow:0 4px 12px rgba(82,183,136,0.15);
+        }
+        .tab-btn:hover:not(.active){
+            background:#F3F4F6;
+            transform:translateY(-1px);
+        }
+        
+        .panel{display:none}
+        .panel.active{display:block}
+        
+        .main{
+            display:flex;
+            gap:24px;
+            flex-wrap:wrap;
+            align-items:stretch;
+        }
+        .calendar,.todo-panel{
+            flex:1;
+            min-width:360px;
+            border:1px solid var(--border-color);
+            border-radius:16px;
+            padding:20px;
+            background:rgba(255,255,255,.98);
+            display:flex;
+            flex-direction:column;
+            box-shadow:0 2px 12px rgba(0,0,0,.04);
+            transition:all 0.3s ease;
+        }
+        .calendar:hover,.todo-panel:hover{
+            box-shadow:0 4px 20px rgba(0,0,0,.06);
+        }
+        .calendar-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+        }
+        .calendar-header h3{
+            font-size:20px;
+            color:var(--gray);
+            font-weight:600;
+        }
+        .calendar-header button{
+            padding:8px 14px;
+            background:var(--primary);
+            color:var(--primary-dark);
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .calendar-header button:hover{
+            background:var(--primary-dark);
+            color:white;
+        }
+        .calendar-week{
+            display:grid;
+            grid-template-columns:repeat(7,1fr);
+            text-align:center;
+            font-weight:600;
+            color:#9CA3AF;
+            margin-bottom:12px;
+            font-size:14px;
+        }
+        .calendar-days{
+            display:grid;
+            grid-template-columns:repeat(7,1fr);
+            gap:6px;
+            flex:1;
+            grid-auto-rows:1fr;
+        }
+        .day{
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:flex-start;
+            border-radius:10px;
+            cursor:pointer;
+            transition:all 0.2s ease;
+            font-size:14px;
+            padding:10px 4px;
+            overflow:hidden;
+            position:relative;
+            height:100%;
+            background:white;
+        }
+        .day.holiday{
+            color: var(--danger) !important;
+            font-weight: 700 !important;
+        }
+        .holiday-name{
+            font-size:9px;
+            color:var(--danger);
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            width:100%;
+            text-align:center;
+            margin-top:2px;
+        }
+        .day-number{
+            margin-bottom:6px;
+            height:22px;
+            line-height:22px;
+            font-weight:500;
+        }
+        .day-tags{
+            margin-top:auto;
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            gap:2px;
+        }
+        .day:hover{
+            background:var(--primary);
+            transform:scale(0.96);
+        }
+        .day.active{
+            background:var(--primary-dark);
+            color:white!important;
+            font-weight:600;
+            box-shadow:0 2px 8px rgba(82,183,136,0.2);
+        }
+        .day.has-todo::after{
+            content:'';
+            width:6px;
+            height:6px;
+            background:var(--danger);
+            border-radius:50%;
+            position:absolute;
+            top:6px;
+            right:8px;
+        }
+        .day-todo-title{
+            line-height:1.2;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            width:100%;
+            text-align:center;
+            font-size:10px;
+        }
+        .day.todo-count-1 .day-todo-title{font-size:13px!important;font-weight:700}
+        .day.todo-count-2 .day-todo-title{font-size:12px!important;font-weight:500}
+        .todo-title-class{color:var(--primary-dark)}
+        .todo-title-homework{color:var(--success)}
+        .todo-title-exam{color:var(--warning)}
+        .todo-title-meeting{color:var(--purple)}
+        .todo-title-other{color:var(--gray)}
+        .todo-panel{position:relative}
+        .todo-panel::before{
+            content:'';
+            position:absolute;
+            bottom:24px;
+            right:24px;
+            width:90px;
+            height:90px;
+            background-image:var(--bg-img);
+            background-size:100% 100%;
+            opacity:.1;
+        }
+        .selected-date{
+            font-size:20px;
+            font-weight:600;
+            color:var(--gray);
+            margin-bottom:20px;
+            text-align:center;
+            padding-left:28px;
+            background-image:var(--bg-img);
+            background-repeat:no-repeat;
+            background-position:left center;
+            background-size:20px;
+        }
+        .add-form{
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            margin-bottom:24px;
+        }
+        .add-form input,.add-form textarea,.add-form select{
+            padding:12px;
+            border:1px solid var(--border-color);
+            border-radius:10px;
+            resize:vertical;
+            font-size:14px;
+            transition:all 0.2s ease;
+            background:white;
+        }
+        .add-form input:focus,.add-form textarea:focus,.add-form select:focus{
+            outline:none;
+            border-color:var(--primary-dark);
+            box-shadow:0 0 0 3px rgba(82,183,136,0.1);
+        }
+        .add-btn{
+            padding:12px;
+            background:var(--success);
+            color:white;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:600;
+            transition:all 0.2s ease;
+            font-size:15px;
+        }
+        .add-btn:hover{
+            background:#22C55E;
+            transform:translateY(-1px);
+            box-shadow:0 4px 12px rgba(34,197,94,0.2);
+        }
+        .todo-list{
+            flex:1;
+            overflow-y:auto;
+            position:relative;
+            z-index:1;
+            padding-right:8px;
+        }
+        .todo-list::-webkit-scrollbar{width:6px}
+        .todo-list::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
+        .todo-item{
+            padding:14px;
+            border-left:4px solid var(--primary-dark);
+            background:var(--light-gray);
+            margin-bottom:10px;
+            border-radius:10px;
+            cursor:pointer;
+            transition:all 0.2s ease;
+        }
+        .todo-item:hover{
+            transform:translateX(4px);
+            box-shadow:0 2px 8px rgba(0,0,0,.06);
+        }
+        .todo-title{
+            font-weight:600;
+            display:flex;
+            align-items:center;
+            margin-bottom:8px;
+            gap:8px;
+            flex-wrap:wrap;
+            font-size:15px;
+        }
+        .todo-type{
+            display:inline-block;
+            padding:4px 10px;
+            font-size:11px;
+            border-radius:12px;
+            color:white;
+            margin-right:8px;
+            font-weight:500;
+        }
+        .type-class { background: var(--primary-dark); }
+        .type-homework { background: var(--success); }
+        .type-exam { background: var(--warning); }
+        .type-meeting { background: var(--purple); }
+        .type-other { background: var(--gray); }
+        
+        .todo-content{
+            font-size:14px;
+            color:var(--gray);
+            margin-top:4px;
+            line-height:1.5;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            overflow:hidden;
+            max-height:3em;
+        }
+        
+        .modal-overlay{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.2);
+            z-index:998;
+            display:none;
+            backdrop-filter:blur(4px);
+        }
+        .modal-overlay.active{display:block}
+        
+        .detail-modal,.edit-modal{
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            background:white;
+            padding:28px;
+            border-radius:16px;
+            box-shadow:0 10px 40px rgba(0,0,0,.12);
+            z-index:999;
+            width:90%;
+            max-width:600px;
+            max-height:90vh;
+            min-width:320px;
+            min-height:220px;
+            display:none;
+            cursor:move;
+            user-select: none;
+            -webkit-user-select: none;
+            resize: both;
+            overflow: auto;
+            border:1px solid var(--border-color);
+        }
+        .edit-modal input,.edit-modal select,.edit-modal textarea{
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        .detail-modal.active,.edit-modal.active{display:block}
+        .detail-header{
+            font-size:20px;
+            font-weight:600;
+            color:var(--primary-dark);
+            margin-bottom:20px;
+            padding-bottom:12px;
+            border-bottom:1px solid var(--border-color);
+            text-align:left;
+        }
+        .detail-body{
+            font-size:15px;
+            line-height:1.7;
+            color:var(--gray);
+            overflow-y:auto;
+            margin-bottom:24px;
+            white-space:pre-wrap;
+        }
+        .detail-footer{
+            text-align:right;
+            display:flex;
+            gap:12px;
+            justify-content:flex-end;
+        }
+        .close-detail-btn,.detail-edit-btn,.detail-del-btn{
+            border:none;
+            padding:10px 18px;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:14px;
+            color:white;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .detail-edit-btn{background:var(--warning)}
+        .detail-del-btn{background:var(--danger)}
+        .close-detail-btn{background:var(--gray)}
+        .close-detail-btn:hover,.detail-edit-btn:hover,.detail-del-btn:hover{
+            transform:translateY(-1px);
+            opacity:0.9;
+        }
+        .edit-form{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+        .edit-form input,.edit-modal textarea,.edit-form select{
+            padding:12px;
+            border:1px solid var(--border-color);
+            border-radius:10px;
+            font-size:14px;
+            transition:all 0.2s ease;
+        }
+        .edit-form input:focus,.edit-modal textarea:focus,.edit-form select:focus{
+            outline:none;
+            border-color:var(--primary-dark);
+            box-shadow:0 0 0 3px rgba(82,183,136,0.1);
+        }
+        .edit-btns{
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            margin-top:8px;
+        }
+        .save-btn{
+            background:var(--success);
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .cancel-btn{
+            background:var(--gray);
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .del-course-btn{
+            background:var(--danger);
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:500;
+            transition:all 0.2s ease;
+        }
+        .save-btn:hover,.cancel-btn:hover,.del-course-btn:hover{
+            transform:translateY(-1px);
+            opacity:0.9;
+        }
+        
+        .schedule-container{
+            display:flex;
+            gap:24px;
+            align-items:stretch;
+            width:100%;
+            flex-wrap:wrap;
+        }
+        .schedule-table{
+            flex: 3;
+            min-width:320px;
+            width: 100%;
+            border:1px solid var(--border-color);
+            border-radius:16px;
+            padding:24px;
+            background:rgba(255,255,255,.98);
+            display:flex;
+            flex-direction:column;
+            overflow:hidden;
+            box-shadow:0 2px 12px rgba(0,0,0,.04);
+        }
+        .schedule-form{
+            flex: 1;
+            min-width:260px;
+            width: 100%;
+            border:1px solid var(--border-color);
+            border-radius:16px;
+            padding:24px;
+            background:rgba(255,255,255,.98);
+            display:flex;
+            flex-direction:column;
+            box-shadow:0 2px 12px rgba(0,0,0,.04);
+        }
+        .schedule-title{
+            font-size:22px;
+            font-weight:600;
+            color:var(--primary-dark);
+            margin-bottom:24px;
+            text-align:center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap:wrap;
+            position: relative;
+        }
+        .total-credit{
+            font-size:16px;
+            color:var(--success);
+            font-weight:600;
+        }
+        .print-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor:pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            z-index: 1;
+        }
+        .print-btn:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+        .print-tooltip {
+            position: absolute;
+            right: 100%;
+            margin-right: 8px;
+            padding: 6px 10px;
+            background: var(--primary-dark);
+            color: white;
+            font-size: 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        .print-btn:hover .print-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .schedule-add-form{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+            width:100%;
+        }
+        .schedule-add-form input,
+        .schedule-add-form select,
+        .schedule-add-form button{
+            width:100% !important;
+            padding:12px;
+            border:1px solid var(--border-color);
+            border-radius:10px;
+            font-size:14px;
+            transition:all 0.2s ease;
+        }
+        .schedule-add-form input:focus,.schedule-add-form select:focus{
+            outline:none;
+            border-color:var(--primary-dark);
+            box-shadow:0 0 0 3px rgba(82,183,136,0.1);
+        }
+        .schedule-add-form button{
+            background:var(--success);
+            color:white;
+            border:none;
+            font-weight:600;
+            cursor:pointer;
+            margin-top:8px;
+            transition:all 0.2s ease;
+        }
+        .schedule-add-form button:hover{
+            background:#22C55E;
+            transform:translateY(-1px);
+            box-shadow:0 4px 12px rgba(34,197,94,0.2);
+        }
+        .schedule-table-content{
+            width:100%;
+            border-collapse:collapse;
+            flex:1;
+            table-layout:fixed;
+            overflow-x:auto;
+            min-height:420px;
+            display:block;
+            border-radius:12px;
+            overflow:hidden;
+        }
+        .schedule-table-content th,.schedule-table-content td{
+            border:1px solid var(--border-color);
+            padding:12px;
+            text-align:center;
+            font-size:14px;
+            vertical-align:top;
+            min-height:100px;
+            word-break:break-all;
+            min-width:90px;
+            background:white;
+        }
+        .schedule-table-content td:first-child {
+            white-space: pre-line;
+            vertical-align: middle;
+            padding:10px 8px;
+            line-height:1.5;
+            font-weight:500;
+            background:var(--light-gray);
+        }
+        .schedule-table-content th{
+            background:var(--primary);
+            color:var(--primary-dark);
+            position:sticky;
+            top:0;
+            font-weight:600;
+            font-size:15px;
+        }
+        .course-item{
+            padding:8px 0;
+            font-size:15px;
+            margin:6px 0;
+            cursor:pointer;
+            font-weight:600;
+            transition:all 0.2s ease;
+            line-height:1.4;
+            word-break:break-all;
+            white-space:normal;
+            text-align:center;
+        }
+        .course-item:hover{
+            opacity:0.8;
+            transform:scale(1.05);
+        }
+        .course-info{
+            font-size:11px;
+            margin-top:8px;
+            line-height:1.3;
+            color:#9CA3AF;
+            text-align:center;
+            white-space:normal;
+            word-break:break-all;
+        }
+        
+        .guide-container{
+            max-width:800px;
+            margin:0 auto;
+            padding:28px;
+            background:rgba(255,255,255,.98);
+            border-radius:16px;
+            box-shadow:0 2px 12px rgba(0,0,0,.04);
+        }
+        .guide-title{
+            text-align:center;
+            color:var(--primary-dark);
+            margin-bottom:24px;
+            font-size:24px;
+            font-weight:600;
+        }
+        #guideContent{
+            width:100%;
+            padding:18px;
+            border:1px solid var(--border-color);
+            border-radius:12px;
+            font-size:15px;
+            line-height:1.7;
+            resize:vertical;
+            transition:all 0.2s ease;
+        }
+        #guideContent:focus{
+            outline:none;
+            border-color:var(--primary-dark);
+            box-shadow:0 0 0 3px rgba(82,183,136,0.1);
+        }
+        .guide-save-box{
+            display: flex; 
+            gap: 16px; 
+            justify-content: center; 
+            margin-top:20px; 
+            flex-wrap: wrap;
+        }
+        .export-btn,.import-btn{
+            padding:14px 32px;
+            border:none;
+            border-radius:12px;
+            font-weight:600;
+            cursor:pointer;
+            font-size:15px;
+            transition:all 0.2s ease;
+        }
+        .export-btn{background: var(--primary-dark) !important;color:white;}
+        .import-btn{background: var(--warning) !important;color:white;}
+        .export-btn:hover,.import-btn:hover{
+            transform:translateY(-1px);
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+        }
+        /* 美食模块样式 */
+        .food-grid {
+            flex: 2;
+            min-width: 360px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, .98);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+            transition: all 0.3s ease;
+        }
+        .food-grid:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+        }
+        .food-item {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--light-gray);
+            border-left: 4px solid var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: 100%;
+            justify-content: center;
+        }
+        .food-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(82, 183, 136, 0.15);
+            background: var(--primary);
+        }
+        .food-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 16px;
+            text-align: center;
+            word-break: break-all;
+        }
+        .food-desc {
+            font-size: 12px;
+            color: var(--gray);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-align: center;
+        }
+        .food-panel {
+            flex: 1;
+            min-width: 360px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, .98);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .food-panel:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+        }
+        .food-panel::before {
+            content: '';
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 90px;
+            height: 90px;
+            background-image: var(--bg-img);
+            background-size: 100% 100%;
+            opacity: .1;
+        }
+        /* 移动端响应式优化 */
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+                overflow-x: hidden;
+            }
+            .container {
+                padding: 16px;
+                border-radius: 16px;
+                width: 100%;
+                margin: 0 auto;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            .main {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .calendar, .todo-panel {
+                min-width: 100%;
+                width: 100%;
+                flex: none;
+                padding: 16px;
+            }
+            .schedule-container {
+                flex-direction: column;
+                gap: 16px;
+                width: 100%;
+            }
+            .schedule-table {
+                min-width: 100%;
+                width: 100%;
+                flex: none;
+                padding: 16px;
+                overflow: hidden;
+            }
+            .schedule-form {
+                min-width: 100%;
+                width: 100%;
+                flex: none;
+                padding: 16px;
+            }
+            .schedule-table-content {
+                min-height: 300px;
+                overflow-x: auto;
+                display: block;
+                width: 100%;
+            }
+            .schedule-table-content th, .schedule-table-content td {
+                padding: 6px;
+                font-size: 12px;
+                min-height: 70px;
+                min-width: 60px;
+            }
+            .course-item {
+                font-size: 12px;
+            }
+            .course-info {
+                font-size: 9px;
+            }
+            .detail-modal, .edit-modal {
+                width: 92%;
+                padding: 20px;
+            }
+            .guide-save-box{
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            .export-btn,.import-btn,#saveGuideBtn{
+                width: 100%;
+                max-width: 280px;
+            }
+            .print-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            .print-tooltip {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            /* 美食模块移动端适配 */
+            .food-grid {
+                min-width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 16px;
+            }
+            .food-panel {
+                min-width: 100%;
+                padding: 16px;
+            }
+            .food-name {
+                font-size: 14px;
+            }
+        }
+        /* 打印样式 */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .header, .tab-bar, .panel:not(.active), .modal-overlay,
+            .detail-modal, .edit-modal, .schedule-form, .guide-container,
+            #printScheduleBtn, .export-btn, .import-btn, .add-btn,
+            head, title, meta {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            #schedulePanel, .schedule-container, .schedule-table,
+            .schedule-table-content, .schedule-title, .total-credit,
+            .container {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                z-index: 1 !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+            }
+            .container {
+                width: 90% !important;
+                max-width: 200mm !important;
+                max-height: 148mm !important;
+                padding: 0 !important;
+                margin: 10mm auto !important;
+                box-shadow: none !important;
+                background: white !important;
+                border: none !important;
+            }
+            .schedule-table {
+                border: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 auto !important;
+            }
+            .schedule-table-content {
+                display: table !important;
+                width: 100% !important;
+                border-collapse: collapse !important;
+                border: 1px solid #333 !important;
+                overflow: visible !important;
+                margin: 0 auto !important;
+                table-layout: fixed !important;
+            }
+            .schedule-table-content th, 
+            .schedule-table-content td {
+                background: white !important;
+                border: 1px solid #333 !important;
+                color: #333 !important;
+                padding: 3px !important;
+                font-size: 9px !important;
+                min-height: 30px !important;
+                text-align: center !important;
+                word-break: break-all !important;
+            }
+            .schedule-table-content td:first-child,
+            .schedule-table-content th:first-child {
+                background: #F9FAFB !important;
+                width: 15% !important;
+            }
+            .schedule-table-content th:not(:first-child),
+            .schedule-table-content td:not(:first-child) {
+                width: 14% !important;
+            }
+            .schedule-table-content th {
+                background: #E6F7F2 !important;
+                color: #52B788 !important;
+                font-weight: 700 !important;
+                font-size: 10px !important;
+            }
+            .course-item {
+                font-weight: 600 !important;
+                font-size: 9px !important;
+                margin: 2px 0 !important;
+            }
+            span[style*="color:red"] {
+                color: red !important;
+                font-weight: bold !important;
+            }
+            .course-info {
+                font-size: 8px !important;
+                margin-top: 2px !important;
+            }
+            @page {
+                size: A4 portrait !important;
+                margin: 0.5cm !important;
+                marks: none !important;
+                bleed: none !important;
+            }
+        }
+       #recentTodoList::-webkit-scrollbar{width:6px}
+       #recentTodoList::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
+    </style>
+</head>
+<body>
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="edit-modal" id="editModal">
+        <form class="edit-form" id="editForm">
+            <select id="editType" required>
+                <option value="class">上课</option>
+                <option value="homework">作业</option>
+                <option value="exam">考试</option>
+                <option value="meeting">会议/活动</option>
+                <option value="other">其他</option>
+            </select>
+            <input type="text" id="editTitle" required placeholder="修改事项标题">
+            <textarea id="editContent" rows="3" placeholder="修改事项详情"></textarea>
+            <div class="edit-btns">
+                <button type="submit" class="save-btn">保存修改</button>
+                <button type="button" class="cancel-btn" id="cancelEdit">取消</button>
+            </div>
+        </form>
+    </div>
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-header" id="detailTitle"></div>
+        <div class="detail-body" id="detailBody"></div>
+        <div class="detail-footer">
+            <button class="detail-edit-btn" id="detailEditBtn">修改</button>
+            <button class="detail-del-btn" id="detailDelBtn">删除</button>
+            <button class="close-detail-btn" id="closeDetail">关闭</button>
+        </div>
+    </div>
+    <div class="edit-modal" id="scheduleEditModal">
+        <form class="edit-form" id="scheduleEditForm">
+            <input type="text" id="editCourseName" placeholder="课程名称" required>
+            <input type="text" id="editCourseTeacher" placeholder="授课教授">
+            <input type="text" id="editCourseRoom" placeholder="上课教室">
+            <input type="number" id="editCourseCredit" placeholder="课程学分" required min="0" step="0.5">
+            <select id="editCourseDay" required>
+                <option value="1">月（周一）</option>
+                <option value="2">火（周二）</option>
+                <option value="3">水（周三）</option>
+                <option value="4">木（周四）</option>
+                <option value="5">金（周五）</option>
+                <option value="6">土（周六）</option>
+            </select>
+            <select id="editCourseSection" required>
+                <option value="1">08:50-10:20 一限</option>
+                <option value="2">10:30-12:00 二限</option>
+                <option value="3">12:50-14:20 三限</option>
+                <option value="4">14:30-16:00 四限</option>
+                <option value="5">16:10-17:40 五限</option>
+                <option value="6">18:30-20:00 六限</option>
+                <option value="7">20:10-21:40 七限</option>
+            </select>
+            <div class="edit-btns">
+                <button type="submit" class="save-btn">保存修改</button>
+                <button type="button" class="del-course-btn" id="delCourseBtn">删除课程</button>
+                <button type="button" class="cancel-btn" id="cancelScheduleEdit">取消</button>
+            </div>
+        </form>
+    </div>
+    <!-- 美食详情弹窗 -->
+    <div class="detail-modal" id="foodDetailModal">
+        <div class="detail-header" id="foodDetailTitle"></div>
+        <div class="detail-body" id="foodDetailBody"></div>
+        <div class="detail-footer">
+            <button class="detail-edit-btn" id="foodDetailEditBtn">修改</button>
+            <button class="detail-del-btn" id="foodDetailDelBtn">删除</button>
+            <button class="close-detail-btn" id="foodCloseDetail">取消</button>
+        </div>
+    </div>
+    <!-- 美食编辑弹窗 -->
+    <div class="edit-modal" id="foodEditModal">
+        <form class="edit-form" id="foodEditForm">
+            <input type="text" id="foodEditName" placeholder="菜品名称" required>
+            <textarea id="foodEditContent" rows="5" placeholder="菜品做法"></textarea>
+            <div class="edit-btns">
+                <button type="submit" class="save-btn">保存修改</button>
+                <button type="button" class="cancel-btn" id="foodCancelEdit">取消</button>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo"></div>
+            <h1>🌟Inspiration🌟</h1>
+        </div>
+        <div class="tab-bar">
+            <button class="tab-btn" data-tab="memo">备忘录</button>
+            <button class="tab-btn" data-tab="schedule">课程表</button>
+            <button class="tab-btn" data-tab="food">小厨娘</button>
+            <button class="tab-btn" data-tab="guide">使用说明</button>
+        </div>
+        <div class="panel" id="memoPanel">
+            <div class="main">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button id="prevMonth">← 上月</button>
+                        <h3 id="currentMonth"></h3>
+                        <button id="nextMonth">下月 →</button>
+                    </div>
+                    <div class="calendar-week">
+                        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays"></div>
+                    
+                    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border-color);">
+                        <h4 style="text-align:center;color:var(--primary-dark);margin-bottom:12px;font-size:16px;">未来7天待办提醒</h4>
+                        <div class="todo-list" id="recentTodoList" style="max-height:300px;overflow-y:auto;"></div>
+                    </div>
+                    
+                </div>
+                <div class="todo-panel">
+                    <div class="selected-date" id="selectedDate">请选择日期</div>
+                    <form class="add-form" id="addForm">
+                        <select id="todoType" required>
+                            <option value="" disabled selected>请选择事项类型</option>
+                            <option value="class">上课</option>
+                            <option value="homework">作业</option>
+                            <option value="exam">考试</option>
+                            <option value="meeting">会议/活动</option>
+                            <option value="other">其他</option>
+                        </select>
+                        <input type="text" id="todoTitle" placeholder="事项标题（如：作业提交）" required>
+                        <textarea id="todoContent" rows="3" placeholder="事项详情"></textarea>
+                        <button type="submit" class="add-btn">添加提醒事项</button>
+                    </form>
+                    <div class="todo-list" id="todoList"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="schedulePanel">
+            <div class="schedule-container">
+                <div class="schedule-table">
+                    <div class="schedule-title">
+                        课程表
+                        <button id="printScheduleBtn" class="print-btn">
+                            🖨️
+                            <span class="print-tooltip">打印课程表</span>
+                        </button>
+                        <span id="totalCredit" class="total-credit"></span>
+                    </div>
+                    <table class="schedule-table-content" id="scheduleTable">
+                        <thead>
+                            <tr id="scheduleHeaderTr"></tr>
+                        </thead>
+                        <tbody id="scheduleBody"></tbody>
+                    </table>
+                </div>
+                <div class="schedule-form">
+                    <div class="schedule-title">添加课程</div>
+                    <form class="schedule-add-form" id="scheduleAddForm">
+                        <input type="text" id="courseName" placeholder="课程名称" required>
+                        <input type="text" id="courseTeacher" placeholder="授课教授">
+                        <input type="text" id="courseRoom" placeholder="上课教室">
+                        <input type="number" id="courseCredit" placeholder="课程学分" required min="0" step="0.5">
+                        <select id="courseDay" required>
+                            <option value="" disabled selected>选择星期</option>
+                            <option value="1">月（周一）</option>
+                            <option value="2">火（周二）</option>
+                            <option value="3">水（周三）</option>
+                            <option value="4">木（周四）</option>
+                            <option value="5">金（周五）</option>
+                            <option value="6">土（周六）</option>
+                        </select>
+                        <select id="courseSection" required>
+                            <option value="" disabled selected>选择时间</option>
+                            <option value="1">08:50-10:20 一限</option>
+                            <option value="2">10:30-12:00 二限</option>
+                            <option value="3">12:50-14:20 三限</option>
+                            <option value="4">14:30-16:00 四限</option>
+                            <option value="5">16:10-17:40 五限</option>
+                            <option value="6">18:30-20:00 六限</option>
+                            <option value="7">20:10-21:40 七限</option>
+                        </select>
+                        <button type="submit" class="add-btn">添加课程</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 美食面板 -->
+        <div class="panel" id="foodPanel">
+            <div class="main">
+                <div class="food-grid" id="foodGrid"></div>
+                <div class="food-panel">
+                    <div class="selected-date" style="background-image: none;">生活菜谱</div>
+                    <form class="add-form" id="foodAddForm">
+                        <input type="text" id="foodName" placeholder="菜品名称" required>
+                        <textarea id="foodContent" rows="5" placeholder="菜品做法"></textarea>
+                        <button type="submit" class="add-btn">添加菜品</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="guidePanel">
+            <div class="guide-container">
+                <h2 class="guide-title">📖 使用说明</h2>
+                <textarea id="guideContent" rows="20" placeholder="请在这里编写使用说明，支持换行，点击保存后自动永久存储..."></textarea>
+                <div class="guide-save-box">
+                    <button id="saveGuideBtn" class="add-btn">保存使用说明</button>
+                    <button id="backupAllBtn" class="export-btn">💾 一键备份</button>
+                    <button id="importAllBtn" class="import-btn">📂 一键导入</button>
+                    <input type="file" id="allImportFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
 const openScheduleEditModal = (id) => {
     currentScheduleEditId = id;
     const course = scheduleList.find(c => c.id == id);
@@ -47,59 +1292,10 @@ const dom = {
     foodCancelEdit: $('#foodCancelEdit')
 };
 let currentDate = new Date(), selectedDate = '';
-// ========== GitHub Gist 云端配置（小白必填区） ==========
-const GITHUB_TOKEN = "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";
-const GIST_ID = "79b9b4d47f86a25467302305e7b92651";
-const GIST_FILENAME = "college-data.json";
-// ======================================================
-// 云端数据初始化
-let todoList = [];
-let scheduleList = [];
-let guideContent = '';
-let foodList = [];
-
-// 从Gist拉取云端数据（修复版）
-async function loadCloudData() {
-  try {
-    const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
-      headers: { Authorization: `token ${GITHUB_TOKEN}` }
-    });
-    
-    // 检查请求是否成功
-    if (!res.ok) throw new Error(`HTTP错误：${res.status}`);
-    
-    const gistData = await res.json();
-    
-    // 检查文件是否存在
-    if (!gistData.files || !gistData.files[GIST_FILENAME]) {
-      throw new Error(`Gist中未找到文件：${GIST_FILENAME}`);
-    }
-    
-    const fileContent = gistData.files[GIST_FILENAME].content || "{}";
-    const data = JSON.parse(fileContent);
-    
-    todoList = data.todo || [];
-    scheduleList = data.schedule || [];
-    guideContent = data.guide || '';
-    foodList = data.food || [];
-
-    renderCalendar();
-    renderTodoList();
-    renderSchedule();
-    renderFood();
-    dom.guideContent.value = guideContent;
-    renderRecentTodo();
-    console.log("✅ 云端数据加载成功");
-  } catch (err) {
-    console.error("❌ 云端加载失败：", err);
-    todoList = [];
-    scheduleList = [];
-    guideContent = '';
-    foodList = [];
-    alert(`云端加载失败：${err.message}，使用本地空数据`);
-  }
-}
-
+let todoList = JSON.parse(localStorage.getItem('collegeTodo')) || [];
+let scheduleList = JSON.parse(localStorage.getItem('collegeSchedule')) || [];
+let guideContent = localStorage.getItem('collegeGuide') || '';
+let foodList = JSON.parse(localStorage.getItem('collegeFood')) || [];
 let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '';
 let prevTodo = JSON.stringify(todoList);
 let prevSchedule = JSON.stringify(scheduleList);
@@ -126,48 +1322,11 @@ const getCourseColor = (courseName) => {
   colorIndex++;
   return color;
 };
-
-// 上传数据到Gist云端（修复版）
-async function saveCloudData() {
-  try {
-    const data = {
-      todo: todoList,
-      schedule: scheduleList,
-      guide: dom.guideContent.value,
-      food: foodList
-    };
-    
-    const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
-      })
-    });
-    
-    if (!res.ok) throw new Error(`同步失败：${res.status} ${res.statusText}`);
-    
-    renderRecentTodo();
-    alert("✅ 数据已同步到云端");
-    console.log("✅ 云端同步成功");
-  } catch (err) {
-    console.error("❌ 云端同步失败：", err);
-    alert(`❌ 云端同步失败：${err.message}`);
-  }
-}
-
-// 替换本地保存为云端保存
-const saveTodo = () => { saveCloudData(); };
-const saveSchedule = () => { saveCloudData(); };
-const saveGuide = () => { 
-  saveCloudData(); 
-  alert('✅ 使用说明已同步云端！'); 
-};
-const saveFood = () => { saveCloudData(); };
-
+// 基础保存函数
+const saveTodo = () => { localStorage.setItem('collegeTodo', JSON.stringify(todoList)); autoBackup(); renderRecentTodo();};
+const saveSchedule = () => { localStorage.setItem('collegeSchedule', JSON.stringify(scheduleList)); autoBackup(); };
+const saveGuide = () => { localStorage.setItem('collegeGuide', dom.guideContent.value); alert('使用说明保存成功！'); autoBackup(); };
+const saveFood = () => { localStorage.setItem('collegeFood', JSON.stringify(foodList)); autoBackup(); };
 // 自动备份
 const autoBackup = () => {
     const currentTodo = JSON.stringify(todoList);
@@ -175,6 +1334,7 @@ const autoBackup = () => {
     const currentGuide = dom.guideContent.value;
     const currentFood = JSON.stringify(foodList);
     if (currentTodo === prevTodo && currentSchedule === prevSchedule && currentGuide === prevGuide && currentFood === prevFood) return;
+    backupAllData();
     prevTodo = currentTodo; prevSchedule = currentSchedule; prevGuide = currentGuide; prevFood = currentFood;
 };
 // 关闭弹窗
@@ -371,6 +1531,7 @@ const renderFood = () => {
             <div class="food-desc">${f.content || '暂无做法'}</div>
         </div>
     `).join('');
+
     $$('.food-item').forEach(item => {
         item.onclick = () => {
             const id = item.dataset.id;
@@ -387,12 +1548,17 @@ const renderFood = () => {
 const renderSchedule = () => {
     dom.scheduleHeaderTr.innerHTML = '<th>日本时间</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th>';
     dom.scheduleBody.innerHTML = '';
+
     sectionNames.forEach((sec, idx) => {
+
+        // ✅ 如果是“18:30-20:00 六限”，且没有课程，就跳过这一行
         if (idx === 5) {
             const hasCourse = scheduleList.some(s => Number(s.section) === 6);
             if (!hasCourse) return;
         }
+
         const tr = document.createElement('tr');
+
         if (idx === 6) {
             tr.innerHTML = `<td>${sec}</td><td colspan="5"></td>`;
             const td = tr.querySelector('td[colspan]');
@@ -425,20 +1591,25 @@ const renderSchedule = () => {
                 tr.appendChild(td);
             }
         }
+
         dom.scheduleBody.appendChild(tr);
     });
+
     updateTotalCredit();
+
     setTimeout(() => {
         const table = document.getElementById('scheduleTable');
         const headerCells = table.querySelectorAll('thead th');
         const rows = table.querySelectorAll('tbody tr');
         let saturdayHasCourse = false;
+
         rows.forEach(row => {
             const cells = row.querySelectorAll('td');
             if (cells[6] && cells[6].querySelector('.course-item')) {
                 saturdayHasCourse = true;
             }
         });
+
         if (!saturdayHasCourse) {
             headerCells[6].style.display = 'none';
             rows.forEach(row => {
@@ -484,18 +1655,24 @@ const switchTab = (tab) => {
 };
 // 初始化
 const init = () => {
+    // 默认激活备忘录标签
     switchTab('memo');
+    // 渲染所有模块
     renderCalendar();
     renderSchedule();
     renderFood();
     dom.guideContent.value = guideContent;
     renderRecentTodo();
+    // 弹窗拖拽
     [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal].forEach(dragModal);
+    // 标签页绑定
     $$('.tab-btn').forEach(btn => {
         btn.onclick = () => switchTab(btn.dataset.tab);
     });
+    // 日历月份切换
     dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); };
     dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); };
+    // 备忘录添加
     dom.addForm.onsubmit = (e) => {
         e.preventDefault();
         if (!selectedDate) return alert('请先选择日期！');
@@ -506,6 +1683,7 @@ const init = () => {
         todoList.push(todo); saveTodo();
         dom.addForm.reset(); renderTodoList(); renderCalendar();
     };
+    // 待办编辑/删除/关闭
     dom.detailEditBtn.onclick = fillEditTodo;
     dom.detailDelBtn.onclick = deleteTodo;
     dom.closeDetail.onclick = closeModal;
@@ -516,6 +1694,7 @@ const init = () => {
         saveTodo(); renderTodoList(); renderCalendar(); closeModal();
     };
     dom.cancelEdit.onclick = closeModal;
+    // 课程表添加
     dom.scheduleAddForm.onsubmit = (e) => {
         e.preventDefault();
         const course = {
@@ -526,6 +1705,7 @@ const init = () => {
         scheduleList.push(course); saveSchedule();
         dom.scheduleAddForm.reset(); renderSchedule();
     };
+    // 课程编辑/删除
     dom.scheduleEditForm.onsubmit = (e) => {
         e.preventDefault();
         const course = scheduleList.find(c => c.id == currentScheduleEditId);
@@ -540,15 +1720,20 @@ const init = () => {
         saveSchedule(); renderSchedule(); closeModal();
     };
     dom.cancelScheduleEdit.onclick = closeModal;
+    // 课程点击编辑
     dom.scheduleBody.onclick = (e) => {
         const item = e.target.closest('.course-item');
         if (item) openScheduleEditModal(item.dataset.id);
     };
+    // 使用说明
     dom.saveGuideBtn.onclick = saveGuide;
+    // 备份/导入
     dom.backupAllBtn.onclick = backupAllData;
     dom.importAllBtn.onclick = () => dom.allImportFile.click();
     dom.allImportFile.onchange = (e) => { if (e.target.files[0]) importAllData(e.target.files[0]); };
+    // 打印课程表
     dom.printScheduleBtn.onclick = () => window.print();
+    // 美食模块
     dom.foodAddForm.onsubmit = (e) => {
         e.preventDefault();
         const food = { id: Date.now(), name: dom.foodName.value, content: dom.foodContent.value };
@@ -566,8 +1751,8 @@ const init = () => {
     };
     dom.foodCancelEdit.onclick = closeModal;
 };
-// 页面加载先拉云端数据，再初始化
-window.addEventListener('DOMContentLoaded', async () => {
-  await loadCloudData();
-  init();
-});
+// 页面加载完成后初始化
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
