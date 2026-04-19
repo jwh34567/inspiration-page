@@ -1726,8 +1726,17 @@ const syncManager = {
                     'Authorization': `token ${this.token}`
                 }
             });
-            
+
+            if (!response.ok) {
+                throw new Error(`GitHub 返回错误：${response.status}`);
+            }
+
             const gist = await response.json();
+
+            if (!gist.files || !gist.files['inspiration_data.json']) {
+                throw new Error('Gist 中未找到 inspiration_data.json 文件');
+            }
+
             const content = gist.files['inspiration_data.json'].content;
             const data = JSON.parse(content);
             
