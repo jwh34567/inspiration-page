@@ -357,18 +357,6 @@
         .type-meeting { background: var(--purple); }
         .type-other { background: var(--gray); }
         
-        .todo-content{
-            font-size:14px;
-            color:var(--gray);
-            margin-top:4px;
-            line-height:1.5;
-            display:-webkit-box;
-            -webkit-line-clamp:2;
-            -webkit-box-orient:vertical;
-            overflow:hidden;
-            max-height:3em;
-        }
-        
         .modal-overlay{
             position:fixed;
             top:0;
@@ -829,6 +817,84 @@
             background-size: 100% 100%;
             opacity: .1;
         }
+        /* 记事本模块样式 */
+        .note-grid {
+            flex: 2;
+            min-width: 360px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, .98);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+            transition: all 0.3s ease;
+        }
+        .note-grid:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+        }
+        .note-item {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--light-gray);
+            border-left: 4px solid #6366F1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: 100%;
+            justify-content: center;
+        }
+        .note-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+            background: #EEF2FF;
+        }
+        .note-name {
+            font-weight: 600;
+            color: #6366F1;
+            font-size: 16px;
+            text-align: center;
+            word-break: break-all;
+        }
+        .note-desc {
+            font-size: 12px;
+            color: var(--gray);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-align: center;
+        }
+        .note-panel {
+            flex: 1;
+            min-width: 360px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, .98);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .note-panel:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+        }
+        .note-panel::before {
+            content: '';
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 90px;
+            height: 90px;
+            background-image: var(--bg-img);
+            background-size: 100% 100%;
+            opacity: .1;
+        }
         /* 移动端响应式优化 */
         @media (max-width: 768px) {
             body {
@@ -927,6 +993,19 @@
                 padding: 16px;
             }
             .food-name {
+                font-size: 14px;
+            }
+            /* 记事本模块移动端适配 */
+            .note-grid {
+                min-width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 16px;
+            }
+            .note-panel {
+                min-width: 100%;
+                padding: 16px;
+            }
+            .note-name {
                 font-size: 14px;
             }
         }
@@ -1117,6 +1196,27 @@
             </div>
         </form>
     </div>
+    <!-- 记事本详情弹窗 -->
+    <div class="detail-modal" id="noteDetailModal">
+        <div class="detail-header" id="noteDetailTitle"></div>
+        <div class="detail-body" id="noteDetailBody"></div>
+        <div class="detail-footer">
+            <button class="detail-edit-btn" id="noteDetailEditBtn">修改</button>
+            <button class="detail-del-btn" id="noteDetailDelBtn">删除</button>
+            <button class="close-detail-btn" id="noteCloseDetail">取消</button>
+        </div>
+    </div>
+    <!-- 记事本编辑弹窗 -->
+    <div class="edit-modal" id="noteEditModal">
+        <form class="edit-form" id="noteEditForm">
+            <input type="text" id="noteEditName" placeholder="笔记标题" required>
+            <textarea id="noteEditContent" rows="5" placeholder="笔记内容"></textarea>
+            <div class="edit-btns">
+                <button type="submit" class="save-btn">保存修改</button>
+                <button type="button" class="cancel-btn" id="noteCancelEdit">取消</button>
+            </div>
+        </form>
+    </div>
     <div class="container">
         <div class="header">
             <div class="header-logo"></div>
@@ -1126,6 +1226,7 @@
             <button class="tab-btn" data-tab="memo">备忘录</button>
             <button class="tab-btn" data-tab="schedule">课程表</button>
             <button class="tab-btn" data-tab="food">小厨娘</button>
+            <button class="tab-btn" data-tab="note">记事本</button>
             <button class="tab-btn" data-tab="guide">使用说明</button>
             <button class="tab-btn" data-tab="sync">云端同步</button>
         </div>
@@ -1230,6 +1331,20 @@
                 </div>
             </div>
         </div>
+        <!-- 记事本面板 -->
+        <div class="panel" id="notePanel">
+            <div class="main">
+                <div class="note-grid" id="noteGrid"></div>
+                <div class="note-panel">
+                    <div class="selected-date" style="background-image: none;">我的记事本</div>
+                    <form class="add-form" id="noteAddForm">
+                        <input type="text" id="noteName" placeholder="笔记标题" required>
+                        <textarea id="noteContent" rows="5" placeholder="笔记内容"></textarea>
+                        <button type="submit" class="add-btn">添加笔记</button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="panel" id="guidePanel">
             <div class="guide-container">
                 <h2 class="guide-title">📖 使用说明</h2>
@@ -1279,7 +1394,8 @@ const openScheduleEditModal = (id) => {
     dom.modalOverlay.classList.add('active');
 };
 const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+const $$
+ = document.querySelectorAll.bind(document);
 const dom = {
     calendarDays: $('#calendarDays'), currentMonth: $('#currentMonth'), prevMonth: $('#prevMonth'), nextMonth: $('#nextMonth'),
     selectedDate: $('#selectedDate'), addForm: $('#addForm'), todoList: $('#todoList'), todoType: $('#todoType'), todoTitle: $('#todoTitle'), todoContent: $('#todoContent'),
@@ -1309,14 +1425,31 @@ const dom = {
     foodEditForm: $('#foodEditForm'),
     foodEditName: $('#foodEditName'),
     foodEditContent: $('#foodEditContent'),
-    foodCancelEdit: $('#foodCancelEdit')
+    foodCancelEdit: $('#foodCancelEdit'),
+    // 记事本相关DOM元素
+    noteGrid: $('#noteGrid'),
+    noteAddForm: $('#noteAddForm'),
+    noteName: $('#noteName'),
+    noteContent: $('#noteContent'),
+    noteDetailModal: $('#noteDetailModal'),
+    noteDetailTitle: $('#noteDetailTitle'),
+    noteDetailBody: $('#noteDetailBody'),
+    noteCloseDetail: $('#noteCloseDetail'),
+    noteDetailEditBtn: $('#noteDetailEditBtn'),
+    noteDetailDelBtn: $('#noteDetailDelBtn'),
+    noteEditModal: $('#noteEditModal'),
+    noteEditForm: $('#noteEditForm'),
+    noteEditName: $('#noteEditName'),
+    noteEditContent: $('#noteEditContent'),
+    noteCancelEdit: $('#noteCancelEdit')
 };
 let currentDate = new Date(), selectedDate = '';
 let todoList = JSON.parse(localStorage.getItem('collegeTodo')) || [];
 let scheduleList = JSON.parse(localStorage.getItem('collegeSchedule')) || [];
 let guideContent = localStorage.getItem('collegeGuide') || '';
 let foodList = JSON.parse(localStorage.getItem('collegeFood')) || [];
-let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '';
+let noteList = JSON.parse(localStorage.getItem('collegeNote')) || [];
+let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '', currentNoteEditId = '';
 const typeConfig = {
     class: {name:'上课',color:'#52B788'}, homework: {name:'作业',color:'#34D399'},
     exam: {name:'考试',color:'#FBBF24'}, meeting: {name:'会议/活动',color:'#A78BFA'}, other: {name:'其他',color:'#4B5563'}
@@ -1343,10 +1476,11 @@ const saveTodo = () => { localStorage.setItem('collegeTodo', JSON.stringify(todo
 const saveSchedule = () => { localStorage.setItem('collegeSchedule', JSON.stringify(scheduleList)); };
 const saveGuide = () => { localStorage.setItem('collegeGuide', dom.guideContent.value); alert('使用说明保存成功！'); };
 const saveFood = () => { localStorage.setItem('collegeFood', JSON.stringify(foodList)); };
+const saveNote = () => { localStorage.setItem('collegeNote', JSON.stringify(noteList)); };
 // 关闭弹窗
 const closeModal = () => {
-    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.modalOverlay].forEach(el => el.classList.remove('active'));
-    currentEditId = currentScheduleEditId = currentFoodEditId = '';
+    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal, dom.modalOverlay].forEach(el => el.classList.remove('active'));
+    currentEditId = currentScheduleEditId = currentFoodEditId = currentNoteEditId = '';
     dom.editType.style.display = 'block';
 };
 // 填充待办编辑弹窗数据
@@ -1371,6 +1505,16 @@ const fillEditFood = () => {
     dom.foodEditModal.classList.add('active');
     dom.modalOverlay.classList.add('active');
 };
+// 填充记事本编辑弹窗数据
+const fillEditNote = () => {
+    const note = noteList.find(n => n.id == currentNoteEditId);
+    dom.noteEditName.value = note.name;
+    dom.noteEditContent.value = note.content || '';
+    // 关闭记事本详情弹窗
+    dom.noteDetailModal.classList.remove('active');
+    dom.noteEditModal.classList.add('active');
+    dom.modalOverlay.classList.add('active');
+};
 // 删除待办事项
 const deleteTodo = () => {
     if(!confirm('确定删除该提醒事项吗？')) return;
@@ -1388,6 +1532,14 @@ const deleteFood = () => {
     renderFood();
     closeModal();
 };
+// 删除记事本
+const deleteNote = () => {
+    if(!confirm('确定删除该笔记吗？')) return;
+    noteList = noteList.filter(n => n.id != currentNoteEditId);
+    saveNote();
+    renderNote();
+    closeModal();
+};
 // 学分计算
 const calcTotalCredit = () => {
     const countedCourses = new Set();
@@ -1403,7 +1555,7 @@ const calcTotalCredit = () => {
 const updateTotalCredit = () => {
     const total = calcTotalCredit();
     const finalCredit = total + 3;
-    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已获学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
+    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
 };
 // 弹窗拖拽
 const dragModal = modal => {
@@ -1497,7 +1649,8 @@ const renderRecentTodo = () => {
             <div class="todo-content">${t.content || '无详情'}</div>
         </div>
     `).join('');
-    $$('#recentTodoList .todo-item').forEach(item => {
+    $$
+('#recentTodoList .todo-item').forEach(item => {
         item.onclick = () => {
             const id = item.dataset.id;
             const todo = todoList.find(t => t.id == id);
@@ -1543,7 +1696,8 @@ const renderFood = () => {
         </div>
     `).join('');
 
-    $$('.food-item').forEach(item => {
+    $$
+('.food-item').forEach(item => {
         item.onclick = () => {
             const id = item.dataset.id;
             currentFoodEditId = id;
@@ -1551,6 +1705,27 @@ const renderFood = () => {
             dom.foodDetailTitle.textContent = `美食：${food.name}`;
             dom.foodDetailBody.textContent = food.content || '暂无做法';
             dom.foodDetailModal.classList.add('active');
+            dom.modalOverlay.classList.add('active');
+        };
+    });
+};
+// 记事本模块渲染
+const renderNote = () => {
+    dom.noteGrid.innerHTML = noteList.map(n => `
+        <div class="note-item" data-id="${n.id}">
+            <div class="note-name">${n.name}</div>
+            <div class="note-desc">${n.content || '暂无内容'}</div>
+        </div>
+    `).join('');
+
+    $$('.note-item').forEach(item => {
+        item.onclick = () => {
+            const id = item.dataset.id;
+            currentNoteEditId = id;
+            const note = noteList.find(n => n.id == id);
+            dom.noteDetailTitle.textContent = `笔记：${note.name}`;
+            dom.noteDetailBody.textContent = note.content || '暂无内容';
+            dom.noteDetailModal.classList.add('active');
             dom.modalOverlay.classList.add('active');
         };
     });
@@ -1632,7 +1807,7 @@ const renderSchedule = () => {
 };
 // 备份数据
 const backupAllData = () => {
-    const data = { todo: todoList, schedule: scheduleList, guide: dom.guideContent.value, food: foodList };
+    const data = { todo: todoList, schedule: scheduleList, guide: dom.guideContent.value, food: foodList, note: noteList };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1648,10 +1823,10 @@ const importAllData = (file) => {
         try {
             const data = JSON.parse(e.target.result);
             todoList = data.todo || []; scheduleList = data.schedule || [];
-            guideContent = data.guide || ''; foodList = data.food || [];
-            saveTodo(); saveSchedule(); localStorage.setItem('collegeGuide', guideContent); saveFood();
+            guideContent = data.guide || ''; foodList = data.food || []; noteList = data.note || [];
+            saveTodo(); saveSchedule(); localStorage.setItem('collegeGuide', guideContent); saveFood(); saveNote();
             dom.guideContent.value = guideContent;
-            renderCalendar(); renderTodoList(); renderSchedule(); renderFood();
+            renderCalendar(); renderTodoList(); renderSchedule(); renderFood(); renderNote();
             alert('数据导入成功！');
         } catch (err) { alert('导入失败，文件格式错误！'); }
     };
@@ -1659,16 +1834,19 @@ const importAllData = (file) => {
 };
 // 标签页切换
 const switchTab = (tab) => {
-    $$('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    $$
+('.tab-btn').forEach(btn => btn.classList.remove('active'));
     $$('.panel').forEach(p => p.classList.remove('active'));
     $(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
     $(`#${tab}Panel`).classList.add('active');
 };
 // 云端同步功能
+// ☁️ 云端同步功能（最终稳定版）
 const syncManager = {
     gistId: localStorage.getItem('gistId') || '',
     token: localStorage.getItem('gistToken') || '',
-    
+
+    // 保存配置
     saveConfig() {
         this.gistId = document.getElementById('gistId').value.trim();
         this.token = document.getElementById('gistToken').value.trim();
@@ -1677,27 +1855,30 @@ const syncManager = {
         document.getElementById('syncStatus').textContent = '✅ 配置保存成功！';
         setTimeout(() => document.getElementById('syncStatus').textContent = '', 2000);
     },
-    
+
+    // ⬆️ 上传到云端
     async upload() {
         if (!this.gistId || !this.token) {
-            alert('请先保存配置！');
+            alert('请先填写并保存 Gist ID 和 Token！');
             return;
         }
-        
+
         const data = {
-            todo: todoList,
-            schedule: scheduleList,
-            guide: dom.guideContent.value,
-            food: foodList,
+            todo: JSON.parse(localStorage.getItem('collegeTodo')) || [],
+            schedule: JSON.parse(localStorage.getItem('collegeSchedule')) || [],
+            guide: localStorage.getItem('collegeGuide') || '',
+            food: JSON.parse(localStorage.getItem('collegeFood')) || [],
+            note: JSON.parse(localStorage.getItem('collegeNote')) || [],
             lastSync: new Date().toISOString()
         };
-        
+
         try {
             const response = await fetch(`https://api.github.com/gists/${this.gistId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `token ${this.token}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.github.v3+json' // ✅ 必须
                 },
                 body: JSON.stringify({
                     files: {
@@ -1707,68 +1888,75 @@ const syncManager = {
                     }
                 })
             });
-            
+
             if (response.ok) {
-                document.getElementById('syncStatus').textContent = '✅ 上传成功！';
+                document.getElementById('syncStatus').textContent = '🎉 上传成功！';
             } else {
-                throw new Error('上传失败');
+                const err = await response.json();
+                throw new Error(err.message || `GitHub 错误：${response.status}`);
             }
         } catch (error) {
             document.getElementById('syncStatus').textContent = '❌ 上传失败：' + error.message;
         }
-        setTimeout(() => document.getElementById('syncStatus').textContent = '', 3000);
+        setTimeout(() => document.getElementById('syncStatus').textContent = '', 4000);
     },
-    
+
+    // ⬇️ 从云端下载
     async download() {
         if (!this.gistId || !this.token) {
-            alert('请先保存配置！');
+            alert('请先填写并保存 Gist ID 和 Token！');
             return;
         }
-        
+
         try {
             const response = await fetch(`https://api.github.com/gists/${this.gistId}`, {
                 headers: {
-                    'Authorization': `token ${this.token}`
+                    'Authorization': `token ${this.token}`,
+                    'Accept': 'application/vnd.github.v3+json' // ✅ 必须
                 }
             });
 
             if (!response.ok) {
-                throw new Error(`GitHub 返回错误：${response.status}`);
+                const err = await response.json();
+                throw new Error(err.message || `GitHub 错误：${response.status}`);
             }
 
             const gist = await response.json();
+            const file = gist.files['inspiration_data.json'];
 
-            if (!gist.files || !gist.files['inspiration_data.json']) {
-                throw new Error('Gist 中未找到 inspiration_data.json 文件');
+            if (!file) {
+                throw new Error('云端未找到 inspiration_data.json 文件');
             }
 
-            const content = gist.files['inspiration_data.json'].content;
-            const data = JSON.parse(content);
-            
-            // 更新所有数据
+            const data = JSON.parse(file.content);
+
+            // 更新内存数据
             todoList = data.todo || [];
             scheduleList = data.schedule || [];
             guideContent = data.guide || '';
             foodList = data.food || [];
-            
-            // 保存到本地
+            noteList = data.note || [];
+
+            // 写入本地
             saveTodo();
             saveSchedule();
             localStorage.setItem('collegeGuide', guideContent);
             saveFood();
-            
-            // 重新渲染
+            saveNote();
+
+            // 刷新界面
             renderCalendar();
             renderTodoList();
             renderSchedule();
             renderFood();
+            renderNote();
             dom.guideContent.value = guideContent;
-            
-            document.getElementById('syncStatus').textContent = '✅ 下载成功！';
+
+            document.getElementById('syncStatus').textContent = '🎉 下载成功！';
         } catch (error) {
             document.getElementById('syncStatus').textContent = '❌ 下载失败：' + error.message;
         }
-        setTimeout(() => document.getElementById('syncStatus').textContent = '', 3000);
+        setTimeout(() => document.getElementById('syncStatus').textContent = '', 4000);
     }
 };
 // 初始化
@@ -1779,10 +1967,11 @@ const init = () => {
     renderCalendar();
     renderSchedule();
     renderFood();
+    renderNote();
     dom.guideContent.value = guideContent;
     renderRecentTodo();
     // 弹窗拖拽
-    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal].forEach(dragModal);
+    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal].forEach(dragModal);
     // 标签页绑定
     $$('.tab-btn').forEach(btn => {
         btn.onclick = () => switchTab(btn.dataset.tab);
@@ -1868,6 +2057,23 @@ const init = () => {
         saveFood(); renderFood(); closeModal();
     };
     dom.foodCancelEdit.onclick = closeModal;
+    // 记事本模块
+    dom.noteAddForm.onsubmit = (e) => {
+        e.preventDefault();
+        const note = { id: Date.now(), name: dom.noteName.value, content: dom.noteContent.value };
+        noteList.push(note); saveNote();
+        dom.noteAddForm.reset(); renderNote();
+    };
+    dom.noteCloseDetail.onclick = closeModal;
+    dom.noteDetailEditBtn.onclick = fillEditNote;
+    dom.noteDetailDelBtn.onclick = deleteNote;
+    dom.noteEditForm.onsubmit = (e) => {
+        e.preventDefault();
+        const note = noteList.find(n => n.id == currentNoteEditId);
+        note.name = dom.noteEditName.value; note.content = dom.noteEditContent.value;
+        saveNote(); renderNote(); closeModal();
+    };
+    dom.noteCancelEdit.onclick = closeModal;
 };
 // 页面加载完成后初始化
 // 云端同步相关
