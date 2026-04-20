@@ -1115,6 +1115,37 @@
         }
        #recentTodoList::-webkit-scrollbar{width:6px}
        #recentTodoList::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
+    /* ========== 新增：日本节假日和中国节日样式 ========== */
+.day.jp-holiday {
+    color: #E11D48 !important; 
+    font-weight: 700 !important;
+}
+.day.cn-festival {
+    color: #DC2626 !important; 
+    font-weight: 700 !important;
+}
+.holiday-name-jp {
+    font-size: 9px;
+    color: #E11D48; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+    font-weight: 500;
+}
+.holiday-name-cn {
+    font-size: 9px;
+    color: #DC2626; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+    font-weight: 500;
+}
     </style>
 </head>
 <body>
@@ -1380,6 +1411,25 @@
 </div>
     </div>
 <script>
+// ========== 日本法定节假日数据 (2026年 - 2031年) ==========
+const japaneseHolidays = {
+    "2026-01-01": "元日", "2026-01-12": "成人の日", "2026-02-11": "建国記念の日", "2026-02-23": "天皇誕生日", "2026-03-20": "春分の日", "2026-04-29": "昭和の日", "2026-05-03": "憲法記念日", "2026-05-04": "みどりの日", "2026-05-05": "こどもの日", "2026-07-20": "海の日", "2026-08-11": "山の日", "2026-09-21": "敬老の日", "2026-09-23": "秋分の日", "2026-10-12": "スポーツの日", "2026-11-03": "文化の日", "2026-11-23": "勤労感謝の日",
+    "2027-01-01": "元日", "2027-01-11": "成人の日", "2027-02-11": "建国記念の日", "2027-02-23": "天皇誕生日", "2027-03-21": "春分の日", "2027-04-29": "昭和の日", "2027-05-03": "憲法記念日", "2027-05-04": "みどりの日", "2027-05-05": "こどもの日", "2027-07-19": "海の日", "2027-08-11": "山の日", "2027-09-20": "敬老の日", "2027-09-23": "秋分の日", "2027-10-11": "スポーツの日", "2027-11-03": "文化の日", "2027-11-23": "勤労感謝の日",
+    "2028-01-01": "元日", "2028-01-10": "成人の日", "2028-02-11": "建国記念の日", "2028-02-23": "天皇誕生日", "2028-03-20": "春分の日", "2028-04-29": "昭和の日", "2028-05-03": "憲法記念日", "2028-05-04": "みどりの日", "2028-05-05": "こどもの日", "2028-07-17": "海の日", "2028-08-11": "山の日", "2028-09-18": "敬老の日", "2028-09-23": "秋分の日", "2028-10-09": "スポーツの日", "2028-11-03": "文化の日", "2028-11-23": "勤労感謝の日",
+    "2029-01-01": "元日", "2029-01-08": "成人の日", "2029-02-11": "建国記念の日", "2029-02-12": "建国記念の日(振替休日)", "2029-02-23": "天皇誕生日", "2029-03-20": "春分の日", "2029-04-29": "昭和の日", "2029-04-30": "昭和の日(振替休日)", "2029-05-03": "憲法記念日", "2029-05-04": "みどりの日", "2029-05-05": "こどもの日", "2029-05-06": "こどもの日(振替休日)", "2029-07-16": "海の日", "2029-08-11": "山の日", "2029-08-13": "山の日(振替休日)", "2029-09-17": "敬老の日", "2029-09-23": "秋分の日", "2029-10-08": "スポーツの日", "2029-11-03": "文化の日", "2029-11-05": "文化の日(振替休日)", "2029-11-23": "勤労感謝の日",
+    "2030-01-01": "元日", "2030-01-14": "成人の日", "2030-02-11": "建国記念の日", "2030-02-23": "天皇誕生日", "2030-02-24": "天皇誕生日(振替休日)", "2030-03-20": "春分の日", "2030-04-29": "昭和の日", "2030-05-03": "憲法記念日", "2030-05-04": "みどりの日", "2030-05-05": "こどもの日", "2030-05-06": "こどもの日(振替休日)", "2030-07-15": "海の日", "2030-08-11": "山の日", "2030-08-12": "山の日(振替休日)", "2030-09-16": "敬老の日", "2030-09-23": "秋分の日", "2030-10-14": "スポーツの日", "2030-11-03": "文化の日", "2030-11-04": "文化の日(振替休日)", "2030-11-23": "勤労感謝の日",
+    "2031-01-01": "元日", "2031-01-13": "成人の日", "2031-02-11": "建国記念の日", "2031-02-23": "天皇誕生日", "2031-03-21": "春分の日", "2031-04-29": "昭和の日", "2031-05-03": "憲法記念日", "2031-05-04": "みどりの日", "2031-05-05": "こどもの日", "2031-07-21": "海の日", "2031-08-11": "山の日", "2031-09-15": "敬老の日", "2031-09-23": "秋分の日", "2031-10-13": "スポーツの日", "2031-11-03": "文化の日", "2031-11-23": "勤労感謝の日"
+};
+
+// ========== 中国除夕与春节数据 (2026年 - 2031年) ==========
+const chineseFestivals = {
+    "2026-02-16": "除夕", "2026-02-17": "春节",
+    "2027-02-05": "除夕", "2027-02-06": "春节",
+    "2028-01-25": "除夕", "2028-01-26": "春节",
+    "2029-02-12": "除夕", "2029-02-13": "春节",
+    "2030-02-02": "除夕", "2030-02-03": "春节",
+    "2031-01-22": "除夕", "2031-01-23": "春节"
+};
 const openScheduleEditModal = (id) => {
     currentScheduleEditId = id;
     const course = scheduleList.find(c => c.id == id);
@@ -1589,10 +1639,12 @@ const renderCalendar = () => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month+1, 0).getDate();
     dom.calendarDays.innerHTML = '';
+    
     for(let i=0; i<firstDay; i++){
         const empty = document.createElement('div');
         dom.calendarDays.appendChild(empty);
     }
+    
     for(let day=1; day<=daysInMonth; day++){
         const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const dayEl = document.createElement('div');
@@ -1604,11 +1656,34 @@ const renderCalendar = () => {
             dayEl.classList.add(`todo-count-${Math.min(dayTodos.length, 3)}`);
         }
         
+        // --- 新增：检查日本节假日 ---
+        const jpHolidayName = japaneseHolidays[dateStr];
+        if (jpHolidayName) {
+            dayEl.classList.add('jp-holiday');
+        }
+        
+        // --- 新增：检查中国节日 ---
+        const cnFestivalName = chineseFestivals[dateStr];
+        if (cnFestivalName) {
+            dayEl.classList.add('cn-festival');
+        }
+        
+        // 构建节日名称HTML
+        let holidayHtml = '';
+        if (jpHolidayName) {
+            holidayHtml += `<div class="holiday-name-jp">🇯🇵 ${jpHolidayName}</div>`;
+        }
+        if (cnFestivalName) {
+            holidayHtml += `<div class="holiday-name-cn">🇨🇳 ${cnFestivalName}</div>`;
+        }
+        
         const todoHtml = dayTodos.slice(0,3).map(t => `
             <div class="day-todo-title todo-title-${t.type}">${t.title}</div>
         `).join('');
+        
         dayEl.innerHTML = `
             <div class="day-number">${day}</div>
+            ${holidayHtml}
             <div class="day-tags">${todoHtml}</div>
         `;
         
