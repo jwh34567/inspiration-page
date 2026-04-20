@@ -1148,6 +1148,7 @@
     <div class="edit-modal" id="scheduleEditModal">
         <form class="edit-form" id="scheduleEditForm">
             <input type="text" id="editCourseName" placeholder="课程名称" required>
+            <input type="text" id="editCourseCode" placeholder="课程代码">
             <input type="text" id="editCourseTeacher" placeholder="授课教授">
             <input type="text" id="editCourseRoom" placeholder="上课教室">
             <input type="number" id="editCourseCredit" placeholder="课程学分" required min="0" step="0.5">
@@ -1289,6 +1290,7 @@
                 <div class="schedule-form">
                     <div class="schedule-title">添加课程</div>
                     <form class="schedule-add-form" id="scheduleAddForm">
+                        <input type="text" id="courseCode" placeholder="课程代码">
                         <input type="text" id="courseName" placeholder="课程名称" required>
                         <input type="text" id="courseTeacher" placeholder="授课教授">
                         <input type="text" id="courseRoom" placeholder="上课教室">
@@ -1384,6 +1386,7 @@ const openScheduleEditModal = (id) => {
     if (!course) return;
     
     dom.editCourseName.value = course.name;
+    dom.editCourseCode.value = course.code || '';
     dom.editCourseTeacher.value = course.teacher || '';
     dom.editCourseRoom.value = course.room || '';
     dom.editCourseCredit.value = course.credit;
@@ -1404,8 +1407,8 @@ const dom = {
     detailEditBtn: $('#detailEditBtn'), detailDelBtn: $('#detailDelBtn'),
     scheduleAddForm: $('#scheduleAddForm'), scheduleBody: $('#scheduleBody'), scheduleEditModal: $('#scheduleEditModal'), scheduleEditForm: $('#scheduleEditForm'), 
     cancelScheduleEdit: $('#cancelScheduleEdit'), delCourseBtn: $('#delCourseBtn'), totalCredit: $('#totalCredit'),
-    courseName: $('#courseName'), courseTeacher: $('#courseTeacher'), courseRoom: $('#courseRoom'), courseCredit: $('#courseCredit'), courseDay: $('#courseDay'), courseSection: $('#courseSection'),
-    editCourseName: $('#editCourseName'), editCourseTeacher: $('#editCourseTeacher'), editCourseRoom: $('#editCourseRoom'), editCourseCredit: $('#editCourseCredit'), editCourseDay: $('#editCourseDay'), editCourseSection: $('#editCourseSection'),
+    courseName: $('#courseName'), courseCode: $('#courseCode'), courseTeacher: $('#courseTeacher'), courseRoom: $('#courseRoom'), courseCredit: $('#courseCredit'), courseDay: $('#courseDay'), courseSection: $('#courseSection'),
+    editCourseName: $('#editCourseName'), editCourseCode: $('#editCourseCode'), editCourseTeacher: $('#editCourseTeacher'), editCourseRoom: $('#editCourseRoom'), editCourseCredit: $('#editCourseCredit'), editCourseDay: $('#editCourseDay'), editCourseSection: $('#editCourseSection'),
     guideContent: $('#guideContent'), saveGuideBtn: $('#saveGuideBtn'),
     backupAllBtn: $('#backupAllBtn'), importAllBtn: $('#importAllBtn'), allImportFile: $('#allImportFile'),
     scheduleHeaderTr: $('#scheduleHeaderTr'),
@@ -1751,11 +1754,14 @@ const renderSchedule = () => {
             const courses = scheduleList.filter(s => Number(s.section) === idx + 1);
             td.innerHTML = courses.map(c => `
                 <div class="course-item" data-id="${c.id}" style="color:${getCourseColor(c.name)}">
-                   ${c.name}
-                <div class="course-teacher">${c.teacher || ''}</div>
-                <div class="course-room-credit">
-                   ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
-                </div>
+                   <div class="course-code" style="font-size:12px; font-weight:600; margin-bottom:4px; color:#6366F1;">
+                       ${c.code ? ` ${c.code}` : ''}
+                   </div>
+                   <div class="course-name">${c.name}</div>
+                   <div class="course-teacher">${c.teacher || ''}</div>
+                   <div class="course-room-credit">
+                       ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
+                   </div>
                 </div>
             `).join('');
         } else {
@@ -1767,11 +1773,14 @@ const renderSchedule = () => {
                 );
                 td.innerHTML = courses.map(c => `
                     <div class="course-item" data-id="${c.id}" style="color:${getCourseColor(c.name)}">
-                       ${c.name}
-                    <div class="course-teacher">${c.teacher || ''}</div>
-                    <div class="course-room-credit">
-                       ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
-                    </div>
+                       <div class="course-code" style="font-size:12px; font-weight:600; margin-bottom:4px; color:#6366F1;">
+                           ${c.code ? `📘 ${c.code}` : ''}
+                       </div>
+                       <div class="course-name">${c.name}</div>
+                       <div class="course-teacher">${c.teacher || ''}</div>
+                       <div class="course-room-credit">
+                           ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
+                       </div>
                     </div>
                 `).join('');
                 tr.appendChild(td);
@@ -2005,7 +2014,7 @@ const init = () => {
     dom.scheduleAddForm.onsubmit = (e) => {
         e.preventDefault();
         const course = {
-            id: Date.now(), name: dom.courseName.value, teacher: dom.courseTeacher.value,
+            id: Date.now(), code: dom.courseCode.value, name: dom.courseName.value, teacher: dom.courseTeacher.value,
             room: dom.courseRoom.value, credit: dom.courseCredit.value,
             day: dom.courseDay.value, section: dom.courseSection.value
         };
@@ -2016,7 +2025,7 @@ const init = () => {
     dom.scheduleEditForm.onsubmit = (e) => {
         e.preventDefault();
         const course = scheduleList.find(c => c.id == currentScheduleEditId);
-        course.name = dom.editCourseName.value; course.teacher = dom.editCourseTeacher.value;
+        course.name = dom.editCourseName.value; course.code = dom.editCourseCode.value; course.teacher = dom.editCourseTeacher.value;
         course.room = dom.editCourseRoom.value; course.credit = dom.editCourseCredit.value;
         course.day = dom.editCourseDay.value; course.section = dom.editCourseSection.value;
         saveSchedule(); renderSchedule(); closeModal();
@@ -2029,9 +2038,11 @@ const init = () => {
     dom.cancelScheduleEdit.onclick = closeModal;
     // 课程点击编辑
     dom.scheduleBody.onclick = (e) => {
-        const item = e.target.closest('.course-item');
-        if (item) openScheduleEditModal(item.dataset.id);
-    };
+    const item = e.target.closest('.course-item');
+    if (item) {
+        openScheduleEditModal(item.dataset.id);
+    }
+};
     // 使用说明
     dom.saveGuideBtn.onclick = saveGuide;
     // 备份/导入
