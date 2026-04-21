@@ -1113,8 +1113,10 @@
                 bleed: none !important;
             }
         }
-       #recentTodoList::-webkit-scrollbar{width:6px}
-       #recentTodoList::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
+       #recentTodoList {
+           max-height: none !important;
+           overflow-y: visible !important;
+       }
     /* ========== 新增：日本节假日和中国节日样式 ========== */
 .day.jp-holiday {
     color: #E11D48 !important; 
@@ -1276,11 +1278,10 @@
                     <div class="calendar-days" id="calendarDays"></div>
                     
                     <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border-color);">
-                        <h4 style="text-align:center;color:var(--primary-dark);margin-bottom:12px;font-size:16px;">未来7天待办提醒</h4>
-                        <div class="todo-list" id="recentTodoList" style="max-height:300px;overflow-y:auto;"></div>
+                        <h4 style="text-align:center;color:var(--primary-dark);margin-bottom:12px;font-size:16px;">未来七天待办提醒</h4>
+                        <div class="todo-list" id="recentTodoList" style="max-height:none; overflow-y:visible;"></div>
                     </div>
-                    
-                </div>
+                    </div>
                 <div class="todo-panel">
                     <div class="selected-date" id="selectedDate">请选择日期</div>
                     <form class="add-form" id="addForm">
