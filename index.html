@@ -1609,7 +1609,7 @@ const calcTotalCredit = () => {
 const updateTotalCredit = () => {
     const total = calcTotalCredit();
     const finalCredit = total + 3;
-    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
+    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已获学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
 };
 // 弹窗拖拽
 const dragModal = modal => {
