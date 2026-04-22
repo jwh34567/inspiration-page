@@ -1702,15 +1702,13 @@ const renderCalendar = () => {
 const renderRecentTodo = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
     const sevenDaysLater = new Date(today);
-    sevenDaysLater.setDate(today.getDate() + 6);
+    sevenDaysLater.setDate(today.getDate() + 6); 
     const recentTodos = todoList
         .filter(t => {
-            const todoDate = new Date(t.date);
-            todoDate.setHours(0, 0, 0, 0);
-            return todoDate >= tomorrow && todoDate <= sevenDaysLater;
+        const todoDate = new Date(t.date);
+        todoDate.setHours(0, 0, 0, 0);
+        return todoDate >= today && todoDate <= sevenDaysLater; 
         })
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     const container = dom.recentTodoList;
