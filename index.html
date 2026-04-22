@@ -2233,22 +2233,22 @@ const renderScheduleWithParttime = () => {
                     </div>
                 `).join('');
                 
-                // ✅ 修改：超出五限的打工数据统一放到六限行
-                let parttimes = [];
-                if (idx === 5) {
-                    // 六限行：显示节次为6和7的打工数据
-                    parttimes = parttimeList.filter(p => {
-                        const d = new Date(p.date);
-                        const section = timeToSection(p.startTime);
-                        return d.getDay() === day && section >= 6;
-                    });
-                } else {
-                    parttimes = parttimeList.filter(p => {
-                        const d = new Date(p.date);
-                        return d.getDay() === day && timeToSection(p.startTime) === idx + 1;
-                    });
-                }
-                
+                // ✅ 修改：超出五限的打工数据统一放到六限行（包括七限）
+if (idx === 5) {
+    // 六限行：显示所有大于五限的打工（六限 + 七限）
+    parttimes = parttimeList.filter(p => {
+        const d = new Date(p.date);
+        const section = timeToSection(p.startTime);
+        return d.getDay() === day && section > 5;
+    });
+} else {
+    // 一限到五限：只显示对应节次
+    parttimes = parttimeList.filter(p => {
+        const d = new Date(p.date);
+        const section = timeToSection(p.startTime);
+        return d.getDay() === day && section === idx + 1;
+    });
+}
                 const parttimeHtml = parttimes.map(p => `
                     <div class="course-item" data-id="${p.id}" data-type="parttime"
                          style="border-left:4px solid #FF9800; background:#FFF3E0; color:#E65100;">
