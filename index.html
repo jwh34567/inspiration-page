@@ -1663,7 +1663,8 @@ const deleteNote = () => {
 // 学分计算
 const calcTotalCredit = () => {
     const countedCourses = new Set();
-    return Math.round(scheduleList.reduce((total, item) => {
+    const currentCourses = scheduleBySemester[currentSemester] || []; // ✅ 使用当前学期
+    return Math.round(currentCourses.reduce((total, item) => {
         const courseName = (item.name || '').trim();
         if (courseName && !countedCourses.has(courseName)) {
             countedCourses.add(courseName);
@@ -1995,6 +1996,7 @@ const importAllData = (file) => {
 };
 // 标签页切换
 const switchTab = (tab) => {
+    localStorage.setItem('currentTab', tab);
     $$
 ('.tab-btn').forEach(btn => btn.classList.remove('active'));
     $$('.panel').forEach(p => p.classList.remove('active'));
@@ -2131,8 +2133,12 @@ const syncManager = {
 };
 // 初始化
 const init = () => {
-    // 默认激活备忘录标签
-    switchTab('memo');
+    // ✅ 新增：读取上次选择的标签
+    const savedTab = localStorage.getItem('currentTab') || 'memo';
+    
+    // 默认激活上次选择的标签
+    switchTab(savedTab);
+    
     // 渲染所有模块
     renderCalendar();
     renderSchedule();
@@ -2140,6 +2146,8 @@ const init = () => {
     renderNote();
     dom.guideContent.value = guideContent;
     renderRecentTodo();
+    
+    // ... 后面的代码保持不变
     // ✅ 学期下拉框
 const initSemesterSelect = () => {
   const sel = document.getElementById('semesterSelect');
