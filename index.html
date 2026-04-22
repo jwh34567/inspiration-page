@@ -2143,9 +2143,18 @@ const init = () => {
     // ✅ 学期下拉框
 const initSemesterSelect = () => {
   const sel = document.getElementById('semesterSelect');
-  sel.innerHTML = semesterList.map(s =>
-    `<option value="${s}" ${s===currentSemester?'selected':''}>${s.replace('-','年')}学期</option>`
-  ).join('');
+  
+  // ✅ 英文转中文的映射
+  const seasonMap = {
+    'Spring': '春季',
+    'Autumn': '秋季'
+  };
+  
+  sel.innerHTML = semesterList.map(s => {
+    const [year, season] = s.split('-');
+    const chineseSeason = seasonMap[season] || season;
+    return `<option value="${s}" ${s===currentSemester?'selected':''}>${year}年${chineseSeason}学期</option>`;
+  }).join('');
 
   sel.onchange = e => {
     currentSemester = e.target.value;
@@ -2239,6 +2248,7 @@ if (old.length && !scheduleBySemester[currentSemester]) {
     renderSchedule();
     closeModal();
 };
+    dom.cancelScheduleEdit.onclick = closeModal;
     dom.delCourseBtn.onclick = () => {
     if(!confirm('确定删除该课程吗？')) return;
     const currentCourses = scheduleBySemester[currentSemester] || [];
@@ -2248,11 +2258,9 @@ if (old.length && !scheduleBySemester[currentSemester]) {
     closeModal();
 };
     // 课程点击编辑
-    dom.scheduleBody.onclick = (e) => {
+dom.scheduleBody.onclick = (e) => {
     const item = e.target.closest('.course-item');
-    if (item) {
-        openScheduleEditModal(item.dataset.id);
-    }
+    if (item) openScheduleEditModal(item.dataset.id);
 };
     // 使用说明
     dom.saveGuideBtn.onclick = saveGuide;
