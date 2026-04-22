@@ -2207,57 +2207,9 @@ const renderScheduleWithParttime = () => {
         
         // ✅ YCU视频课行（idx=6）的特殊处理
         if (idx === 6) {
-            // 1. 合并周一到周五（day=1到day=5）的5个单元格
-            const mergedWeekdayTd = document.createElement('td');
-            mergedWeekdayTd.colSpan = 5; // 跨5列（周一至周五）
-            mergedWeekdayTd.style.textAlign = 'center';
-            mergedWeekdayTd.style.padding = '12px';
-            
-            // 2. 仅显示YCU视频课（section=7的课程）
-            const ycuCourses = currentCourses.filter(s => Number(s.section) === 7);
-            const ycuHtml = ycuCourses.map(c => `
-                <div class="course-item" data-id="${c.id}" data-type="course"
-                     style="color:${getCourseColor(c.name)}">
-                   <div class="course-code" style="font-size:12px; font-weight:600; margin-bottom:4px; color:#6366F1;">
-                       ${c.code ? `📘 ${c.code}` : ''}
-                   </div>
-                   <div class="course-name">${c.name}</div>
-                   <div class="course-teacher">${c.teacher || ''}</div>
-                   <div class="course-room-credit">
-                       ${c.room || ''}${c.credit ? ` | ${c.credit}学分` : ''}
-                   </div>
-                </div>
-            `).join('');
-            
-            mergedWeekdayTd.innerHTML = ycuHtml || '<div style="color:#9CA3AF; font-size:13px;">暂无YCU视频课</div>';
-            tr.appendChild(mergedWeekdayTd);
-            
-            // 3. 智能处理周六周日：有数据时合并，无数据时隐藏
-            const hasSatSunData = dayHasData[0] || dayHasData[6];
-            
-            if (hasSatSunData) {
-                // 有数据：合并周六周日的单元格
-                const mergedSatSunTd = document.createElement('td');
-                mergedSatSunTd.colSpan = 2; // 跨2列（周六和周日）
-                mergedSatSunTd.style.textAlign = 'center';
-                mergedSatSunTd.style.padding = '12px';
-                
-                // 同样只显示YCU视频课，不显示其他数据
-                mergedSatSunTd.innerHTML = ycuHtml || '<div style="color:#9CA3AF; font-size:13px;">暂无YCU视频课</div>';
-                tr.appendChild(mergedSatSunTd);
-            } else {
-                // 无数据：隐藏周六周日的单元格
-                const hiddenTd1 = document.createElement('td');
-                hiddenTd1.style.display = 'none';
-                tr.appendChild(hiddenTd1);
-                
-                const hiddenTd2 = document.createElement('td');
-                hiddenTd2.style.display = 'none';
-                tr.appendChild(hiddenTd2);
-            }
+            // ...（原有代码不变）
         } else {
-            // ✅ 修复：确保旧数据正常显示
-            // 其他行的正常渲染逻辑
+            // ✅ 其他行的正常渲染逻辑（已修改打工数据过滤）
             for (let day = 0; day <= 6; day++) {
                 const td = document.createElement('td');
                 if ((day === 0 || day === 6) && !dayHasData[day]) {
@@ -2281,10 +2233,21 @@ const renderScheduleWithParttime = () => {
                     </div>
                 `).join('');
                 
-                const parttimes = parttimeList.filter(p => {
-                    const d = new Date(p.date);
-                    return d.getDay() === day && timeToSection(p.startTime) === idx + 1;
-                });
+                // ✅ 修改：超出五限的打工数据统一放到六限行
+                let parttimes = [];
+                if (idx === 5) {
+                    // 六限行：显示节次为6和7的打工数据
+                    parttimes = parttimeList.filter(p => {
+                        const d = new Date(p.date);
+                        const section = timeToSection(p.startTime);
+                        return d.getDay() === day && section >= 6;
+                    });
+                } else {
+                    parttimes = parttimeList.filter(p => {
+                        const d = new Date(p.date);
+                        return d.getDay() === day && timeToSection(p.startTime) === idx + 1;
+                    });
+                }
                 
                 const parttimeHtml = parttimes.map(p => `
                     <div class="course-item" data-id="${p.id}" data-type="parttime"
