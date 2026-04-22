@@ -1489,7 +1489,8 @@ const chineseFestivals = {
 };
 const openScheduleEditModal = (id) => {
     currentScheduleEditId = id;
-    const course = scheduleList.find(c => c.id == id);
+    const currentCourses = scheduleBySemester[currentSemester] || []; // ✅ 使用当前学期
+    const course = currentCourses.find(c => c.id == id);
     if (!course) return;
     
     dom.editCourseName.value = course.name;
@@ -2200,34 +2201,52 @@ if (old.length && !scheduleBySemester[currentSemester]) {
     dom.cancelEdit.onclick = closeModal;
     // 课程表添加
     dom.scheduleAddForm.onsubmit = (e) => {
-        e.preventDefault();
-        const course = {
-            id: Date.now(), code: dom.courseCode.value, name: dom.courseName.value, teacher: dom.courseTeacher.value,
-            room: dom.courseRoom.value, credit: dom.courseCredit.value,
-            day: dom.courseDay.value, section: dom.courseSection.value
-        };
-        if (!scheduleBySemester[currentSemester]) {
-  scheduleBySemester[currentSemester] = [];
-}
-scheduleBySemester[currentSemester].push(course);
-saveScheduleBySemester();
-        dom.scheduleAddForm.reset(); renderSchedule();
+    e.preventDefault();
+    const course = {
+        id: Date.now(), 
+        code: dom.courseCode.value, 
+        name: dom.courseName.value, 
+        teacher: dom.courseTeacher.value,
+        room: dom.courseRoom.value, 
+        credit: dom.courseCredit.value,
+        day: dom.courseDay.value, 
+        section: dom.courseSection.value
     };
+    if (!scheduleBySemester[currentSemester]) {
+        scheduleBySemester[currentSemester] = [];
+    }
+    scheduleBySemester[currentSemester].push(course);
+    saveScheduleBySemester();
+    dom.scheduleAddForm.reset(); 
+    renderSchedule();
+};
     // 课程编辑/删除
     dom.scheduleEditForm.onsubmit = (e) => {
-        e.preventDefault();
-        const course = currentCourses.find(c => c.id == currentScheduleEditId);
-        course.name = dom.editCourseName.value; course.code = dom.editCourseCode.value; course.teacher = dom.editCourseTeacher.value;
-        course.room = dom.editCourseRoom.value; course.credit = dom.editCourseCredit.value;
-        course.day = dom.editCourseDay.value; course.section = dom.editCourseSection.value;
-        saveSchedule(); renderSchedule(); closeModal();
-    };
+    e.preventDefault();
+    const currentCourses = scheduleBySemester[currentSemester] || [];
+    const course = currentCourses.find(c => c.id == currentScheduleEditId);
+    if (!course) return;
+    
+    course.name = dom.editCourseName.value;
+    course.code = dom.editCourseCode.value;
+    course.teacher = dom.editCourseTeacher.value;
+    course.room = dom.editCourseRoom.value;
+    course.credit = dom.editCourseCredit.value;
+    course.day = dom.editCourseDay.value;
+    course.section = dom.editCourseSection.value;
+    
+    saveScheduleBySemester();
+    renderSchedule();
+    closeModal();
+};
     dom.delCourseBtn.onclick = () => {
-        if(!confirm('确定删除该课程吗？')) return;
-        scheduleList = currentCourses.filter(c => c.id != currentScheduleEditId);
-        saveSchedule(); renderSchedule(); closeModal();
-    };
-    dom.cancelScheduleEdit.onclick = closeModal;
+    if(!confirm('确定删除该课程吗？')) return;
+    const currentCourses = scheduleBySemester[currentSemester] || [];
+    scheduleBySemester[currentSemester] = currentCourses.filter(c => c.id != currentScheduleEditId);
+    saveScheduleBySemester();
+    renderSchedule();
+    closeModal();
+};
     // 课程点击编辑
     dom.scheduleBody.onclick = (e) => {
     const item = e.target.closest('.course-item');
