@@ -265,7 +265,8 @@
             text-overflow:ellipsis;
             width:100%;
             text-align:center;
-            font-size:10px;
+            font-size:9px;
+            font-weight:500;
         }
         .day-work-title{
             line-height:1.2;
@@ -1325,7 +1326,7 @@
     .calendar-days { gap: 4px; }
     .day { padding: 8px 3px; font-size: 12px; }
     .day-todo-title {
-        font-size: 11px;
+        font-size: 10px;
         line-height: 1.2;
         max-width: 100%;
         white-space: nowrap;
@@ -1994,6 +1995,13 @@ const showWorkDetail = (date) => {
 const renderWorkStatsContent = () => {
     const startDate = new Date(dom.statsStartDate.value);
     const endDate = new Date(dom.statsEndDate.value);
+    
+    // 检查日期是否有效
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        dom.workStatsContent.innerHTML = '<div style="text-align:center; color:red; padding:20px;">请正确选择开始日期和结束日期。</div>';
+        return;
+    }
+    
     endDate.setHours(23, 59, 59, 999); // 包含结束日期当天
     
     const filteredWorks = workList.filter(w => {
@@ -2004,7 +2012,7 @@ const renderWorkStatsContent = () => {
     const totalWorks = filteredWorks.length;
     const totalHours = filteredWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
     const totalIncome = filteredWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
-    const incomeCNY = totalIncome * exchangeRate;
+    const incomeCNY = totalIncome * (exchangeRate || 0.06);
     
     dom.workStatsContent.innerHTML = `
         <div class="stats-summary">
@@ -2750,7 +2758,20 @@ if (old.length && !scheduleBySemester[currentSemester]) {
         closeModal();
     };
     dom.workCancelEdit.onclick = closeModal;
-    // 待办编辑/删除/关闭
+    // 打工统计
+    dom.workStatsBtn.onclick = () => {
+        // 设置默认日期范围为本月
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        dom.statsStartDate.value = startOfMonth.toISOString().split('T')[0];
+        dom.statsEndDate.value = endOfMonth.toISOString().split('T')[0];
+        renderWorkStatsContent();
+        dom.workStatsModal.classList.add('active');
+        dom.modalOverlay.classList.add('active');
+    };
+    dom.queryStatsBtn.onclick = renderWorkStatsContent;
+    dom.closeWorkStats.onclick = closeModal;
     dom.detailEditBtn.onclick = fillEditTodo;
     dom.detailDelBtn.onclick = deleteTodo;
     dom.closeDetail.onclick = closeModal;
