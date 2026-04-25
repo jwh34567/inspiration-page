@@ -1888,7 +1888,7 @@ const renderWorkStats = () => {
     const totalHours = monthlyWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
     const totalIncome = monthlyWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
     const incomeCNY = totalIncome * exchangeRate;
-    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円<br>🇨🇳 ${incomeCNY.toFixed(2)}元 (汇率: 1円=${exchangeRate.toFixed(4)}元)`;
+    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元<br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
 };
 // 显示打工详情弹窗
 const showWorkDetail = (date) => {
