@@ -235,6 +235,16 @@
             top:6px;
             right:8px;
         }
+        .day.has-work::before{
+            content:'';
+            width:6px;
+            height:6px;
+            background:#F59E0B;
+            border-radius:50%;
+            position:absolute;
+            top:6px;
+            right:20px;
+        }
         .day-todo-title{
             line-height:1.2;
             white-space:nowrap;
@@ -243,6 +253,17 @@
             width:100%;
             text-align:center;
             font-size:10px;
+        }
+        .day-work-title{
+            line-height:1.2;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            width:100%;
+            text-align:center;
+            font-size:10px;
+            color: #F59E0B; /* 金色 */
+            font-weight: 600;
         }
         .day.todo-count-1 .day-todo-title{font-size:13px!important;font-weight:700}
         .day.todo-count-2 .day-todo-title{font-size:12px!important;font-weight:500}
@@ -262,6 +283,95 @@
             background-image:var(--bg-img);
             background-size:100% 100%;
             opacity:.1;
+        }
+        .work-form-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .work-stats{
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            color: var(--primary-dark);
+        }
+        .stats-btn{
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .stats-btn:hover{
+            background: var(--primary-dark);
+        }
+        .stats-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-group label {
+            font-weight: 500;
+            color: var(--primary-dark);
+            min-width: 70px;
+        }
+        .filter-group input[type="date"] {
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .query-btn {
+            padding: 8px 16px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            align-self: flex-end;
+        }
+        .query-btn:hover {
+            background: #22C55E;
+        }
+        .stats-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .stats-label {
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+        .stats-value {
+            font-weight: 600;
+            color: var(--success);
         }
         .selected-date{
             font-size:20px;
@@ -1126,6 +1236,10 @@
     color: #DC2626 !important; 
     font-weight: 700 !important;
 }
+.day.special-day {
+    color: #2563EB !important;
+    font-weight: 700 !important;
+}
 .holiday-name-jp {
     font-size: 9px;
     color: #E11D48; 
@@ -1140,6 +1254,17 @@
 .holiday-name-cn {
     font-size: 9px;
     color: #DC2626; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+    font-weight: 500;
+}
+.holiday-name-special {
+    font-size: 9px;
+    color: #2563EB;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1205,6 +1330,27 @@
             <button class="detail-edit-btn" id="detailEditBtn">修改</button>
             <button class="detail-del-btn" id="detailDelBtn">删除</button>
             <button class="close-detail-btn" id="closeDetail">关闭</button>
+        </div>
+    </div>
+    <!-- 打工统计弹窗 -->
+    <div class="detail-modal" id="workStatsModal">
+        <div class="detail-header">打工数据统计</div>
+        <div class="detail-body">
+            <div class="stats-filters">
+                <div class="filter-group">
+                    <label>开始日期：</label>
+                    <input type="date" id="statsStartDate">
+                </div>
+                <div class="filter-group">
+                    <label>结束日期：</label>
+                    <input type="date" id="statsEndDate">
+                </div>
+                <button class="query-btn" id="queryStatsBtn">查询</button>
+            </div>
+            <div id="workStatsContent"></div>
+        </div>
+        <div class="detail-footer">
+            <button class="close-detail-btn" id="closeWorkStats">关闭</button>
         </div>
     </div>
     <div class="edit-modal" id="scheduleEditModal">
@@ -1280,6 +1426,28 @@
             </div>
         </form>
     </div>
+    <!-- 打工详情弹窗 -->
+    <div class="detail-modal" id="workDetailModal">
+        <div class="detail-header" id="workDetailTitle"></div>
+        <div class="detail-body" id="workDetailBody"></div>
+        <div class="detail-footer">
+            <button class="detail-edit-btn" id="workDetailEditBtn">修改</button>
+            <button class="detail-del-btn" id="workDetailDelBtn">删除</button>
+            <button class="close-detail-btn" id="workCloseDetail">取消</button>
+        </div>
+    </div>
+    <!-- 打工编辑弹窗 -->
+    <div class="edit-modal" id="workEditModal">
+        <form class="edit-form" id="workEditForm">
+            <input type="text" id="workEditLocation" placeholder="打工地点" required>
+            <input type="number" id="workEditHourlyWage" placeholder="时薪（円）" required min="0" step="0.01">
+            <input type="number" id="workEditHours" placeholder="工作时长（小时）" required min="0" step="0.1">
+            <div class="edit-btns">
+                <button type="submit" class="save-btn">保存修改</button>
+                <button type="button" class="cancel-btn" id="workCancelEdit">取消</button>
+            </div>
+        </form>
+    </div>
     <div class="container">
         <div class="header">
             <div class="header-logo"></div>
@@ -1327,6 +1495,19 @@
                         <button type="submit" class="add-btn">添加提醒事项</button>
                     </form>
                     <div class="todo-list" id="todoList"></div>
+                    <div class="work-form-section">
+                        <div class="selected-date" id="workSelectedDate">请选择打工日期</div>
+                        <form class="add-form" id="workAddForm">
+                            <input type="text" id="workLocation" placeholder="打工地点（如：餐厅）" required>
+                            <input type="number" id="workHourlyWage" placeholder="时薪（円）" min="0" step="0.01" required>
+                            <input type="number" id="workHours" placeholder="工时（小时）" min="0" step="0.1" required>
+                            <button type="submit" class="add-btn">添加打工</button>
+                        </form>
+                        <div class="work-stats" id="workStats">
+                            🪪 本月打工：0次　 🕒 总工时：0.0h　 💰 预估收入：0円　 🇨🇳 ：0元
+                        </div>
+                        <button class="stats-btn" id="workStatsBtn">统计打工数据</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1487,6 +1668,54 @@ const chineseFestivals = {
     "2030-02-02": "除夕", "2030-02-03": "春节",
     "2031-01-22": "除夕", "2031-01-23": "春节"
 };
+const specialCalendarNotes = {
+    "2026-04-30": "学校放假",
+    "2026-05-01": "学校放假",
+    "2026-05-02": "学校放假",
+    "2026-06-05": "1Q最終週",
+    "2026-06-06": "1Q最終週",
+    "2026-06-08": "1Q最終週",
+    "2026-06-09": "1Q最終週",
+    "2026-06-10": "1Q最終週",
+    "2026-06-11": "1Q最終週",
+    "2026-06-22": "追試(1Q科目)",
+    "2026-06-23": "追試(1Q科目)",
+    "2026-07-31": "2Q最終週",
+    "2026-08-01": "2Q最終週",
+    "2026-08-03": "2Q最終週",
+    "2026-08-04": "2Q最終週",
+    "2026-08-05": "2Q最終週",
+    "2026-08-06": "2Q最終週",
+    "2026-08-07": "暑假开始",
+    "2026-09-21": "暑假结束",
+    "2026-09-22": "学校放假",
+    "2026-10-29": "浜大祭",
+    "2026-10-30": "浜大祭",
+    "2026-10-31": "浜大祭",
+    "2026-11-01": "浜大祭",
+    "2026-11-02": "浜大祭",
+    "2026-11-17": "3Q最終週",
+    "2026-11-18": "3Q最終週",
+    "2026-11-19": "3Q最終週",
+    "2026-11-20": "3Q最終週",
+    "2026-11-21": "3Q最終週",
+    "2026-11-23": "3Q最終週",
+    "2026-12-28": "学校放假",
+    "2026-12-29": "学校放假",
+    "2026-12-30": "学校放假",
+    "2026-12-31": "学校放假",
+    "2027-01-02": "学校放假",
+    "2027-01-12": "学校放假",
+    "2027-01-13": "学校放假",
+    "2027-01-14": "学校放假",
+    "2027-01-26": "4Q最終週",
+    "2027-01-27": "4Q最終週",
+    "2027-01-28": "4Q最終週",
+    "2027-01-29": "4Q最終週",
+    "2027-01-30": "4Q最終週",
+    "2027-02-01": "4Q最終週",
+    "2027-02-02": "寒假开始"
+};
 const openScheduleEditModal = (id) => {
     currentScheduleEditId = id;
     const currentCourses = scheduleBySemester[currentSemester] || []; // ✅ 使用当前学期
@@ -1552,7 +1781,35 @@ const dom = {
     noteEditForm: $('#noteEditForm'),
     noteEditName: $('#noteEditName'),
     noteEditContent: $('#noteEditContent'),
-    noteCancelEdit: $('#noteCancelEdit')
+    noteCancelEdit: $('#noteCancelEdit'),
+    // 打工相关DOM元素
+    workSelectedDate: $('#workSelectedDate'),
+    workAddForm: $('#workAddForm'),
+    workLocation: $('#workLocation'),
+    workHourlyWage: $('#workHourlyWage'),
+    workHours: $('#workHours'),
+    workStats: $('#workStats'),
+    workStatsBtn: $('#workStatsBtn'),
+    workStatsModal: $('#workStatsModal'),
+    statsPeriod: $('#statsPeriod'),
+    workStatsContent: $('#workStatsContent'),
+    closeWorkStats: $('#closeWorkStats'),
+    statsStartDate: $('#statsStartDate'),
+    statsEndDate: $('#statsEndDate'),
+    queryStatsBtn: $('#queryStatsBtn'),
+    // 打工详情和编辑弹窗
+    workDetailModal: $('#workDetailModal'),
+    workDetailTitle: $('#workDetailTitle'),
+    workDetailBody: $('#workDetailBody'),
+    workDetailEditBtn: $('#workDetailEditBtn'),
+    workDetailDelBtn: $('#workDetailDelBtn'),
+    workCloseDetail: $('#workCloseDetail'),
+    workEditModal: $('#workEditModal'),
+    workEditForm: $('#workEditForm'),
+    workEditLocation: $('#workEditLocation'),
+    workEditHourlyWage: $('#workEditHourlyWage'),
+    workEditHours: $('#workEditHours'),
+    workCancelEdit: $('#workCancelEdit')
 };
 let currentDate = new Date(), selectedDate = '';
 let todoList = JSON.parse(localStorage.getItem('collegeTodo')) || [];
@@ -1561,7 +1818,9 @@ let scheduleList = JSON.parse(localStorage.getItem('collegeSchedule')) || [];
 let guideContent = localStorage.getItem('collegeGuide') || '';
 let foodList = JSON.parse(localStorage.getItem('collegeFood')) || [];
 let noteList = JSON.parse(localStorage.getItem('collegeNote')) || [];
-let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '', currentNoteEditId = '';
+let workList = JSON.parse(localStorage.getItem('collegeWork')) || [];
+let exchangeRate = 0; // 日元到人民币汇率
+let currentEditId = '', currentScheduleEditId = '', currentFoodEditId = '', currentNoteEditId = '', currentWorkEditId = '';
 const typeConfig = {
     class: {name:'上课',color:'#52B788'}, homework: {name:'作业',color:'#34D399'},
     exam: {name:'考试',color:'#FBBF24'}, meeting: {name:'会议/活动',color:'#A78BFA'}, other: {name:'其他',color:'#4B5563'}
@@ -1589,10 +1848,128 @@ const saveSchedule = () => { localStorage.setItem('collegeSchedule', JSON.string
 const saveGuide = () => { localStorage.setItem('collegeGuide', dom.guideContent.value); alert('使用说明保存成功！'); };
 const saveFood = () => { localStorage.setItem('collegeFood', JSON.stringify(foodList)); };
 const saveNote = () => { localStorage.setItem('collegeNote', JSON.stringify(noteList)); };
+const saveWork = () => { localStorage.setItem('collegeWork', JSON.stringify(workList)); renderWorkStats(); renderCalendar(); };
+// 获取汇率
+const fetchExchangeRate = async () => {
+    try {
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
+        const data = await response.json();
+        exchangeRate = data.rates.CNY;
+        renderWorkStats(); // 获取汇率后重新渲染统计
+    } catch (error) {
+        console.error('获取汇率失败:', error);
+        exchangeRate = 0.06; // 默认汇率
+        renderWorkStats(); // 即使失败也渲染
+    }
+};
+// 渲染打工统计
+const renderWorkStats = () => {
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const monthlyWorks = workList.filter(w => {
+        const workDate = new Date(w.date);
+        return workDate.getMonth() === currentMonth && workDate.getFullYear() === currentYear;
+    });
+    const totalWorks = monthlyWorks.length;
+    const totalHours = monthlyWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
+    const totalIncome = monthlyWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
+    const incomeCNY = totalIncome * exchangeRate;
+    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円<br>🇨🇳 ${incomeCNY.toFixed(2)}元 (汇率: 1円=${exchangeRate.toFixed(4)}元)`;
+};
+// 显示打工详情弹窗
+const showWorkDetail = (date) => {
+    const dayWorks = workList.filter(w => w.date === date);
+    if (dayWorks.length === 0) return;
+    
+    currentWorkEditId = dayWorks[0].id;
+    
+    let content = `<div style="margin-bottom: 16px; font-weight: 600; color: var(--primary-dark);">📅 ${date} 的打工记录</div>`;
+    
+    dayWorks.forEach(work => {
+        const income = (parseFloat(work.hourlyWage || 0) * parseFloat(work.hours || 0)).toFixed(0);
+        const incomeCNY = (income * exchangeRate).toFixed(2);
+        
+        content += `
+            <div class="work-item" data-id="${work.id}" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; background: var(--light-gray); cursor: pointer; transition: all 0.2s ease;">
+                <div style="font-weight: 600; margin-bottom: 8px;">🏢 ${work.location}</div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>🕒 ${work.hours}小时 × 🇯🇵${work.hourlyWage}円/小时</span>
+                    <span style="font-weight: 600; color: var(--success);">🇯🇵${income}円 (🇨🇳${incomeCNY}元)</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    dom.workDetailTitle.textContent = `${date} 打工详情`;
+    dom.workDetailBody.innerHTML = content;
+    dom.workDetailModal.classList.add('active');
+    dom.modalOverlay.classList.add('active');
+    
+    // 为每个打工项添加点击事件
+    $$('.work-item').forEach(item => {
+        item.onclick = () => {
+            const workId = parseInt(item.dataset.id);
+            const work = workList.find(w => w.id === workId);
+            if (work) {
+                currentWorkEditId = workId;
+                fillEditWork();
+            }
+        };
+    });
+};
+// 渲染统计内容
+const renderWorkStatsContent = () => {
+    const startDate = new Date(dom.statsStartDate.value);
+    const endDate = new Date(dom.statsEndDate.value);
+    endDate.setHours(23, 59, 59, 999); // 包含结束日期当天
+    
+    const filteredWorks = workList.filter(w => {
+        const workDate = new Date(w.date);
+        return workDate >= startDate && workDate <= endDate;
+    });
+    
+    const totalWorks = filteredWorks.length;
+    const totalHours = filteredWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
+    const totalIncome = filteredWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
+    const incomeCNY = totalIncome * exchangeRate;
+    
+    dom.workStatsContent.innerHTML = `
+        <div class="stats-summary">
+            <div class="stats-item">
+                <span class="stats-label">📅 时间段：</span>
+                <span class="stats-value">${dom.statsStartDate.value} 至 ${dom.statsEndDate.value}</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">🪪 打工次数：</span>
+                <span class="stats-value">${totalWorks}次</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">🕒 总工时：</span>
+                <span class="stats-value">${totalHours.toFixed(1)}小时</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">💰 总收入：</span>
+                <span class="stats-value">${totalIncome.toFixed(0)}円</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">🇨🇳 人民币：</span>
+                <span class="stats-value">${incomeCNY.toFixed(2)}元</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">📊 平均时薪：</span>
+                <span class="stats-value">${totalHours > 0 ? (totalIncome / totalHours).toFixed(0) : 0}円/小时</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">💱 当前汇率：</span>
+                <span class="stats-value">1円 = ${exchangeRate.toFixed(4)}元</span>
+            </div>
+        </div>
+    `;
+};
 // 关闭弹窗
 const closeModal = () => {
-    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal, dom.modalOverlay].forEach(el => el.classList.remove('active'));
-    currentEditId = currentScheduleEditId = currentFoodEditId = currentNoteEditId = '';
+    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal, dom.workStatsModal, dom.workDetailModal, dom.workEditModal, dom.modalOverlay].forEach(el => el.classList.remove('active'));
+    currentEditId = currentScheduleEditId = currentFoodEditId = currentNoteEditId = currentWorkEditId = '';
     dom.editType.style.display = 'block';
 };
 // 填充待办编辑弹窗数据
@@ -1617,14 +1994,15 @@ const fillEditFood = () => {
     dom.foodEditModal.classList.add('active');
     dom.modalOverlay.classList.add('active');
 };
-// 填充记事本编辑弹窗数据
-const fillEditNote = () => {
-    const note = noteList.find(n => n.id == currentNoteEditId);
-    dom.noteEditName.value = note.name;
-    dom.noteEditContent.value = note.content || '';
-    // 关闭记事本详情弹窗
-    dom.noteDetailModal.classList.remove('active');
-    dom.noteEditModal.classList.add('active');
+// 填充打工编辑弹窗数据
+const fillEditWork = () => {
+    const work = workList.find(w => w.id == currentWorkEditId);
+    dom.workEditLocation.value = work.location;
+    dom.workEditHourlyWage.value = work.hourlyWage;
+    dom.workEditHours.value = work.hours;
+    // 关闭打工详情弹窗
+    dom.workDetailModal.classList.remove('active');
+    dom.workEditModal.classList.add('active');
     dom.modalOverlay.classList.add('active');
 };
 // 删除待办事项
@@ -1639,10 +2017,17 @@ const deleteTodo = () => {
 // 切换完成 / 未完成
 const completeTodo = (id) => {
     const todo = todoList.find(t => t.id == id);
-    if (todo) {
-        todo.completed = !todo.completed; // ✅ 点一次完成，再点一次恢复
-        saveTodo();
+    if (!todo) return;
+
+    if (!todo.completed) {
+        if (!confirm('是否确认该事项已完成？')) return;
+        todo.completed = true;
+    } else {
+        if (!confirm('该事项已标记完成，是否恢复为未完成？')) return;
+        todo.completed = false;
     }
+    saveTodo();
+    renderTodoList();
 };
 // 删除美食
 const deleteFood = () => {
@@ -1652,12 +2037,15 @@ const deleteFood = () => {
     renderFood();
     closeModal();
 };
-// 删除记事本
-const deleteNote = () => {
-    if(!confirm('确定删除该笔记吗？')) return;
-    noteList = noteList.filter(n => n.id != currentNoteEditId);
-    saveNote();
-    renderNote();
+// 删除打工记录
+const deleteWork = () => {
+    if (!currentWorkEditId) {
+        alert('请先选择要删除的打工记录。');
+        return;
+    }
+    if(!confirm('确定删除这条打工记录吗？')) return;
+    workList = workList.filter(w => w.id != currentWorkEditId);
+    saveWork();
     closeModal();
 };
 // 学分计算
@@ -1724,6 +2112,11 @@ const renderCalendar = () => {
             dayEl.classList.add(`todo-count-${Math.min(dayTodos.length, 3)}`);
         }
         
+        const dayWorks = workList.filter(w => w.date === dateStr);
+        if(dayWorks.length > 0) {
+            dayEl.classList.add('has-work');
+        }
+        
         // --- 新增：检查日本节假日 ---
         const jpHolidayName = japaneseHolidays[dateStr];
         if (jpHolidayName) {
@@ -1735,6 +2128,10 @@ const renderCalendar = () => {
         if (cnFestivalName) {
             dayEl.classList.add('cn-festival');
         }
+        const specialNote = specialCalendarNotes[dateStr];
+        if (specialNote) {
+            dayEl.classList.add('special-day');
+        }
         
         // 构建节日名称HTML
         let holidayHtml = '';
@@ -1744,15 +2141,20 @@ const renderCalendar = () => {
         if (cnFestivalName) {
             holidayHtml += `<div class="holiday-name-cn">🇨🇳 ${cnFestivalName}</div>`;
         }
+        if (specialNote) {
+            holidayHtml += `<div class="holiday-name-special">📌 ${specialNote}</div>`;
+        }
         
         const todoHtml = dayTodos.slice(0,3).map(t => `
             <div class="day-todo-title todo-title-${t.type}">${t.title}</div>
         `).join('');
         
+        const workHtml = dayWorks.length > 0 ? `<div class="day-work-title">打工</div>` : '';
+        
         dayEl.innerHTML = `
             <div class="day-number">${day}</div>
             ${holidayHtml}
-            <div class="day-tags">${todoHtml}</div>
+            <div class="day-tags">${todoHtml}${workHtml}</div>
         `;
         
         dayEl.onclick = () => {
@@ -1760,7 +2162,15 @@ const renderCalendar = () => {
             dayEl.classList.add('active');
             selectedDate = dateStr;
             dom.selectedDate.textContent = dateStr;
-            renderTodoList();
+            dom.workSelectedDate.textContent = dateStr;
+            
+            // 如果该日期有打工记录，显示打工详情
+            const dayWorks = workList.filter(w => w.date === dateStr);
+            if (dayWorks.length > 0) {
+                showWorkDetail(dateStr);
+            } else {
+                renderTodoList();
+            }
         };
         dom.calendarDays.appendChild(dayEl);
     }
@@ -1776,8 +2186,8 @@ const renderCalendar = () => {
         .filter(t => {
             const todoDate = new Date(t.date);
             todoDate.setHours(0, 0, 0, 0);
-            // 新增：同时过滤未完成的事项
-            return todoDate >= today && todoDate <= sevenDaysLater;
+            // 仅显示未来 7 天内的未完成事项
+            return todoDate >= today && todoDate <= sevenDaysLater && !t.completed;
         })
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     
@@ -1969,7 +2379,7 @@ const renderSchedule = () => {
 };
 // 备份数据
 const backupAllData = () => {
-    const data = { todo: todoList, schedule: scheduleList, guide: dom.guideContent.value, food: foodList, note: noteList };
+    const data = { todo: todoList, schedule: scheduleList, guide: dom.guideContent.value, food: foodList, note: noteList, work: workList };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2031,6 +2441,7 @@ const syncManager = {
             guide: localStorage.getItem('collegeGuide') || '',
             food: JSON.parse(localStorage.getItem('collegeFood')) || [],
             note: JSON.parse(localStorage.getItem('collegeNote')) || [],
+            work: JSON.parse(localStorage.getItem('collegeWork')) || [],
             lastSync: new Date().toISOString()
         };
 
@@ -2098,6 +2509,7 @@ const syncManager = {
             guideContent = data.guide || '';
             foodList = data.food || [];
             noteList = data.note || [];
+            workList = data.work || [];
 
             // 写入本地
             saveTodo();
@@ -2105,6 +2517,7 @@ const syncManager = {
             localStorage.setItem('collegeGuide', guideContent);
             saveFood();
             saveNote();
+            saveWork();
 
             // 刷新界面
             renderCalendar();
@@ -2112,6 +2525,7 @@ const syncManager = {
             renderSchedule();
             renderFood();
             renderNote();
+            renderWorkStats();
             dom.guideContent.value = guideContent;
 
             // ✅ 更新学期选择器
@@ -2146,6 +2560,8 @@ const init = () => {
     renderNote();
     dom.guideContent.value = guideContent;
     renderRecentTodo();
+    fetchExchangeRate();
+    renderWorkStats();
     
     // ... 后面的代码保持不变
     // ✅ 学期下拉框
@@ -2179,14 +2595,14 @@ if (old.length && !scheduleBySemester[currentSemester]) {
   localStorage.removeItem('collegeSchedule');
 }
     // 弹窗拖拽
-    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal].forEach(dragModal);
+    [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal, dom.workStatsModal, dom.workDetailModal, dom.workEditModal].forEach(dragModal);
     // 标签页绑定
     $$('.tab-btn').forEach(btn => {
         btn.onclick = () => switchTab(btn.dataset.tab);
     });
     // 日历月份切换
-    dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); };
-    dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); };
+    dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); renderWorkStats(); };
+    dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); renderWorkStats(); };
     // 备忘录添加
     dom.addForm.onsubmit = (e) => {
     e.preventDefault();
@@ -2205,6 +2621,36 @@ if (old.length && !scheduleBySemester[currentSemester]) {
     renderTodoList(); 
     renderCalendar();
 };
+    // 打工添加
+    dom.workAddForm.onsubmit = (e) => {
+    e.preventDefault();
+    if (!selectedDate) return alert('请先选择日期！');
+    const work = {
+        id: Date.now(),
+        date: selectedDate,
+        location: dom.workLocation.value,
+        hourlyWage: parseFloat(dom.workHourlyWage.value),
+        hours: parseFloat(dom.workHours.value)
+    };
+    workList.push(work);
+    saveWork();
+    dom.workAddForm.reset();
+};
+    // 打工详情和编辑
+    dom.workDetailEditBtn.onclick = () => fillEditWork();
+    dom.workDetailDelBtn.onclick = () => deleteWork();
+    dom.workCloseDetail.onclick = closeModal;
+    dom.workEditForm.onsubmit = (e) => {
+        e.preventDefault();
+        const work = workList.find(w => w.id == currentWorkEditId);
+        work.location = dom.workEditLocation.value;
+        work.hourlyWage = parseFloat(dom.workEditHourlyWage.value);
+        work.hours = parseFloat(dom.workEditHours.value);
+        saveWork();
+        renderCalendar();
+        closeModal();
+    };
+    dom.workCancelEdit.onclick = closeModal;
     // 待办编辑/删除/关闭
     dom.detailEditBtn.onclick = fillEditTodo;
     dom.detailDelBtn.onclick = deleteTodo;
