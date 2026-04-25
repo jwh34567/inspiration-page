@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟Inspiration🌟</title>
+    <title>Inspiration</title>
     <style>
         .course-teacher,
         .course-room-credit {
@@ -18,21 +18,21 @@
         .course-room-credit {
             margin-top: 2px;
 }
-        *{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC","Microsoft YaHei",Inter,sans-serif}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"KaiTi","SimSun","Microsoft YaHei",serif}
         :root {
-            --primary: #E6F7F2;       
-            --primary-dark: #52B788; 
-            --success: #34D399;      
-            --warning: #FBBF24;       
-            --purple: #A78BFA;        
-            --danger: #F87171;        
-            --gray: #4B5563;          
-            --light-gray: #F9FAFB;
-            --border-color: #E5E7EB;
+            --primary: #FFD700;       /* 金色 */
+            --primary-dark: #C8102E;  /* 中国红 */
+            --success: #228B22;       /* 绿色 */
+            --warning: #FFA500;       /* 橙色 */
+            --purple: #800080;        /* 紫色 */
+            --danger: #DC143C;        /* 红色 */
+            --gray: #2F4F4F;          /* 深灰 */
+            --light-gray: #F5F5DC;    /* 米色 */
+            --border-color: #DAA520;  /* 金色边框 */
             --bg-img: url('https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/48848370d3e741028d374212eccab22d.png~tplv-a9rns2rl98-24:720:720.png');
         }
         body{
-            background-color:#FCFCFD;
+            background: linear-gradient(135deg, #FFD700 0%, #C8102E 50%, #228B22 100%);
             padding:24px;
             background-image:var(--bg-img);
             background-size:180px;
@@ -47,11 +47,12 @@
             max-width:1400px;
             width: 100%;
             margin:0 auto;
-            background:rgba(255,255,255,.92);
+            background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(218,165,32,.1));
             border-radius:20px;
-            box-shadow:0 8px 32px rgba(0,0,0,.06);
+            box-shadow:0 8px 32px rgba(200,16,46,.2);
             padding:28px;
             backdrop-filter:blur(10px);
+            border: 2px solid #DAA520;
         }
         .header{
             text-align:center;
@@ -63,9 +64,14 @@
             gap:12px;
         }
         .header h1{
-            font-size:28px;
+            font-size:32px;
             font-weight:700;
-            letter-spacing:1px;
+            letter-spacing:2px;
+            color: #C8102E;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header h1::before {
+            content: '🐉 ';
         }
         .header-logo{
             width:44px;
@@ -96,11 +102,11 @@
             border:1px solid transparent;
         }
         .tab-btn.active{
-            background:var(--primary);
-            color:var(--primary-dark);
-            border:1px solid var(--primary-dark);
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            color: #C8102E;
+            border:2px solid #C8102E;
             transform:translateY(-2px);
-            box-shadow:0 4px 12px rgba(82,183,136,0.15);
+            box-shadow:0 4px 12px rgba(200,16,46,0.3);
         }
         .tab-btn:hover:not(.active){
             background:#F3F4F6;
@@ -119,13 +125,13 @@
         .calendar,.todo-panel{
             flex:1;
             min-width:360px;
-            border:1px solid var(--border-color);
+            border:2px solid #DAA520;
             border-radius:16px;
             padding:20px;
-            background:rgba(255,255,255,.98);
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
             display:flex;
             flex-direction:column;
-            box-shadow:0 2px 12px rgba(0,0,0,.04);
+            box-shadow:0 4px 16px rgba(200,16,46,0.1);
             transition:all 0.3s ease;
         }
         .calendar:hover,.todo-panel:hover{
@@ -139,22 +145,22 @@
         }
         .calendar-header h3{
             font-size:20px;
-            color:var(--gray);
+            color:#C8102E;
             font-weight:600;
         }
         .calendar-header button{
             padding:8px 14px;
-            background:var(--primary);
-            color:var(--primary-dark);
-            border:none;
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            color: #C8102E;
+            border:1px solid #C8102E;
             border-radius:8px;
             cursor:pointer;
             font-weight:500;
             transition:all 0.2s ease;
         }
         .calendar-header button:hover{
-            background:var(--primary-dark);
-            color:white;
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #FFFFFF;
         }
         .calendar-week{
             display:grid;
@@ -216,14 +222,15 @@
             gap:2px;
         }
         .day:hover{
-            background:var(--primary);
+            background: linear-gradient(135deg, #FFD700, #DAA520);
             transform:scale(0.96);
+            color: #C8102E;
         }
         .day.active{
-            background:var(--primary-dark);
+            background: linear-gradient(135deg, #C8102E, #DC143C);
             color:white!important;
             font-weight:600;
-            box-shadow:0 2px 8px rgba(82,183,136,0.2);
+            box-shadow:0 2px 8px rgba(200,16,46,0.3);
         }
         .day.has-todo::after{
             content:'';
@@ -267,11 +274,11 @@
         }
         .day.todo-count-1 .day-todo-title{font-size:13px!important;font-weight:700}
         .day.todo-count-2 .day-todo-title{font-size:12px!important;font-weight:500}
-        .todo-title-class{color:var(--primary-dark)}
-        .todo-title-homework{color:var(--success)}
-        .todo-title-exam{color:var(--warning)}
-        .todo-title-meeting{color:var(--purple)}
-        .todo-title-other{color:var(--gray)}
+        .todo-title-class{color:#C8102E}
+        .todo-title-homework{color:#228B22}
+        .todo-title-exam{color:#FFA500}
+        .todo-title-meeting{color:#800080}
+        .todo-title-other{color:#2F4F4F}
         .todo-panel{position:relative}
         .todo-panel::before{
             content:'';
@@ -292,25 +299,27 @@
         .work-stats{
             margin-top: 16px;
             padding: 12px;
-            background: var(--light-gray);
+            background: linear-gradient(145deg, #F5F5DC, #FFFACD);
             border-radius: 8px;
             font-size: 14px;
             text-align: center;
-            color: var(--primary-dark);
+            color: #C8102E;
+            border: 1px solid #DAA520;
         }
         .stats-btn{
             margin-top: 12px;
             padding: 8px 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            color: #C8102E;
+            border: 1px solid #C8102E;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.2s ease;
         }
         .stats-btn:hover{
-            background: var(--primary-dark);
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #FFFFFF;
         }
         .stats-filters {
             display: flex;
@@ -339,7 +348,7 @@
         }
         .query-btn {
             padding: 8px 16px;
-            background: var(--success);
+            background: linear-gradient(135deg, #228B22, #32CD32);
             color: white;
             border: none;
             border-radius: 6px;
@@ -349,7 +358,7 @@
             align-self: flex-end;
         }
         .query-btn:hover {
-            background: #22C55E;
+            background: linear-gradient(135deg, #32CD32, #228B22);
         }
         .stats-summary {
             display: flex;
@@ -361,22 +370,22 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 12px;
-            background: white;
+            background: linear-gradient(145deg, #FFFFFF, #FFFACD);
             border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #DAA520;
         }
         .stats-label {
             font-weight: 500;
-            color: var(--primary-dark);
+            color: #C8102E;
         }
         .stats-value {
             font-weight: 600;
-            color: var(--success);
+            color: #228B22;
         }
         .selected-date{
             font-size:20px;
             font-weight:600;
-            color:var(--gray);
+            color:#C8102E;
             margin-bottom:20px;
             text-align:center;
             padding-left:28px;
@@ -393,21 +402,23 @@
         }
         .add-form input,.add-form textarea,.add-form select{
             padding:12px;
-            border:1px solid var(--border-color);
+            border:2px solid #DAA520;
             border-radius:10px;
             resize:vertical;
             font-size:14px;
             transition:all 0.2s ease;
-            background:white;
+            background: #FFFACD;
+            color: #2F4F4F;
         }
         .add-form input:focus,.add-form textarea:focus,.add-form select:focus{
             outline:none;
-            border-color:var(--primary-dark);
-            box-shadow:0 0 0 3px rgba(82,183,136,0.1);
+            border-color:#C8102E;
+            box-shadow:0 0 0 3px rgba(200,16,46,0.2);
+            background: #FFFFFF;
         }
         .add-btn{
             padding:12px;
-            background:var(--success);
+            background: linear-gradient(135deg, #C8102E, #DC143C);
             color:white;
             border:none;
             border-radius:10px;
@@ -415,11 +426,12 @@
             font-weight:600;
             transition:all 0.2s ease;
             font-size:15px;
+            box-shadow: 0 4px 8px rgba(200,16,46,0.3);
         }
         .add-btn:hover{
-            background:#22C55E;
+            background: linear-gradient(135deg, #DC143C, #C8102E);
             transform:translateY(-1px);
-            box-shadow:0 4px 12px rgba(34,197,94,0.2);
+            box-shadow:0 6px 16px rgba(200,16,46,0.4);
         }
         .todo-list{
             flex:1;
@@ -432,16 +444,18 @@
         .todo-list::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
         .todo-item{
             padding:14px;
-            border-left:4px solid var(--primary-dark);
-            background:var(--light-gray);
+            border-left:4px solid #C8102E;
+            background: linear-gradient(145deg, #F5F5DC, #FFFACD);
             margin-bottom:10px;
             border-radius:10px;
             cursor:pointer;
             transition:all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(200,16,46,0.1);
         }
         .todo-item:hover{
             transform:translateX(4px);
-            box-shadow:0 2px 8px rgba(0,0,0,.06);
+            box-shadow:0 4px 12px rgba(200,16,46,0.2);
+            background: linear-gradient(145deg, #FFFACD, #F5F5DC);
         }
         .todo-title{
             font-weight:600;
