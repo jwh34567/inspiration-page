@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟Inspiration🌟</title>
+    <title>Inspiration</title>
     <style>
         .course-teacher,
         .course-room-credit {
@@ -1465,7 +1465,7 @@
     <div class="container">
         <div class="header">
             <div class="header-logo"></div>
-            <h1>🌟Inspiration🌟</h1>
+            <h1>Inspiration</h1>
         </div>
         <div class="tab-bar">
             <button class="tab-btn" data-tab="memo">备忘录</button>
@@ -2008,6 +2008,16 @@ const fillEditFood = () => {
     dom.foodEditModal.classList.add('active');
     dom.modalOverlay.classList.add('active');
 };
+// 填充笔记编辑弹窗数据
+const fillEditNote = () => {
+    const note = noteList.find(n => n.id == currentNoteEditId);
+    dom.noteEditName.value = note.name;
+    dom.noteEditContent.value = note.content || '';
+    // 关闭笔记详情弹窗
+    dom.noteDetailModal.classList.remove('active');
+    dom.noteEditModal.classList.add('active');
+    dom.modalOverlay.classList.add('active');
+};
 // 填充打工编辑弹窗数据
 const fillEditWork = () => {
     const work = workList.find(w => w.id == currentWorkEditId);
@@ -2049,6 +2059,14 @@ const deleteFood = () => {
     foodList = foodList.filter(f => f.id != currentFoodEditId);
     saveFood();
     renderFood();
+    closeModal();
+};
+// 删除笔记
+const deleteNote = () => {
+    if(!confirm('确定删除该笔记吗？')) return;
+    noteList = noteList.filter(n => n.id != currentNoteEditId);
+    saveNote();
+    renderNote();
     closeModal();
 };
 // 删除打工记录
@@ -2771,7 +2789,11 @@ dom.scheduleBody.onclick = (e) => {
         note.name = dom.noteEditName.value; note.content = dom.noteEditContent.value;
         saveNote(); renderNote(); closeModal();
     };
-    dom.noteCancelEdit.onclick = closeModal;
+    dom.noteCancelEdit.onclick = () => {
+        dom.noteEditForm.reset();
+        closeModal();
+        currentNoteEditId = '';
+    };
 };
 // 页面加载完成后初始化
 // 云端同步相关
