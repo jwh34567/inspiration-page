@@ -1326,7 +1326,7 @@
     .calendar-days { gap: 4px; }
     .day { padding: 8px 3px; font-size: 12px; }
     .day-todo-title {
-        font-size: 10px;
+        font-size: 9px;
         line-height: 1.2;
         max-width: 100%;
         white-space: nowrap;
@@ -1337,7 +1337,7 @@
     .holiday-name-jp,
     .holiday-name-cn,
     .holiday-name-special {
-        font-size: 10px;
+        font-size: 9px;
         line-height: 1.1;
         max-height: 2.2em;
         display: -webkit-box;
@@ -2187,9 +2187,9 @@ const dragModal = modal => {
     document.addEventListener('mouseup', () => isDrag = false);
 };
 const formatCalendarTodoTitle = (title) => {
-    const maxChars = 5;
-    if (window.innerWidth <= 768) {
-        return title.length > maxChars ? title.slice(0, maxChars) : title;
+    const maxChars = window.innerWidth <= 768 ? 4 : 5;
+    if (title.length > maxChars) {
+        return title.slice(0, maxChars);
     }
     return title;
 };
