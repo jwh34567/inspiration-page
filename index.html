@@ -1324,6 +1324,14 @@
 @media (max-width: 768px) {
     .calendar-days { gap: 4px; }
     .day { padding: 8px 3px; font-size: 12px; }
+    .day-todo-title {
+        font-size: 11px;
+        line-height: 1.2;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     .holiday-name,
     .holiday-name-jp,
     .holiday-name-cn,
@@ -2170,6 +2178,14 @@ const dragModal = modal => {
     });
     document.addEventListener('mouseup', () => isDrag = false);
 };
+const formatCalendarTodoTitle = (title) => {
+    const maxChars = 5;
+    if (window.innerWidth <= 768) {
+        return title.length > maxChars ? title.slice(0, maxChars) : title;
+    }
+    return title;
+};
+
 // 日历渲染
 const renderCalendar = () => {
     const year = currentDate.getFullYear();
@@ -2229,7 +2245,7 @@ const renderCalendar = () => {
         }
         
         const todoHtml = dayTodos.slice(0,3).map(t => `
-            <div class="day-todo-title todo-title-${t.type}">${t.title}</div>
+            <div class="day-todo-title todo-title-${t.type}" title="${t.title}">${formatCalendarTodoTitle(t.title)}</div>
         `).join('');
         
         const workHtml = dayWorks.length > 0 ? `<div class="day-work-title">打工</div>` : '';
