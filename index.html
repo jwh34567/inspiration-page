@@ -201,9 +201,15 @@
         .holiday-name{
             font-size:9px;
             color:var(--danger);
-            white-space:nowrap;
+            white-space:normal;
             overflow:hidden;
             text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+            line-height:1.1;
+            max-height:2.2em;
+            word-break:break-word;
             width:100%;
             text-align:center;
             margin-top:2px;
@@ -305,6 +311,15 @@
             text-align: center;
             color: #C8102E;
             border: 1px solid #DAA520;
+        }
+        .work-income {
+            white-space: normal;
+        }
+        @media (max-width: 768px) {
+            .work-income {
+                display: block;
+                margin-top: 4px;
+            }
         }
         .stats-btn{
             margin-top: 12px;
@@ -1257,9 +1272,15 @@
 .holiday-name-jp {
     font-size: 9px;
     color: #E11D48; 
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.1;
+    max-height: 2.2em;
+    word-break: break-word;
     width: 100%;
     text-align: center;
     margin-top: 2px;
@@ -1268,9 +1289,15 @@
 .holiday-name-cn {
     font-size: 9px;
     color: #DC2626; 
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.1;
+    max-height: 2.2em;
+    word-break: break-word;
     width: 100%;
     text-align: center;
     margin-top: 2px;
@@ -1279,13 +1306,37 @@
 .holiday-name-special {
     font-size: 9px;
     color: #2563EB;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.1;
+    max-height: 2.2em;
+    word-break: break-word;
     width: 100%;
     text-align: center;
     margin-top: 2px;
     font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .calendar-days { gap: 4px; }
+    .day { padding: 8px 3px; font-size: 12px; }
+    .holiday-name,
+    .holiday-name-jp,
+    .holiday-name-cn,
+    .holiday-name-special {
+        font-size: 10px;
+        line-height: 1.1;
+        max-height: 2.2em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        word-break: break-word;
+    }
 }
  
 .complete-btn {
@@ -1518,7 +1569,7 @@
                             <button type="submit" class="add-btn">添加打工</button>
                         </form>
                         <div class="work-stats" id="workStats">
-                            🪪 本月打工：0次　 🕒 总工时：0.0h　 💰 预估收入：0円　 🇨🇳 ：0元
+                            🪪 本月打工：0次　 🕒 总工时：0.0h　 <span class="work-income">💰 预估收入：0円　 🇨🇳 ：0元</span>
                         </div>
                         <button class="stats-btn" id="workStatsBtn">统计打工数据</button>
                     </div>
@@ -1538,7 +1589,7 @@
                        <!-- ✅ 新增：学期选择框 -->
                        <select id="semesterSelect"
                           style="padding:8px 12px;border-radius:8px;border:1px solid #E5E7EB;
-                                 background:white;color:#52B788;font-weight:600;">
+                                 background:white;color:#52b788;font-weight:600;">
                        </select>
 
                        <span id="totalCredit" class="total-credit"></span>
@@ -1888,7 +1939,7 @@ const renderWorkStats = () => {
     const totalHours = monthlyWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
     const totalIncome = monthlyWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
     const incomeCNY = totalIncome * exchangeRate;
-    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元<br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
+    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 <span class="work-income">💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元</span><br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
 };
 // 显示打工详情弹窗
 const showWorkDetail = (date) => {
