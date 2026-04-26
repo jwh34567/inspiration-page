@@ -136,11 +136,14 @@
         }
         .calendar {
             touch-action: pan-y;
+            overflow: hidden;
         }
         .calendar-days {
             transition: transform 0.25s ease;
             will-change: transform;
             touch-action: pan-y;
+            width: 100%;
+            display: grid;
         }
         .calendar:hover,.todo-panel:hover{
             box-shadow:0 4px 20px rgba(0,0,0,.06);
