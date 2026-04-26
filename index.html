@@ -137,6 +137,11 @@
         .calendar {
             touch-action: pan-y;
         }
+        .calendar-days {
+            transition: transform 0.25s ease;
+            will-change: transform;
+            touch-action: pan-y;
+        }
         .calendar:hover,.todo-panel:hover{
             box-shadow:0 4px 20px rgba(0,0,0,.06);
         }
@@ -2935,31 +2940,59 @@ if (old.length && !scheduleBySemester[currentSemester]) {
     // 日历月份切换
     dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); renderWorkStats(); };
     dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); renderWorkStats(); };
-    // 备忘录添加
+    // 手机端日历滑动
     let touchStartX = null;
+    let touchDeltaX = 0;
+    const resetCalendarTransform = () => {
+        dom.calendarDays.style.transition = 'transform 0.25s ease';
+        dom.calendarDays.style.transform = 'translateX(0)';
+    };
+
     dom.calendarDays.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 1) return;
         touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        dom.calendarDays.style.transition = 'none';
     });
+
+    dom.calendarDays.addEventListener('touchmove', (e) => {
+        if (touchStartX === null || e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        touchDeltaX = touch.clientX - touchStartX;
+        if (Math.abs(touchDeltaX) > 10) {
+            e.preventDefault();
+        }
+        dom.calendarDays.style.transform = `translateX(${touchDeltaX}px)`;
+    }, { passive: false });
+
     dom.calendarDays.addEventListener('touchend', (e) => {
         if (touchStartX === null) return;
         const touch = e.changedTouches[0];
-        const deltaX = touch.clientX - touchStartX;
-        const threshold = 50;
-        if (Math.abs(deltaX) < threshold) {
-            touchStartX = null;
-            return;
+        touchDeltaX = touch.clientX - touchStartX;
+        const threshold = 60;
+
+        if (Math.abs(touchDeltaX) < threshold) {
+            resetCalendarTransform();
+        } else {
+            const direction = touchDeltaX < 0 ? 'left' : 'right';
+            const slideDistance = direction === 'left' ? -window.innerWidth * 0.7 : window.innerWidth * 0.7;
+            dom.calendarDays.style.transition = 'transform 0.25s ease';
+            dom.calendarDays.style.transform = `translateX(${slideDistance}px)`;
+            setTimeout(() => {
+                if (direction === 'left') {
+                    // 左滑代表下月
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                } else {
+                    // 右滑代表上月
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                }
+                renderCalendar();
+                renderWorkStats();
+                dom.calendarDays.style.transition = 'none';
+                dom.calendarDays.style.transform = 'translateX(0)';
+            }, 220);
         }
 
-        if (deltaX < 0) {
-            // 左滑：上月
-            currentDate.setMonth(currentDate.getMonth() - 1);
-        } else {
-            // 右滑：下月
-            currentDate.setMonth(currentDate.getMonth() + 1);
-        }
-        renderCalendar();
-        renderWorkStats();
         touchStartX = null;
     });
 
