@@ -1035,6 +1035,158 @@
             background-size: 100% 100%;
             opacity: .1;
         }
+        /* 在留卡倒计时模块样式 */
+        .countdown-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 28px;
+            background: rgba(255, 255, 255, .98);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
+            text-align: center;
+        }
+        .countdown-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+        }
+        .countdown-input-section {
+            margin-bottom: 32px;
+        }
+        .countdown-input-section label {
+            display: block;
+            font-weight: 500;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .visa-input {
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            width: 200px;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: #FFFACD;
+            color: #2F4F4F;
+        }
+        .visa-input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+            background: #FFFFFF;
+        }
+        .countdown-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .circular-progress {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .progress-circle {
+            transform: rotate(-90deg);
+        }
+        .progress-bg {
+            stroke: #e0e0e0;
+        }
+        .progress-bar {
+            stroke-dasharray: 565.48; /* 2 * π * 90 */
+            stroke-dashoffset: 565.48;
+            transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
+        }
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .days-left {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+        .days-label {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        .countdown-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            min-width: 60px;
+        }
+        .info-value {
+            font-weight: 500;
+            color: var(--gray);
+        }
+        /* 进度条颜色 */
+        .progress-green .progress-bar {
+            stroke: #228B22;
+        }
+        .progress-yellow .progress-bar {
+            stroke: #FFA500;
+        }
+        .progress-red .progress-bar {
+            stroke: #DC143C;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        /* 移动端响应式 */
+        @media (max-width: 768px) {
+            .countdown-container {
+                padding: 20px;
+            }
+            .countdown-title {
+                font-size: 20px;
+            }
+            .circular-progress {
+                width: 150px;
+                height: 150px;
+            }
+            .progress-circle {
+                width: 150px;
+                height: 150px;
+                viewBox: "0 0 150 150";
+            }
+            .progress-bg, .progress-bar {
+                cx: 75;
+                cy: 75;
+                r: 67.5;
+            }
+            .progress-bar {
+                stroke-dasharray: 424.11; /* 2 * π * 67.5 */
+                stroke-dashoffset: 424.11;
+            }
+            .days-left {
+                font-size: 28px;
+            }
+            .visa-input {
+                width: 180px;
+            }
+        }
         /* 移动端响应式优化 */
         @media (max-width: 768px) {
             body {
@@ -1532,6 +1684,7 @@
             <button class="tab-btn" data-tab="schedule">课程表</button>
             <button class="tab-btn" data-tab="food">小厨娘</button>
             <button class="tab-btn" data-tab="note">记事本</button>
+            <button class="tab-btn" data-tab="countdown">在留卡时效</button>
             <button class="tab-btn" data-tab="guide">使用说明</button>
             <button class="tab-btn" data-tab="sync">云端同步</button>
         </div>
@@ -1667,6 +1820,42 @@
                         <textarea id="noteContent" rows="5" placeholder="笔记内容"></textarea>
                         <button type="submit" class="add-btn">添加笔记</button>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- 在留卡倒计时面板 -->
+        <div class="panel" id="countdownPanel">
+            <div class="countdown-container">
+                <h2 class="countdown-title">🪪 在留卡剩余天数倒计时</h2>
+                <div class="countdown-input-section">
+                    <label for="visaExpiryDate">在留卡有效期：</label>
+                    <input type="date" id="visaExpiryDate" class="visa-input">
+                </div>
+                <div class="countdown-display">
+                    <div class="circular-progress" id="circularProgress">
+                        <svg class="progress-circle" width="200" height="200" viewBox="0 0 200 200">
+                            <circle class="progress-bg" cx="100" cy="100" r="90" stroke="#e0e0e0" stroke-width="10" fill="none"></circle>
+                            <circle class="progress-bar" cx="100" cy="100" r="90" stroke="#228B22" stroke-width="10" fill="none" stroke-linecap="round" transform="rotate(-90 100 100)"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <div class="days-left" id="daysLeft">--</div>
+                            <div class="days-label">剩余天数</div>
+                        </div>
+                    </div>
+                    <div class="countdown-info">
+                        <div class="info-item">
+                            <span class="info-label">状态：</span>
+                            <span class="info-value" id="statusText">请输入有效期</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">到期日期：</span>
+                            <span class="info-value" id="expiryDateText">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">进度：</span>
+                            <span class="info-value" id="progressText">--</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1883,7 +2072,14 @@ const dom = {
     workEditLocation: $('#workEditLocation'),
     workEditHourlyWage: $('#workEditHourlyWage'),
     workEditHours: $('#workEditHours'),
-    workCancelEdit: $('#workCancelEdit')
+    workCancelEdit: $('#workCancelEdit'),
+    // 在留卡倒计时相关DOM元素
+    visaExpiryDate: $('#visaExpiryDate'),
+    circularProgress: $('#circularProgress'),
+    daysLeft: $('#daysLeft'),
+    statusText: $('#statusText'),
+    expiryDateText: $('#expiryDateText'),
+    progressText: $('#progressText')
 };
 let currentDate = new Date(), selectedDate = '';
 let todoList = JSON.parse(localStorage.getItem('collegeTodo')) || [];
@@ -2661,6 +2857,7 @@ const init = () => {
     switchTab(savedTab);
     
     // 渲染所有模块
+    loadVisaExpiry();
     renderCalendar();
     renderSchedule();
     renderFood();
@@ -2669,6 +2866,12 @@ const init = () => {
     renderRecentTodo();
     fetchExchangeRate();
     renderWorkStats();
+    
+    // 事件监听器
+    dom.visaExpiryDate.addEventListener('change', () => {
+        updateCountdown();
+        saveVisaExpiry();
+    });
     
     // ... 后面的代码保持不变
     // ✅ 学期下拉框
@@ -2882,6 +3085,93 @@ dom.scheduleBody.onclick = (e) => {
         closeModal();
         currentNoteEditId = '';
     };
+};
+// 在留卡倒计时相关函数
+const updateCountdown = () => {
+    const expiryDateInput = dom.visaExpiryDate.value;
+    if (!expiryDateInput) {
+        resetCountdown();
+        return;
+    }
+
+    const expiryDate = new Date(expiryDateInput);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 设置为当天开始时间
+
+    const timeDiff = expiryDate.getTime() - today.getTime();
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (daysLeft < 0) {
+        dom.daysLeft.textContent = '已过期';
+        dom.statusText.textContent = '已过期';
+        dom.statusText.style.color = '#DC143C';
+        dom.progressText.textContent = '100%';
+        dom.circularProgress.className = 'circular-progress progress-red';
+        setProgress(100);
+        return;
+    }
+
+    dom.daysLeft.textContent = daysLeft;
+    dom.expiryDateText.textContent = expiryDate.toLocaleDateString('zh-CN');
+
+    let status = '';
+    let colorClass = '';
+    let progress = 0;
+
+    if (daysLeft > 90) {
+        status = '安全';
+        colorClass = 'progress-green';
+        progress = Math.min(100, (daysLeft / 365) * 100); // 假设最长1年
+    } else if (daysLeft >= 30) {
+        status = '警告';
+        colorClass = 'progress-yellow';
+        progress = (daysLeft / 90) * 100;
+    } else {
+        status = '危险';
+        colorClass = 'progress-red';
+        progress = (daysLeft / 30) * 100;
+    }
+
+    dom.statusText.textContent = status;
+    dom.statusText.style.color = colorClass === 'progress-green' ? '#228B22' : 
+                                 colorClass === 'progress-yellow' ? '#FFA500' : '#DC143C';
+    dom.progressText.textContent = Math.round(progress) + '%';
+    dom.circularProgress.className = 'circular-progress ' + colorClass;
+    setProgress(progress);
+};
+
+const setProgress = (percent) => {
+    const circle = document.querySelector('.progress-bar');
+    if (circle) {
+        const radius = 90;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (percent / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+    }
+};
+
+const resetCountdown = () => {
+    dom.daysLeft.textContent = '--';
+    dom.statusText.textContent = '请输入有效期';
+    dom.statusText.style.color = 'var(--gray)';
+    dom.expiryDateText.textContent = '--';
+    dom.progressText.textContent = '--';
+    dom.circularProgress.className = 'circular-progress';
+    setProgress(0);
+};
+
+// 加载保存的有效期
+const loadVisaExpiry = () => {
+    const savedExpiry = localStorage.getItem('visaExpiryDate');
+    if (savedExpiry) {
+        dom.visaExpiryDate.value = savedExpiry;
+        updateCountdown();
+    }
+};
+
+// 保存有效期
+const saveVisaExpiry = () => {
+    localStorage.setItem('visaExpiryDate', dom.visaExpiryDate.value);
 };
 // 页面加载完成后初始化
 // 云端同步相关
