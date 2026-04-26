@@ -2682,7 +2682,15 @@ const renderSchedule = () => {
 };
 // 备份数据
 const backupAllData = () => {
-    const data = { todo: todoList, schedule: scheduleList, guide: dom.guideContent.value, food: foodList, note: noteList, work: workList };
+    const data = {
+        todo: todoList,
+        schedule: scheduleList,
+        guide: dom.guideContent.value,
+        food: foodList,
+        note: noteList,
+        work: workList,
+        visaExpiryDate: localStorage.getItem('visaExpiryDate') || ''
+    };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2699,8 +2707,11 @@ const importAllData = (file) => {
             const data = JSON.parse(e.target.result);
             todoList = data.todo || []; scheduleList = data.schedule || [];
             guideContent = data.guide || ''; foodList = data.food || []; noteList = data.note || [];
+            const savedExpiry = data.visaExpiryDate || '';
             saveTodo(); saveSchedule(); localStorage.setItem('collegeGuide', guideContent); saveFood(); saveNote();
+            localStorage.setItem('visaExpiryDate', savedExpiry);
             dom.guideContent.value = guideContent;
+            loadVisaExpiry();
             renderCalendar(); renderTodoList(); renderSchedule(); renderFood(); renderNote();
             alert('数据导入成功！');
         } catch (err) { alert('导入失败，文件格式错误！'); }
@@ -2745,6 +2756,7 @@ const syncManager = {
             food: JSON.parse(localStorage.getItem('collegeFood')) || [],
             note: JSON.parse(localStorage.getItem('collegeNote')) || [],
             work: JSON.parse(localStorage.getItem('collegeWork')) || [],
+            visaExpiryDate: localStorage.getItem('visaExpiryDate') || '',
             lastSync: new Date().toISOString()
         };
 
@@ -2813,16 +2825,19 @@ const syncManager = {
             foodList = data.food || [];
             noteList = data.note || [];
             workList = data.work || [];
+            const savedExpiry = data.visaExpiryDate || '';
 
             // 写入本地
             saveTodo();
             saveScheduleBySemester(); // ✅ 使用新的保存函数
             localStorage.setItem('collegeGuide', guideContent);
+            localStorage.setItem('visaExpiryDate', savedExpiry);
             saveFood();
             saveNote();
             saveWork();
 
             // 刷新界面
+            loadVisaExpiry();
             renderCalendar();
             renderTodoList();
             renderSchedule();
