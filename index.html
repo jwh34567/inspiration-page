@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Inspiration</title>
     <style>
         .course-teacher,
@@ -47,7 +47,10 @@
             opacity:0.98;
             min-height:100vh;
             overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
+            touch-action: none;
+            -webkit-overflow-scrolling: touch;
         }
         
         body::before {
@@ -2323,35 +2326,58 @@
 
 @media (max-width: 768px) {
     .all-history-modal {
-        width: 95%;
-        max-height: 90vh;
+        width: 98%;
+        max-height: 95vh;
+        top: 2%;
+        left: 1%;
+        transform: none;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        position: fixed;
     }
     
     .all-history-header {
-        font-size: 12px;
+        font-size: 11px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
     
     .all-history-header > div {
-        padding: 8px 4px;
-        font-size: 11px;
+        padding: 8px 3px;
+        font-size: 10px;
+        min-width: 40px;
     }
     
     .all-history-body {
-        max-height: 60vh;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+    
+    .all-history-row {
+        min-width: max-content;
     }
     
     .all-history-row > div {
-        padding: 8px 4px;
-        font-size: 12px;
+        padding: 6px 3px;
+        font-size: 11px;
+        min-width: 40px;
     }
     
     .all-history-action {
-        flex: 1;
+        flex: 0.8;
+        min-width: 50px;
     }
     
     .delete-history-btn {
-        padding: 3px 6px;
-        font-size: 11px;
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+    
+    .all-history-table {
+        margin: 5px;
+        overflow-x: auto;
     }
 }
 
@@ -2365,6 +2391,12 @@
     overflow: hidden;
     background: white;
     margin: 10px;
+    overflow-x: auto;
+}
+
+.all-history-table-inner {
+    display: flex;
+    min-width: max-content;
 }
 
 .all-history-header {
@@ -2372,6 +2404,7 @@
     background: linear-gradient(135deg, #FFD700, #DAA520);
     color: #C8102E;
     font-weight: 600;
+    min-width: max-content;
 }
 
 .all-history-header > div {
