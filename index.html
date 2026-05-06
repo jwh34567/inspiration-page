@@ -4688,8 +4688,20 @@ if (old.length && !scheduleBySemester[currentSemester]) {
         window.tabEventBound = true;
     }
     // 日历月份切换
-    dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); renderWorkStats(); };
-    dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); renderWorkStats(); };
+    if (dom.prevMonth) {
+        dom.prevMonth.onclick = () => { 
+            currentDate.setMonth(currentDate.getMonth() - 1); 
+            renderCalendar(); 
+            renderWorkStats(); 
+        };
+    }
+    if (dom.nextMonth) {
+        dom.nextMonth.onclick = () => { 
+            currentDate.setMonth(currentDate.getMonth() + 1); 
+            renderCalendar(); 
+            renderWorkStats(); 
+        };
+    }
     dom.addForm.onsubmit = (e) => {
     e.preventDefault();
     if (!selectedDate) return alert('请先选择日期！');
