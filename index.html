@@ -424,12 +424,27 @@
         .work-income {
             white-space: normal;
         }
-        @media (max-width: 768px) {
-            .work-income {
-                display: block;
-                margin-top: 4px;
-            }
-        }
+@media (max-width: 768px) {
+    .summary-display {
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 0;
+    }
+    
+    .summary-player {
+        min-width: 80px;
+        flex: 0 0 auto;
+    }
+}
+    
+    .summary-player {
+        min-width: 80px;          /* 设置最小宽度 */
+        flex: 0 0 auto;          /* 不伸缩，自动宽度 */
+    }
+}
         .stats-btn{
             margin-top: 12px;
             padding: 8px 16px;
@@ -3446,19 +3461,19 @@
                             <div class="players-container">
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelA">甲</span>
-                                    <input type="text" id="scoreA" inputmode="decimal" placeholder="分数" class="score-input-inline">
+                                    <input type="number" id="scoreA" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelB">乙</span>
-                                    <input type="text" id="scoreB" inputmode="decimal" placeholder="分数" class="score-input-inline">
+                                    <input type="number" id="scoreB" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelC">丙</span>
-                                    <input type="text" id="scoreC" inputmode="decimal" placeholder="分数" class="score-input-inline">
+                                    <input type="number" id="scoreC" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelD">丁</span>
-                                     <input type="text" id="scoreD" inputmode="decimal" placeholder="分数" class="score-input-inline">
+                                     <input type="number" id="scoreD" placeholder="分数" class="score-input-inline">
                                 </div>
                             </div>
                             <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
