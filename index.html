@@ -1378,19 +1378,25 @@
         }
         /* 移动端响应式优化 */
         @media (max-width: 768px) {
-            body {
+            html, body {
                 padding: 0;
+                margin: 0;
                 overflow-x: hidden;
+                width: 100%;
                 min-width: 100vw;
                 box-sizing: border-box;
+                position: relative;
             }
             .container {
                 padding: 16px;
                 border-radius: 0;
                 width: 100%;
-                margin: 0;
+                margin: 0 auto;
                 max-width: 100vw;
                 box-sizing: border-box;
+                position: relative;
+                left: 0;
+                right: 0;
             }
             .header h1 {
                 font-size: 22px;
@@ -4691,30 +4697,32 @@ if (old.length && !scheduleBySemester[currentSemester]) {
         });
         window.tabEventBound = true;
     }
-    // 日历月份切换（添加防抖优化）
-    let isRendering = false;
-    const debouncedRender = () => {
-        if (isRendering) return;
-        isRendering = true;
-        
-        requestAnimationFrame(() => {
-            renderCalendar();
-            renderWorkStats();
-            isRendering = false;
-        });
+    // 日历月份切换
+    const bindCalendarButtons = () => {
+        if (dom.prevMonth && !dom.prevMonth._bound) {
+            dom.prevMonth.onclick = () => { 
+                currentDate.setMonth(currentDate.getMonth() - 1); 
+                renderCalendar();
+                renderWorkStats();
+            };
+            dom.prevMonth._bound = true;
+        }
+        if (dom.nextMonth && !dom.nextMonth._bound) {
+            dom.nextMonth.onclick = () => { 
+                currentDate.setMonth(currentDate.getMonth() + 1); 
+                renderCalendar();
+                renderWorkStats();
+            };
+            dom.nextMonth._bound = true;
+        }
     };
     
-    if (dom.prevMonth) {
-        dom.prevMonth.onclick = () => { 
-            currentDate.setMonth(currentDate.getMonth() - 1); 
-            debouncedRender();
-        };
-    }
-    if (dom.nextMonth) {
-        dom.nextMonth.onclick = () => { 
-            currentDate.setMonth(currentDate.getMonth() + 1); 
-            debouncedRender();
-        };
+    // 立即绑定一次
+    bindCalendarButtons();
+    
+    // 如果按钮不存在，延迟重试
+    if (!dom.prevMonth || !dom.nextMonth) {
+        setTimeout(bindCalendarButtons, 100);
     }
     dom.addForm.onsubmit = (e) => {
     e.preventDefault();
