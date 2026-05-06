@@ -2064,31 +2064,11 @@
 
 @media (max-width: 768px) {
     .history-footer {
-    padding: 10px;
-    }
-    
-    .view-all-history-btn {
-    width: 100%;
-    padding: 10px;
+        display: none;
     }
 }
 
-.view-all-history-btn {
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #FFD700, #DAA520);
-    color: #C8102E;
-    border: 1px solid #C8102E;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
 
-.view-all-history-btn:hover {
-    background: linear-gradient(135deg, #DAA520, #FFD700);
-    color: white;
-}
 
 /* 收盘汇总弹窗样式 */
 .settle-modal {
@@ -3529,9 +3509,7 @@
                     <div class="history-body" id="roundsList">
                         <div class="no-rounds">暂无记录</div>
                     </div>
-                    <div class="history-footer" id="historyFooter" style="display: none;">
-                        <button class="view-all-history-btn" id="viewAllHistoryBtn">查看本轮对局记录</button>
-                    </div>
+
                 </div>
 
                 <!-- 全部历史记录弹窗 -->
@@ -5096,15 +5074,7 @@ settleBtn.classList.remove('settled');
             this.savePlayerSettings();
         });
 
-        // 查看本轮对局记录
-        document.getElementById('viewAllHistoryBtn').addEventListener('click', () => {
-            this.openAllHistory();
-        });
 
-        // 关闭本轮对局记录弹窗
-        document.getElementById('closeAllHistory').addEventListener('click', () => {
-            this.closeAllHistory();
-        });
 
         document.getElementById('closeAllHistoryBtn').addEventListener('click', () => {
             this.closeAllHistory();
@@ -5364,23 +5334,15 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             return;
         }
 
-        // 只显示最近10局，倒序显示（最新的在最上面）
-        const recentRounds = this.rounds.slice(-10).reverse();
+        // 显示所有对局记录，倒序显示（最新的在最上面）
+        const allRounds = [...this.rounds].reverse();
         
-        roundsList.innerHTML = recentRounds.map(round => `
+        roundsList.innerHTML = allRounds.map(round => `
             <div class="history-row">
                 <div class="history-round">第${round.number}局</div>
                 ${this.getPlayerScoresTableHTML(round)}
-
             </div>
         `).join('');
-
-        // 如果总记录超过10局，显示查看全部按钮
-        if (this.rounds.length > 10) {
-            historyFooter.style.display = 'block';
-        } else {
-            historyFooter.style.display = 'none';
-        }
     }
 
     getPlayerScoresTableHTML(round) {
