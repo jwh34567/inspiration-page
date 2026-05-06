@@ -3317,7 +3317,7 @@
                             <button type="submit" class="add-btn">添加打工</button>
                         </form>
                         <div class="work-stats" id="workStats">
-                            🪪 本月打工：0次　 🕒 总工时：0.0h　 <span class="work-income">💰 预估收入：0円　 🇨🇳 ：0元</span>
+                            🪪 本月打工：0次　 🕒 总工时：0.0h<br><span class="work-income">💰 预估收入：0円　 🇨🇳 ：0元</span>
                         </div>
                         <button class="stats-btn" id="workStatsBtn">统计打工数据</button>
                     </div>
@@ -3866,7 +3866,7 @@ const renderWorkStats = () => {
     const totalHours = monthlyWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
     const totalIncome = monthlyWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
     const incomeCNY = totalIncome * exchangeRate;
-    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 <span class="work-income">💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元</span><br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
+    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h<br><span class="work-income">💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元</span><br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
 };
 // 显示打工详情弹窗
 const showWorkDetail = (date) => {
@@ -5160,7 +5160,9 @@ document.getElementById('settleBtn').addEventListener('click', () => {
         this.calculateTotals();
         this.renderRounds();
         this.clearForm();
-        document.getElementById('roundNumber').textContent = this.currentRound;
+        
+        // 确保局数按钮复位为第1局
+        document.getElementById('roundNumber').textContent = '1';
         
         alert('数据已清零，人名已恢复默认值！');
     }
