@@ -3509,7 +3509,7 @@
                 <!-- 历史记录 -->
                 <div class="history-table">
                     <div class="history-body" id="roundsList">
-                        <div class="no-rounds">暂无记录</div>
+                        <div class="no-rounds">祝君好运</div>
                     </div>
 
                 </div>
@@ -3850,7 +3850,7 @@ const fetchExchangeRate = async () => {
         renderWorkStats(); // 获取汇率后重新渲染统计
     } catch (error) {
         console.error('获取汇率失败:', error);
-        exchangeRate = 0.0435; // 默认汇率
+        exchangeRate = 0.06; // 默认汇率
         renderWorkStats(); // 即使失败也渲染
     }
 };
@@ -5143,17 +5143,12 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             }
         });
         
-        // 清空localStorage中的玩家人名
+        // 清空localStorage中的玩家人名和状态
         localStorage.removeItem('playerNames');
+        localStorage.removeItem('pokerState');
         
-        // 保存到localStorage
+        // 保存空的 rounds 到 localStorage
         localStorage.setItem('pokerRounds', JSON.stringify(this.rounds));
-        
-        // 保存状态
-        const state = {
-            currentRound: this.currentRound
-        };
-        localStorage.setItem('pokerState', JSON.stringify(state));
         
         // 刷新显示
         this.updatePlayerLabels();
