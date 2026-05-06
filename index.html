@@ -244,10 +244,10 @@
             color: #C8102E;
         }
         .day.active{
-            background: linear-gradient(135deg, #FFF3D6, #FFE6A0);
-            color: #C8102E !important;
+            background: linear-gradient(135deg, #C8102E, #DC143C);
+            color:white!important;
             font-weight:600;
-            box-shadow:0 2px 8px rgba(200,16,46,0.2);
+            box-shadow:0 2px 8px rgba(200,16,46,0.3);
         }
         .day.has-todo::after{
             content:'';
@@ -1543,6 +1543,1066 @@
 .todo-item.completed .todo-title {
     text-decoration: line-through;
 }
+
+/* 打牌记账样式 */
+.poker-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.poker-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.poker-title {
+    color: #C8102E;
+    font-size: 28px;
+    margin: 0;
+    text-align: center;
+}
+
+.header-buttons {
+    position: absolute;
+    right: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.player-settings-link, .history-link {
+    color: #C8102E;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.player-settings-link:hover, .history-link:hover {
+    color: #DC143C;
+}
+
+.settle-btn {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #228B22, #32CD32);
+    color: white;
+    border: 1px solid #228B22;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settle-btn:hover {
+    background: linear-gradient(135deg, #32CD32, #228B22);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(34,139,34,0.3);
+}
+
+.settle-btn.settled {
+    background: linear-gradient(135deg, #DC143C, #B22222);
+    border-color: #DC143C;
+}
+
+.settle-btn.settled:hover {
+    background: linear-gradient(135deg, #B22222, #DC143C);
+}
+
+/* 汇总结果简化显示 */
+.summary-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0;
+    background: none;
+    border: none;
+    gap: 60px;
+}
+
+.summary-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-name-display {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2F4F4F;
+    text-align: center;
+}
+
+.total-score-display {
+    font-size: 24px;
+    font-weight: 700;
+    color: #C8102E;
+    text-align: center;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.total-score-display.positive {
+    color: #228B22;
+}
+
+.total-score-display.negative {
+    color: #DC143C;
+}
+
+/* 分割线 */
+.divider-line {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #DAA520, transparent);
+    margin: 30px 0;
+    border-radius: 2px;
+}
+
+/* 历史记录表格样式 */
+.history-table {
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+}
+
+
+.action-header {
+    flex: 0.8;
+}
+
+.history-table {
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+}
+
+.history-header {
+    display: flex;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    font-weight: 600;
+}
+
+.history-header > div {
+    padding: 12px 8px;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-header .round-header {
+    flex: 0.5;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.history-header .player-header {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.history-header .action-header {
+    flex: 0.8;
+    justify-content: center;
+}
+
+.history-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-footer {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #DAA520;
+    background: rgba(255,250,205,0.3);
+}
+
+.view-all-history-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 1px solid #C8102E;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-all-history-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+}
+
+/* 收盘汇总弹窗样式 */
+.settle-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+    border: 2px solid #DAA520;
+    border-radius: 12px;
+    padding: 0;
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.settle-modal.active {
+    display: block;
+}
+
+.settle-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.settle-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: linear-gradient(145deg, #F5F5DC, #FFFACD);
+    border-radius: 8px;
+    border: 1px solid #DAA520;
+}
+
+.settle-label {
+    font-weight: 600;
+    color: #2F4F4F;
+}
+
+.settle-total {
+    font-weight: 700;
+    font-size: 18px;
+    color: #C8102E;
+}
+
+.settle-total.positive {
+    color: #228B22;
+}
+
+.settle-total.negative {
+    color: #DC143C;
+}
+
+.settle-info {
+    text-align: center;
+    color: #2F4F4F;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.settle-info p {
+    margin: 5px 0;
+}
+
+.new-round-btn {
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 1px solid #C8102E;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.new-round-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+}
+
+/* 详细流水记录弹窗样式 */
+.detail-history-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+    border: 2px solid #DAA520;
+    border-radius: 12px;
+    padding: 0;
+    z-index: 1000;
+    max-width: 900px;
+    width: 95%;
+    max-height: 80vh;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.detail-history-modal.active {
+    display: block;
+}
+
+.detail-history-tabs {
+    display: flex;
+    border-bottom: 1px solid #DAA520;
+    margin-bottom: 15px;
+}
+
+.detail-history-tabs .tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #2F4F4F;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.detail-history-tabs .tab-btn.active {
+    color: #C8102E;
+    border-bottom-color: #C8102E;
+}
+
+.detail-history-tabs .tab-btn:hover {
+    background: rgba(255,250,205,0.3);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.detail-rounds-table, .settlements-table {
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    margin: 10px 0;
+}
+
+.detail-header {
+    display: flex;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.detail-header > div {
+    padding: 10px 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.col-round, .col-rounds {
+    flex: 0.6;
+}
+
+.col-player {
+    flex: 0.8;
+}
+
+.col-time {
+    flex: 1.2;
+}
+
+.col-action {
+    flex: 0.6;
+}
+
+.detail-body {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.detail-round, .settlement-item {
+    display: flex;
+    border-bottom: 1px solid #F5F5DC;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.detail-round:hover, .settlement-item:hover {
+    background: rgba(255,250,205,0.3);
+}
+
+.detail-round:last-child, .settlement-item:last-child {
+    border-bottom: none;
+}
+
+.detail-round > div, .settlement-item > div {
+    padding: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-score {
+    font-weight: 500;
+}
+
+.detail-score.positive {
+    color: #228B22;
+}
+
+.detail-score.negative {
+    color: #DC143C;
+}
+
+.no-records {
+    text-align: center;
+    color: #9CA3AF;
+    font-style: italic;
+    padding: 40px 20px;
+}
+
+/* 全部历史记录弹窗样式 */
+.all-history-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+    border: 2px solid #DAA520;
+    border-radius: 12px;
+    padding: 0;
+    z-index: 1000;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.all-history-modal.active {
+    display: block;
+}
+
+.all-history-table {
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    margin: 10px;
+}
+
+.all-history-header {
+    display: flex;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    font-weight: 600;
+}
+
+.all-history-header > div {
+    padding: 12px 8px;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-history-header .round-header {
+    flex: 0.5;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.all-history-header .player-header {
+    flex: 1;
+    justify-content: center;
+}
+
+.all-history-header .action-header {
+    flex: 0.8;
+    justify-content: center;
+}
+
+.all-history-body {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.all-history-row {
+    display: flex;
+    border-bottom: 1px solid #F5F5DC;
+    transition: background 0.2s ease;
+}
+
+.all-history-row:hover {
+    background: rgba(255,250,205,0.3);
+}
+
+.all-history-row:last-child {
+    border-bottom: none;
+}
+
+.all-history-row > div {
+    padding: 10px 8px;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-history-round {
+    flex: 0.5;
+    font-weight: 600;
+    color: #C8102E;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.all-history-score {
+    flex: 1;
+    font-weight: 500;
+}
+
+.all-history-score.positive {
+    color: #228B22;
+}
+
+.all-history-score.negative {
+    color: #DC143C;
+}
+
+.all-history-action {
+    flex: 0.8;
+}
+
+.history-row {
+    display: flex;
+    transition: background 0.2s ease;
+    align-items: center;
+    gap: 16px; /* 约8个汉字宽度 */
+    padding: 0 10px;
+}
+
+.history-row:hover {
+    background: rgba(255,250,205,0.3);
+}
+
+.history-round {
+    flex: 1;
+    font-weight: 600;
+    color: #C8102E;
+    text-align: center;
+    padding: 10px 5px;
+    min-width: 70px;
+}
+
+.history-score {
+    flex: 1;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px 5px;
+    min-width: 60px;
+}
+
+.history-action {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+    min-width: 60px;
+}
+
+.history-score.positive {
+    color: #228B22;
+}
+
+.history-score.negative {
+    color: #DC143C;
+}
+
+.history-action {
+    flex: 0.8;
+}
+
+.delete-history-btn {
+    background: #DC143C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s ease;
+}
+
+.delete-history-btn:hover {
+    background: #B22222;
+}
+
+.player-settings-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 2px solid #C8102E;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.player-settings-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200,16,46,0.3);
+}
+
+/* 玩家设置弹窗样式 */
+.player-settings-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+    border: 2px solid #DAA520;
+    border-radius: 12px;
+    padding: 0;
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: none;
+}
+
+.player-settings-modal.active {
+    display: block;
+}
+
+.modal-content {
+    padding: 0;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 10px;
+    border-bottom: 1px solid #DAA520;
+}
+
+.modal-header h3 {
+    color: #C8102E;
+    margin: 0;
+    font-size: 20px;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #C8102E;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: #C8102E;
+    color: white;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 10px 20px 20px;
+    border-top: 1px solid #DAA520;
+}
+
+.modal-footer .save-btn,
+.modal-footer .cancel-btn {
+    padding: 8px 16px;
+    border: 1px solid #DAA520;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.modal-footer .save-btn {
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+}
+
+.modal-footer .save-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+}
+
+.modal-footer .cancel-btn {
+    background: white;
+    color: #2F4F4F;
+}
+
+.modal-footer .cancel-btn:hover {
+    background: #F3F4F6;
+}
+
+.poker-players-section,
+.poker-summary-section,
+.poker-add-section {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+    box-shadow: none;
+}
+
+.poker-players-section h3,
+.poker-summary-section h3,
+.poker-add-section h3,
+.poker-history-section h3 {
+    color: #C8102E;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #DAA520;
+    padding-bottom: 8px;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.player-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.player-input label {
+    min-width: 30px;
+    font-weight: 600;
+    color: #2F4F4F;
+}
+
+.player-name {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #DAA520;
+    border-radius: 6px;
+    background: white;
+    color: #2F4F4F;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 200px;
+}
+
+.player-name:focus {
+    outline: none;
+    border-color: #C8102E;
+    box-shadow: 0 0 0 2px rgba(200,16,46,0.1);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(145deg, #F5F5DC, #FFFACD);
+    border-radius: 8px;
+    border: 1px solid #DAA520;
+    flex: 1;
+    min-width: 120px;
+}
+
+.player-label {
+    font-weight: 600;
+    color: #2F4F4F;
+}
+
+.total-score {
+    font-weight: 700;
+    font-size: 18px;
+    color: #C8102E;
+}
+
+.total-score.positive {
+    color: #228B22;
+}
+
+.total-score.negative {
+    color: #DC143C;
+}
+
+.score-inputs-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.score-input-combined {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.score-inputs-row .add-round-btn-small {
+    margin-left: 1px;
+}
+
+.score-inputs-row .players-container {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex: 1;
+    margin-left: 128px; /* 约8个汉字的宽度 */
+}
+.score-inputs-row .players-container .score-input-combined:first-child {
+    margin-left: 24px; /* 约3个汉字宽度 */
+}
+
+.players-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.scores-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.player-label-display {
+    font-weight: 600;
+    color: #2F4F4F;
+    font-size: 16px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.score-input-inline {
+    width: 60px;
+    text-align: center;
+}
+
+.score-input-inline:focus {
+    outline: none;
+    border-color: #C8102E;
+    box-shadow: 0 0 0 2px rgba(200,16,46,0.1);
+}
+
+.add-round-btn-small {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 2px solid #C8102E;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.add-round-btn-small:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200,16,46,0.3);
+}
+
+.score-input-field {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #DAA520;
+    border-radius: 6px;
+    background: white;
+    color: #2F4F4F;
+    font-size: 14px;
+    text-align: center;
+}
+
+.score-input-field:focus {
+    outline: none;
+    border-color: #C8102E;
+    box-shadow: 0 0 0 2px rgba(200,16,46,0.1);
+}
+
+.add-round-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 2px solid #C8102E;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-round-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(200,16,46,0.3);
+}
+
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.round-item {
+    background: white;
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.round-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #F5F5DC;
+}
+
+.round-number {
+    font-weight: 600;
+    color: #C8102E;
+}
+
+.delete-round {
+    background: #DC143C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-round:hover {
+    background: #B22222;
+}
+
+.round-scores {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.round-score-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.round-score-label {
+    color: #2F4F4F;
+}
+
+.round-score-value {
+    font-weight: 600;
+}
+
+.round-score-value.positive {
+    color: #228B22;
+}
+
+.round-score-value.negative {
+    color: #DC143C;
+}
+
+.no-rounds {
+    text-align: center;
+    color: #9CA3AF;
+    font-style: italic;
+    padding: 40px 20px;
+}
+
+@media (max-width: 768px) {
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .score-inputs-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 0;
+}
+    
+    .summary-display {
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .poker-container {
+        padding: 10px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1699,6 +2759,7 @@
             <button class="tab-btn" data-tab="schedule">课程表</button>
             <button class="tab-btn" data-tab="food">小厨娘</button>
             <button class="tab-btn" data-tab="note">记事本</button>
+            <button class="tab-btn" data-tab="poker">打牌记账</button>
             <button class="tab-btn" data-tab="countdown">在留卡时效</button>
             <button class="tab-btn" data-tab="guide">使用说明</button>
             <button class="tab-btn" data-tab="sync">云端同步</button>
@@ -1838,6 +2899,144 @@
                 </div>
             </div>
         </div>
+        <!-- 打牌记账面板 -->
+        <div class="panel" id="pokerPanel">
+            <div class="poker-container">
+                <!-- 标题行 -->
+                <div class="poker-header">
+                    <h2 class="poker-title">🃏 打牌记账</h2>
+                    <div class="header-buttons">
+                        <span class="player-settings-link" id="playerSettingsBtn">修改人名</span>
+                        <button class="settle-btn" id="settleBtn">收盘</button>
+                    </div>
+                </div>
+                
+                <!-- 玩家设置弹窗 -->
+                <div class="modal-overlay" id="playerSettingsOverlay"></div>
+                <div class="player-settings-modal" id="playerSettingsModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>修改人名</h3>
+                            <button class="close-modal" id="closePlayerSettings">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="players-grid">
+                                <div class="player-input">
+                                    <label>甲：</label>
+                                    <input type="text" id="playerA" value="甲" class="player-name">
+                                </div>
+                                <div class="player-input">
+                                    <label>乙：</label>
+                                    <input type="text" id="playerB" value="乙" class="player-name">
+                                </div>
+                                <div class="player-input">
+                                    <label>丙：</label>
+                                    <input type="text" id="playerC" value="丙" class="player-name">
+                                </div>
+                                <div class="player-input">
+                                    <label>丁：</label>
+                                    <input type="text" id="playerD" value="丁" class="player-name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="save-btn" id="savePlayerSettings">保存设置</button>
+                            <button class="cancel-btn" id="cancelPlayerSettings">取消</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 汇总结果 - 简化显示 -->
+                <div class="summary-display">
+                    <div class="summary-player" data-player="A">
+                        <div class="player-name-display" id="displayA">甲</div>
+                        <div class="total-score-display" id="totalA">0</div>
+                    </div>
+                    <div class="summary-player" data-player="B">
+                        <div class="player-name-display" id="displayB">乙</div>
+                        <div class="total-score-display" id="totalB">0</div>
+                    </div>
+                    <div class="summary-player" data-player="C">
+                        <div class="player-name-display" id="displayC">丙</div>
+                        <div class="total-score-display" id="totalC">0</div>
+                    </div>
+                    <div class="summary-player" data-player="D">
+                        <div class="player-name-display" id="displayD">丁</div>
+                        <div class="total-score-display" id="totalD">0</div>
+                    </div>
+                </div>
+
+                <!-- 分割线 -->
+                <div class="divider-line"></div>
+
+                <!-- 添加新局 -->
+                <div class="poker-add-section">
+                    <form class="round-form" id="addRoundForm">
+                        <div class="score-inputs-row">
+                            <div class="players-container">
+                                <div class="score-input-combined">
+                                    <span class="player-label-display" id="scoreLabelA">甲</span>
+                                    <input type="text" id="scoreA" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                </div>
+                                <div class="score-input-combined">
+                                    <span class="player-label-display" id="scoreLabelB">乙</span>
+                                    <input type="text" id="scoreB" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                </div>
+                                <div class="score-input-combined">
+                                    <span class="player-label-display" id="scoreLabelC">丙</span>
+                                    <input type="text" id="scoreC" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                </div>
+                                <div class="score-input-combined">
+                                    <span class="player-label-display" id="scoreLabelD">丁</span>
+                                     <input type="text" id="scoreD" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                </div>
+                            </div>
+                            <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 历史记录 -->
+                <div class="history-table">
+                    <div class="history-body" id="roundsList">
+                        <div class="no-rounds">暂无记录</div>
+                    </div>
+                    <div class="history-footer" id="historyFooter" style="display: none;">
+                        <button class="view-all-history-btn" id="viewAllHistoryBtn">查看本轮对局记录</button>
+                    </div>
+                </div>
+
+                <!-- 全部历史记录弹窗 -->
+                <div class="modal-overlay" id="allHistoryOverlay"></div>
+                <div class="all-history-modal" id="allHistoryModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>全部历史记录</h3>
+                            <button class="close-modal" id="closeAllHistory">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="all-history-table">
+                                <div class="all-history-header">
+                                    <div class="round-header">局数</div>
+                                    <div class="player-header">甲</div>
+                                    <div class="player-header">乙</div>
+                                    <div class="player-header">丙</div>
+                                    <div class="player-header">丁</div>
+                                    <div class="action-header">操作</div>
+                                </div>
+                                <div class="all-history-body" id="allRoundsList">
+                                    <div class="no-rounds">暂无记录</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="close-btn" id="closeAllHistoryBtn">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+               
         <!-- 在留卡倒计时面板 -->
         <div class="panel" id="countdownPanel">
             <div class="countdown-container">
@@ -2374,7 +3573,7 @@ const calcTotalCredit = () => {
 const updateTotalCredit = () => {
     const total = calcTotalCredit();
     const finalCredit = total + 3;
-    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已获学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
+    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
 };
 // 弹窗拖拽
 const dragModal = modal => {
@@ -2733,14 +3932,37 @@ const importAllData = (file) => {
     };
     reader.readAsText(file);
 };
+
 // 标签页切换
 const switchTab = (tab) => {
     localStorage.setItem('currentTab', tab);
-    $$
-('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    $$('.panel').forEach(p => p.classList.remove('active'));
-    $(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
-    $(`#${tab}Panel`).classList.add('active');
+    
+    // 使用精确选择器，只选择主标签栏的按钮
+    const tabButtons = document.querySelectorAll('.tab-bar .tab-btn');
+    
+    // 获取所有主面板（排除弹窗内的面板）
+    const allPanels = document.querySelectorAll('.panel');
+    const mainPanels = Array.from(allPanels).filter(panel => 
+        !panel.closest('.modal-content') && !panel.classList.contains('tab-panel')
+    );
+    
+    // 移除所有主标签页按钮的active类
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    // 移除所有主面板的active类
+    mainPanels.forEach(p => p.classList.remove('active'));
+    
+    // 激活当前标签页按钮和面板
+    const activeBtn = document.querySelector(`.tab-bar .tab-btn[data-tab="${tab}"]`);
+    const activePanel = document.getElementById(`${tab}Panel`);
+    if (activeBtn) activeBtn.classList.add('active');
+    if (activePanel) activePanel.classList.add('active');
+    
+    // 当切换到打牌记账面板时，重新绑定事件（避免重复绑定）
+    if (tab === 'poker' && typeof pokerManager !== 'undefined') {
+        if (pokerManager && !pokerManager.eventsBound) {
+            pokerManager.rebindEvents();
+        }
+    }
 };
 // ☁️ 云端同步功能（支持多学期版）
 const syncManager = {
@@ -2936,10 +4158,17 @@ if (old.length && !scheduleBySemester[currentSemester]) {
 }
     // 弹窗拖拽
     [dom.editModal, dom.detailModal, dom.scheduleEditModal, dom.foodDetailModal, dom.foodEditModal, dom.noteDetailModal, dom.noteEditModal, dom.workStatsModal, dom.workDetailModal, dom.workEditModal].forEach(dragModal);
-    // 标签页绑定
-    $$('.tab-btn').forEach(btn => {
-        btn.onclick = () => switchTab(btn.dataset.tab);
-    });
+    // 标签页绑定（使用可靠的事件委托）
+    const tabContainer = document.querySelector('.tab-bar');
+    if (tabContainer && !window.tabEventBound) {
+        tabContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (btn) {
+                switchTab(btn.dataset.tab);
+            }
+        });
+        window.tabEventBound = true;
+    }
     // 日历月份切换
     dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); renderWorkStats(); };
     dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); renderWorkStats(); };
@@ -3258,6 +4487,419 @@ const loadVisaExpiry = () => {
 const saveVisaExpiry = () => {
     localStorage.setItem('visaExpiryDate', dom.visaExpiryDate.value);
 };
+// 打牌记账功能
+class PokerScoreManager {
+    constructor() {
+        this.rounds = JSON.parse(localStorage.getItem('pokerRounds')) || [];
+        
+        // 从localStorage恢复状态
+        const savedState = localStorage.getItem('pokerState');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            this.currentRound = state.currentRound || 1;
+            this.isSettled = state.isSettled || false;
+            this.settleStartRound = state.settleStartRound || 1;
+        } else {
+            // 如果没有保存的状态，根据已有的记录计算当前局数
+            this.currentRound = this.rounds.length > 0 ? this.rounds[this.rounds.length - 1].number + 1 : 1;
+            this.isSettled = false;
+            this.settleStartRound = 1;
+        }
+        // 从localStorage恢复人名
+const savedPlayerNames = localStorage.getItem('playerNames');
+if (savedPlayerNames) {
+    const playerNames = JSON.parse(savedPlayerNames);
+    const players = ['A', 'B', 'C', 'D'];
+    players.forEach(player => {
+        const input = document.getElementById(`player${player}`);
+        if (input && playerNames[player]) {
+            input.value = playerNames[player];
+        }
+    });
+}
+        // 事件绑定状态跟踪
+        this.eventsBound = false;
+        this.modalEventsBound = false;
+        
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.updatePlayerLabels();
+        this.renderRounds();
+        this.calculateTotals();
+        
+        // 设置按钮状态
+const settleBtn = document.getElementById('settleBtn');
+settleBtn.textContent = '收盘';
+settleBtn.classList.remove('settled');
+        
+        // 设置当前局数显示
+        document.getElementById('roundNumber').textContent = this.currentRound;
+    }
+
+    bindEvents() {
+        this.rebindEvents();
+        this.bindModalEvents();
+    }
+
+    bindModalEvents() {
+        // 打开玩家设置弹窗
+        document.getElementById('playerSettingsBtn').addEventListener('click', () => {
+            this.openPlayerSettings();
+        });
+
+        // 关闭弹窗
+        document.getElementById('closePlayerSettings').addEventListener('click', () => {
+            this.closePlayerSettings();
+        });
+
+        document.getElementById('cancelPlayerSettings').addEventListener('click', () => {
+            this.closePlayerSettings();
+        });
+
+        document.getElementById('playerSettingsOverlay').addEventListener('click', () => {
+            this.closePlayerSettings();
+        });
+
+        // 保存设置
+        document.getElementById('savePlayerSettings').addEventListener('click', () => {
+            this.savePlayerSettings();
+        });
+
+        // 查看本轮对局记录
+        document.getElementById('viewAllHistoryBtn').addEventListener('click', () => {
+            this.openAllHistory();
+        });
+
+        // 关闭本轮对局记录弹窗
+        document.getElementById('closeAllHistory').addEventListener('click', () => {
+            this.closeAllHistory();
+        });
+
+        document.getElementById('closeAllHistoryBtn').addEventListener('click', () => {
+            this.closeAllHistory();
+        });
+
+        document.getElementById('allHistoryOverlay').addEventListener('click', () => {
+            this.closeAllHistory();
+        });
+
+        // 收盘功能
+document.getElementById('settleBtn').addEventListener('click', () => {
+    this.confirmAndClear();
+});
+
+
+        // 刷新面板显示
+        this.calculateTotals();
+        this.renderRounds();
+        this.clearForm();
+
+    }
+
+    openPlayerSettings() {
+        document.getElementById('playerSettingsModal').classList.add('active');
+        document.getElementById('playerSettingsOverlay').classList.add('active');
+    }
+
+    closePlayerSettings() {
+        document.getElementById('playerSettingsModal').classList.remove('active');
+        document.getElementById('playerSettingsOverlay').classList.remove('active');
+    }
+
+    savePlayerSettings() {
+        this.updatePlayerLabels();
+        this.closePlayerSettings();
+    }
+
+    openAllHistory() {
+        this.renderAllRounds();
+        document.getElementById('allHistoryModal').classList.add('active');
+        document.getElementById('allHistoryOverlay').classList.add('active');
+    }
+
+    closeAllHistory() {
+        document.getElementById('allHistoryModal').classList.remove('active');
+        document.getElementById('allHistoryOverlay').classList.remove('active');
+    }
+    confirmAndClear() {
+    if (confirm('需要结束这轮记分吗？')) {
+        // 清空所有局数记录
+        this.rounds = [];
+        this.currentRound = 1;
+        
+        // 清空所有分数
+        this.totals = { A: 0, B: 0, C: 0, D: 0 };
+        
+        // 重置人名为默认值
+        const defaultNames = { A: '甲', B: '乙', C: '丙', D: '丁' };
+        const players = ['A', 'B', 'C', 'D'];
+        players.forEach(player => {
+            const input = document.getElementById(`player${player}`);
+            if (input) {
+                input.value = defaultNames[player];
+            }
+        });
+        
+        // 清空localStorage中的玩家人名
+        localStorage.removeItem('playerNames');
+        
+        // 保存到localStorage
+        localStorage.setItem('pokerRounds', JSON.stringify(this.rounds));
+        
+        // 保存状态
+        const state = {
+            currentRound: this.currentRound
+        };
+        localStorage.setItem('pokerState', JSON.stringify(state));
+        
+        // 刷新显示
+        this.updatePlayerLabels();
+        this.calculateTotals();
+        this.renderRounds();
+        this.clearForm();
+        document.getElementById('roundNumber').textContent = this.currentRound;
+        
+        alert('数据已清零，人名已恢复默认值！');
+    }
+}
+    renderAllRounds() {
+        const allRoundsList = document.getElementById('allRoundsList');
+        
+        if (this.rounds.length === 0) {
+            allRoundsList.innerHTML = '<div class="no-rounds">暂无记录</div>';
+            return;
+        }
+
+        // 全部历史记录也采用倒序显示
+        const allRoundsReversed = [...this.rounds].reverse();
+        
+        allRoundsList.innerHTML = allRoundsReversed.map(round => `
+            <div class="all-history-row">
+                <div class="all-history-round">第${round.number}局</div>
+                ${this.getAllPlayerScoresTableHTML(round)}
+                <div class="all-history-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    getAllPlayerScoresTableHTML(round) {
+        const players = ['A', 'B', 'C', 'D'];
+        return players.map(player => {
+            const score = round.scores[player];
+            const scoreClass = score > 0 ? 'positive' : score < 0 ? 'negative' : '';
+            
+            return `<div class="all-history-score ${scoreClass}">${score > 0 ? '+' : ''}${score}</div>`;
+        }).join('');
+    }
+
+    rebindEvents() {
+        if (this.eventsBound) {
+            return; // 如果事件已经绑定，直接返回
+        }
+        
+        // 移除现有的事件监听器
+        const playerInputs = document.querySelectorAll('.player-name');
+        Array.from(playerInputs).forEach(input => {
+            input.replaceWith(input.cloneNode(true));
+        });
+        
+        const form = document.getElementById('addRoundForm');
+        if (form) {
+            form.replaceWith(form.cloneNode(true));
+        }
+
+        // 重新绑定玩家名称变更事件
+        const newPlayerInputs = document.querySelectorAll('.player-name');
+        Array.from(newPlayerInputs).forEach(input => {
+            input.addEventListener('input', () => this.updatePlayerLabels());
+        });
+
+        // 重新绑定添加新局表单提交
+        document.getElementById('addRoundForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.addRound();
+        });
+  
+        this.eventsBound = true; // 标记事件已绑定
+    }
+
+    updatePlayerLabels() {
+    const players = ['A', 'B', 'C', 'D'];
+    const playerNames = {};
+    
+    players.forEach(player => {
+        const name = document.getElementById(`player${player}`).value;
+        playerNames[player] = name;
+        document.getElementById(`display${player}`).textContent = name;
+        document.getElementById(`scoreLabel${player}`).textContent = name;
+    });
+    
+    // 保存人名到localStorage
+    localStorage.setItem('playerNames', JSON.stringify(playerNames));
+}
+
+    addRound() {
+        const scores = {};
+        const players = ['A', 'B', 'C', 'D'];
+        let isValid = true;
+
+        // 获取分数并验证
+        players.forEach(player => {
+            const scoreInput = document.getElementById(`score${player}`);
+            const score = parseInt(scoreInput.value) || 0;
+            scores[player] = score;
+            
+            if (scoreInput.value === '') {
+                scoreInput.style.borderColor = '#DC143C';
+                isValid = false;
+            } else {
+                scoreInput.style.borderColor = '#DAA520';
+            }
+        });
+
+        if (!isValid) {
+            alert('请填写所有玩家的分数！');
+            return;
+        }
+
+        // 验证分数总和是否为0
+        const totalScore = Object.values(scores).reduce((sum, score) => sum + score, 0);
+        if (totalScore !== 0) {
+            alert(`分数总和必须为0，当前总和为：${totalScore}`);
+            return;
+        }
+
+        // 添加新局
+        const round = {
+            number: this.currentRound,
+            scores: scores,
+            timestamp: new Date().toLocaleString()
+        };
+
+        this.rounds.push(round);
+        this.currentRound++;
+        this.saveToLocalStorage();
+        this.renderRounds();
+        this.calculateTotals();
+        this.clearForm();
+    }
+
+    clearForm() {
+        const players = ['A', 'B', 'C', 'D'];
+        players.forEach(player => {
+            document.getElementById(`score${player}`).value = '';
+        });
+        document.getElementById('roundNumber').textContent = this.currentRound;
+    }
+
+    deleteRound(roundNumber) {
+        if (confirm('确定要删除这一局记录吗？')) {
+            this.rounds = this.rounds.filter(round => round.number !== roundNumber);
+            // 重新编号
+            this.rounds.forEach((round, index) => {
+                round.number = index + 1;
+            });
+            this.currentRound = this.rounds.length + 1;
+            this.saveToLocalStorage();
+            this.renderRounds();
+            this.calculateTotals();
+        }
+    }
+
+    calculateTotals() {
+        const totals = { A: 0, B: 0, C: 0, D: 0 };
+        
+        this.rounds.forEach(round => {
+            Object.keys(round.scores).forEach(player => {
+                totals[player] += round.scores[player];
+            });
+        });
+
+        // 更新显示
+        Object.keys(totals).forEach(player => {
+            const totalElement = document.getElementById(`total${player}`);
+            totalElement.textContent = totals[player];
+            totalElement.className = 'total-score-display ' + (totals[player] > 0 ? 'positive' : totals[player] < 0 ? 'negative' : '');
+        });
+    }
+
+    renderRounds() {
+        const roundsList = document.getElementById('roundsList');
+        const historyFooter = document.getElementById('historyFooter');
+        
+        if (this.rounds.length === 0) {
+            roundsList.innerHTML = '<div class="no-rounds">暂无记录</div>';
+            historyFooter.style.display = 'none';
+            return;
+        }
+
+        // 只显示最近10局，倒序显示（最新的在最上面）
+        const recentRounds = this.rounds.slice(-10).reverse();
+        
+        roundsList.innerHTML = recentRounds.map(round => `
+            <div class="history-row">
+                <div class="history-round">第${round.number}局</div>
+                ${this.getPlayerScoresTableHTML(round)}
+                <div class="history-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
+            </div>
+        `).join('');
+
+        // 如果总记录超过10局，显示查看全部按钮
+        if (this.rounds.length > 10) {
+            historyFooter.style.display = 'block';
+        } else {
+            historyFooter.style.display = 'none';
+        }
+    }
+
+    getPlayerScoresTableHTML(round) {
+        const players = ['A', 'B', 'C', 'D'];
+        return players.map(player => {
+            const score = round.scores[player];
+            const scoreClass = score > 0 ? 'positive' : score < 0 ? 'negative' : '';
+            
+            return `<div class="history-score ${scoreClass}">${score > 0 ? '+' : ''}${score}</div>`;
+        }).join('');
+    }
+
+    getPlayerScoresHTML(round) {
+        const players = ['A', 'B', 'C', 'D'];
+        return players.map(player => {
+            const score = round.scores[player];
+            const playerName = document.getElementById(`player${player}`).value;
+            const scoreClass = score > 0 ? 'positive' : score < 0 ? 'negative' : '';
+            
+            return `
+                <div class="round-score-item">
+                    <span class="round-score-label">${playerName}</span>
+                    <span class="round-score-value ${scoreClass}">${score > 0 ? '+' : ''}${score}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('pokerRounds', JSON.stringify(this.rounds));
+        this.saveState();
+    }
+
+    saveState() {
+        const state = {
+            currentRound: this.currentRound,
+            isSettled: this.isSettled,
+            settleStartRound: this.settleStartRound
+        };
+        localStorage.setItem('pokerState', JSON.stringify(state));
+    }
+}
+
 // 页面加载完成后初始化
 // 云端同步相关
     document.getElementById('saveSyncConfig').onclick = () => syncManager.saveConfig();
@@ -3267,7 +4909,13 @@ const saveVisaExpiry = () => {
     // 自动填充已保存的配置
     if (syncManager.gistId) document.getElementById('gistId').value = syncManager.gistId;
     if (syncManager.token) document.getElementById('gistToken').value = syncManager.token;
-window.addEventListener('DOMContentLoaded', init);
+
+// 初始化打牌记账管理器
+let pokerManager;
+window.addEventListener('DOMContentLoaded', function() {
+    init();
+    pokerManager = new PokerScoreManager();
+});
 </script>
 </body>
 </html>
