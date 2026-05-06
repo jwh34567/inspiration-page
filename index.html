@@ -1707,6 +1707,29 @@
 @media (max-width: 768px) {
     .poker-container {
         padding: 15px 10px;
+        overflow-x: hidden;
+    }
+    
+    .summary-display {
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .summary-player {
+        min-width: 45%;
+        flex: 0 0 calc(50% - 7.5px);
+    }
+    
+    .player-name-display {
+        font-size: 14px;
+    }
+    
+    .total-score-display {
+        font-size: 18px;
+    }
+    
+    .divider-line {
+        margin: 15px 0;
     }
 }
 
@@ -1716,13 +1739,16 @@
     align-items: center;
     margin-bottom: 30px;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .poker-title {
-    color: #C8102E;
+    color: #8B4513;
     font-size: 28px;
     margin: 0;
     text-align: center;
+    flex: 1;
+    min-width: 200px;
 }
 
 .header-buttons {
@@ -1731,22 +1757,37 @@
     display: flex;
     gap: 15px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
     .poker-header {
         flex-direction: column;
         gap: 15px;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
     }
     
     .poker-title {
-        font-size: 22px;
+        font-size: 20px;
+        margin: 0;
+        order: 1;
     }
     
     .header-buttons {
         position: static;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
+        order: 2;
+        width: 100%;
+    }
+    
+    .player-settings-link, .settle-btn {
+        font-size: 14px;
+        padding: 8px 12px;
+        white-space: nowrap;
     }
 }
 
@@ -2725,6 +2766,7 @@
     gap: 30px;
     margin-bottom: 0;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .score-input-combined {
@@ -2732,34 +2774,40 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    min-width: 60px;
 }
 
 .score-inputs-row .add-round-btn-small {
     margin-left: 1px;
+    flex-shrink: 0;
 }
 
 .score-inputs-row .players-container {
     display: flex;
     justify-content: center;
-    gap: 80px;
+    gap: 40px;
     flex: 1;
-    margin-left: 128px;
+    margin-left: 0;
+    flex-wrap: wrap;
 }
 .score-inputs-row .players-container .score-input-combined:first-child {
-    margin-left: 24px;
+    margin-left: 0;
 }
 
 @media (max-width: 768px) {
     .score-inputs-row {
         flex-direction: column;
         gap: 20px;
+        align-items: center;
     }
     
     .score-inputs-row .players-container {
         margin-left: 0;
-        gap: 15px;
+        gap: 10px;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 320px;
     }
     
     .score-inputs-row .players-container .score-input-combined:first-child {
@@ -2768,21 +2816,28 @@
     
     .score-input-combined {
         min-width: 45%;
+        flex: 0 0 calc(50% - 5px);
+        margin-bottom: 10px;
     }
     
     .score-input-inline {
-        width: 70px;
+        width: 80px;
         font-size: 16px;
+        padding: 8px;
+        box-sizing: border-box;
     }
     
     .player-label-display {
         font-size: 14px;
+        margin-bottom: 5px;
     }
     
     .add-round-btn-small {
         width: 100%;
-        padding: 10px;
-        font-size: 14px;
+        max-width: 200px;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 10px;
     }
 }
 
@@ -3391,19 +3446,19 @@
                             <div class="players-container">
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelA">甲</span>
-                                    <input type="text" id="scoreA" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreA" inputmode="decimal" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelB">乙</span>
-                                    <input type="text" id="scoreB" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreB" inputmode="decimal" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelC">丙</span>
-                                    <input type="text" id="scoreC" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreC" inputmode="decimal" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelD">丁</span>
-                                     <input type="text" id="scoreD" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
+                                     <input type="text" id="scoreD" inputmode="decimal" placeholder="分数" class="score-input-inline">
                                 </div>
                             </div>
                             <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
