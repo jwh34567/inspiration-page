@@ -1777,31 +1777,35 @@
 
 @media (max-width: 768px) {
     .poker-header {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row;
+        gap: 10px;
         align-items: center;
-        text-align: center;
+        justify-content: space-between;
+        text-align: left;
         margin-bottom: 20px;
+        flex-wrap: nowrap;
     }
     
     .poker-title {
-        font-size: 20px;
+        font-size: 18px;
         margin: 0;
-        order: 1;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        text-align: left;
     }
     
     .header-buttons {
         position: static;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
         gap: 10px;
-        order: 2;
-        width: 100%;
+        flex: 1;
+        width: auto;
     }
     
     .player-settings-link, .settle-btn {
-        font-size: 14px;
-        padding: 8px 12px;
+        font-size: 13px;
+        padding: 6px 10px;
         white-space: nowrap;
     }
 }
@@ -1869,12 +1873,16 @@
 
 @media (max-width: 768px) {
     .summary-display {
-        flex-wrap: wrap;
-        gap: 20px;
+        flex-wrap: nowrap;
+        gap: 15px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 0;
     }
     
     .summary-player {
-        min-width: 45%;
+        min-width: 70px;
+        flex: 0 0 auto;
     }
     
     .player-name-display {
@@ -2813,16 +2821,17 @@
     .score-inputs-row {
         flex-direction: column;
         gap: 20px;
-        align-items: center;
+        align-items: stretch;
     }
     
     .score-inputs-row .players-container {
         margin-left: 0;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        gap: 15px;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         width: 100%;
-        max-width: 320px;
+        overflow-x: auto;
+        padding: 10px 0;
     }
     
     .score-inputs-row .players-container .score-input-combined:first-child {
@@ -2830,9 +2839,9 @@
     }
     
     .score-input-combined {
-        min-width: 45%;
-        flex: 0 0 calc(50% - 5px);
-        margin-bottom: 10px;
+        min-width: 70px;
+        flex: 0 0 auto;
+        margin-bottom: 0;
     }
     
     .score-input-inline {
