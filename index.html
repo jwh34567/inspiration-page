@@ -3850,7 +3850,7 @@ const fetchExchangeRate = async () => {
         renderWorkStats(); // 获取汇率后重新渲染统计
     } catch (error) {
         console.error('获取汇率失败:', error);
-        exchangeRate = 0.06; // 默认汇率
+        exchangeRate = 0.0435; // 默认汇率
         renderWorkStats(); // 即使失败也渲染
     }
 };
