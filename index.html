@@ -6571,15 +6571,6 @@ class HomeworkManager {
     }
 }
 
-// 云端同步相关
-    document.getElementById('saveSyncConfig').onclick = () => syncManager.saveConfig();
-    document.getElementById('uploadToCloud').onclick = () => syncManager.upload();
-    document.getElementById('downloadFromCloud').onclick = () => syncManager.download();
-    
-    // 自动填充已保存的配置
-    if (syncManager.gistId) document.getElementById('gistId').value = syncManager.gistId;
-    if (syncManager.token) document.getElementById('gistToken').value = syncManager.token;
-
 // 初始化打牌记账管理器
 let pokerManager;
 // 初始化作业管理器
@@ -6589,6 +6580,15 @@ window.addEventListener('DOMContentLoaded', function() {
     init();
     pokerManager = new PokerScoreManager();
     homeworkManager = new HomeworkManager();
+
+    // 云端同步相关
+    document.getElementById('saveSyncConfig').onclick = () => syncManager.saveConfig();
+    document.getElementById('uploadToCloud').onclick = () => syncManager.upload();
+    document.getElementById('downloadFromCloud').onclick = () => syncManager.download();
+    
+    // 自动填充已保存的配置
+    if (syncManager.gistId) document.getElementById('gistId').value = syncManager.gistId;
+    if (syncManager.token) document.getElementById('gistToken').value = syncManager.token;
 });
 </script>
 </body>
