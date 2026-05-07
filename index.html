@@ -5305,8 +5305,8 @@ const syncManager = {
             if (pokerManager) {
                 pokerManager.rounds = data.pokerRounds || [];
                 const pokerState = data.pokerState || {};
-                pokerManager.currentRound = pokerState.currentRound || 1;
                 pokerManager.players = pokerState.players || [{name:'甲',score:0},{name:'乙',score:0},{name:'丙',score:0},{name:'丁',score:0}];
+                pokerManager.currentRound = pokerState.currentRound || 1;
                 pokerManager.isSettled = pokerState.isSettled || false;
                 pokerManager.settleStartRound = pokerState.settleStartRound || 1;
             }
@@ -5837,6 +5837,7 @@ class PokerScoreManager {
     saveState() {
         const state = {
             currentRound: this.currentRound,
+            players: this.players,
             isSettled: this.isSettled,
             settleStartRound: this.settleStartRound
         };
