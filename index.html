@@ -6434,7 +6434,7 @@ class HomeworkManager {
             return `
                 <tr class="${status === 'urgent' ? 'urgent' : ''}">
                     <td class="font-medium">${task.course}</td>
-                    <td class="homework-detail-cell" onclick="homeworkManager.showFullDetail(${index})">
+                    <td class="homework-detail-cell" onclick="homeworkManager.showFullDetail(${originalIndex})">
                         <div style="max-height:40px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">
                             ${task.title}：${taskDetail}
                         </div>
@@ -6453,10 +6453,10 @@ class HomeworkManager {
                         </span>
                     </td>
                     <td class="homework-actions-cell">
-                        <button onclick="homeworkManager.toggleComplete(${index})" class="homework-action-btn complete">
+                        <button onclick="homeworkManager.toggleComplete(${originalIndex})" class="homework-action-btn complete">
                             <i class="fa fa-check"></i>
                         </button>
-                        <button onclick="homeworkManager.deleteTask(${index})" class="homework-action-btn delete">
+                        <button onclick="homeworkManager.deleteTask(${originalIndex})" class="homework-action-btn delete">
                             <i class="fa fa-trash"></i>
                         </button>
                     </td>
