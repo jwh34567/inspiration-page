@@ -1613,84 +1613,6 @@
 }
 
 /* 汇总结果简化显示 */
-/* 移动端响应式布局 - 调整分数输入区域和历史记录面板 */
-@media (max-width: 768px) {
-    /* 分数输入区域移动端样式 - 在同一行显示 */
-    .score-inputs-row {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .score-inputs-row .players-container {
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: 4px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 5px;
-    }
-    
-    .player-spacer {
-        display: none;
-    }
-    
-    .score-input-combined {
-        min-width: 0;
-        flex: 1;
-        max-width: 22%;
-    }
-    
-    .score-input-inline {
-        width: 100%;
-        font-size: 14px;
-        padding: 6px 4px;
-        text-align: center;
-        min-width: 0;
-    }
-    
-    .player-label-display {
-        font-size: 14px;
-        white-space: nowrap;
-    }
-    
-    .add-round-btn-small {
-        width: 100%;
-        margin-top: 10px;
-        font-size: 16px;
-        padding: 8px 16px;
-    }
-    
-    /* 历史记录面板移动端样式 */
-    .history-table {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .history-body {
-        min-width: 100%;
-        overflow-x: visible;
-    }
-    
-    .history-row {
-        display: flex;
-        min-width: 100%;
-        gap: 8px;
-        padding: 8px 4px;
-    }
-    
-    .history-round {
-        min-width: 60px;
-        font-size: 14px;
-    }
-    
-    .history-score {
-        flex: 1;
-        min-width: 50px;
-        font-size: 14px;
-        text-align: center;
-    }
-}
-
 .summary-display {
     display: flex;
     justify-content: center;
@@ -2004,7 +1926,9 @@
     flex: 1.2;
 }
 
-
+.col-action {
+    flex: 0.6;
+}
 
 .detail-body {
     max-height: 50vh;
@@ -2166,7 +2090,9 @@
     color: #DC143C;
 }
 
-
+.all-history-action {
+    flex: 0.8;
+}
 
 .history-row {
     display: flex;
@@ -2468,12 +2394,12 @@
 .score-inputs-row .players-container {
     display: flex;
     justify-content: center;
+    gap: 80px;
     flex: 1;
+    margin-left: 128px; /* 约8个汉字的宽度 */
 }
-
-.player-spacer {
-    display: inline-block;
-    width: 4em; /* 4个汉字的宽度 */
+.score-inputs-row .players-container .score-input-combined:first-child {
+    margin-left: 24px; /* 约3个汉字宽度 */
 }
 
 .players-row {
@@ -3047,23 +2973,19 @@
                                     <span class="player-label-display" id="scoreLabelA">甲</span>
                                     <input type="text" id="scoreA" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
-                                <span class="player-spacer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelB">乙</span>
                                     <input type="text" id="scoreB" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
-                                <span class="player-spacer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelC">丙</span>
                                     <input type="text" id="scoreC" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
-                                <span class="player-spacer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelD">丁</span>
                                      <input type="text" id="scoreD" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
                             </div>
-                            <br>
                             <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
                         </div>
                     </form>
@@ -4700,9 +4622,15 @@ class PokerScoreManager {
 
     bindEvents() {
         this.rebindEvents();
+        this.bindModalEvents();
     }
 
     bindModalEvents() {
+        // 检查是否已经绑定过模态事件
+        if (this.modalEventsBound) {
+            return;
+        }
+
         // 打开玩家设置弹窗
         document.getElementById('playerSettingsBtn').addEventListener('click', () => {
             this.openPlayerSettings();
@@ -4726,62 +4654,79 @@ class PokerScoreManager {
             this.savePlayerSettings();
         });
 
-        // 历史记录按钮已被删除，移除相关事件监听器
-
-        // 关闭详细历史记录弹窗
-        document.getElementById('closeDetailHistory').addEventListener('click', () => {
-            this.closeDetailHistory();
-        });
-
-        document.getElementById('closeDetailHistoryBtn').addEventListener('click', () => {
-            this.closeDetailHistory();
-        });
-
-        document.getElementById('detailHistoryOverlay').addEventListener('click', () => {
-            this.closeDetailHistory();
-        });
-
-        // 查看全部历史记录按钮已被删除，移除相关事件监听器
-
-        // 关闭全部历史记录弹窗
-        document.getElementById('closeAllHistory').addEventListener('click', () => {
-            this.closeAllHistory();
-        });
-
-        document.getElementById('closeAllHistoryBtn').addEventListener('click', () => {
-            this.closeAllHistory();
-        });
-
-        document.getElementById('allHistoryOverlay').addEventListener('click', () => {
-            this.closeAllHistory();
-        });
-
-        // 收盘功能 - 使用一次性事件绑定
-        const settleBtn = document.getElementById('settleBtn');
-        if (settleBtn && !settleBtn.hasAttribute('data-bound')) {
-            settleBtn.addEventListener('click', () => {
-                this.toggleSettle();
-            });
-            settleBtn.setAttribute('data-bound', 'true');
-        }
-
-        // 关闭收盘弹窗
-        document.getElementById('closeSettle').addEventListener('click', () => {
-            this.closeSettleModal();
-        });
-
-        document.getElementById('closeSettleBtn').addEventListener('click', () => {
-            this.closeSettleModal();
-        });
-
-        document.getElementById('settleOverlay').addEventListener('click', () => {
-            this.closeSettleModal();
+        // 收盘功能
+        document.getElementById('settleBtn').addEventListener('click', () => {
+            this.confirmSettle();
         });
 
         // 开始新的一轮
         document.getElementById('newRoundBtn').addEventListener('click', () => {
             this.startNewRound();
         });
+
+        // 标记模态事件已绑定
+        this.modalEventsBound = true;
+    }
+
+    // 确认收盘功能
+    confirmSettle() {
+        if (confirm('是否结束本轮记分？确定后将清空历史记录并重置为初始状态。')) {
+            this.resetGame();
+        }
+    }
+
+    // 重置游戏状态
+    resetGame() {
+        // 清空历史记录
+        this.rounds = [];
+        localStorage.setItem('pokerRounds', JSON.stringify(this.rounds));
+        
+        // 重置当前局数为1
+        this.currentRound = 1;
+        document.getElementById('roundNumber').textContent = this.currentRound;
+        
+        // 重置玩家分数显示
+        const players = ['A', 'B', 'C', 'D'];
+        players.forEach(player => {
+            document.getElementById(`total${player}`).textContent = '0';
+            document.getElementById(`total${player}`).className = 'total-score-display';
+        });
+        
+        // 清空历史记录面板
+        const roundsList = document.getElementById('roundsList');
+        roundsList.innerHTML = '<div class="no-rounds">暂无记录</div>';
+        
+        // 重置玩家名字为默认值
+        const defaultNames = { A: '甲', B: '乙', C: '丙', D: '丁' };
+        Object.keys(defaultNames).forEach(player => {
+            document.getElementById(`player${player}`).value = defaultNames[player];
+            document.getElementById(`display${player}`).textContent = defaultNames[player];
+            document.getElementById(`scoreLabel${player}`).textContent = defaultNames[player];
+        });
+        
+        // 清空输入框
+        players.forEach(player => {
+            document.getElementById(`score${player}`).value = '';
+        });
+        
+        // 重置游戏状态
+        this.isSettled = false;
+        this.settleStartRound = 1;
+        
+        // 保存状态到localStorage
+        this.saveState();
+        
+        alert('本轮记分已结束，已重置为初始状态！');
+    }
+
+    // 保存游戏状态
+    saveState() {
+        const state = {
+            currentRound: this.currentRound,
+            isSettled: this.isSettled,
+            settleStartRound: this.settleStartRound
+        };
+        localStorage.setItem('pokerState', JSON.stringify(state));
     }
 
     openPlayerSettings() {
@@ -4825,6 +4770,9 @@ class PokerScoreManager {
             <div class="all-history-row">
                 <div class="all-history-round">第${round.number}局</div>
                 ${this.getAllPlayerScoresTableHTML(round)}
+                <div class="all-history-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
             </div>
         `).join('');
     }
@@ -4881,6 +4829,9 @@ class PokerScoreManager {
                 <div class="col-round">第${round.number}局</div>
                 ${this.getDetailPlayerScoresHTML(round)}
                 <div class="col-time">${round.timestamp}</div>
+                <div class="col-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
             </div>
         `).join('');
     }
@@ -4907,11 +4858,14 @@ class PokerScoreManager {
         
         const reversedSettlements = [...settlements].reverse();
         
-        settlementsList.innerHTML = settlements.map((settlement, index) => `
-            <div class="settlement-row">
+        settlementsList.innerHTML = reversedSettlements.map((settlement, index) => `
+            <div class="settlement-item">
                 <div class="col-rounds">第${settlement.startRound}-${settlement.endRound}局</div>
-                ${this.getSettlementScoresHTML(settlement)}
+                ${this.getSettlementScoreHTML(settlement)}
                 <div class="col-time">${settlement.timestamp}</div>
+                <div class="col-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteSettlement(${index})">删除</button>
+                </div>
             </div>
         `).join('');
     }
@@ -4947,46 +4901,13 @@ class PokerScoreManager {
         const settleBtn = document.getElementById('settleBtn');
         
         if (!this.isSettled) {
-            // 显示确认弹窗
-            if (confirm('是否确认本轮对局结束？确定后将清零所有记录并恢复初始状态。')) {
-                // 清零所有记录
-                this.rounds = [];
-                this.currentRound = 1;
-                this.isSettled = false;
-                this.settleStartRound = 1;
-                
-                // 恢复默认人名
-                const defaultNames = { A: '甲', B: '乙', C: '丙', D: '丁' };
-                Object.keys(defaultNames).forEach(player => {
-                    const input = document.getElementById(`player${player}`);
-                    if (input) {
-                        input.value = defaultNames[player];
-                    }
-                });
-                
-                // 更新界面显示
-                document.getElementById('roundNumber').textContent = '1';
-                document.getElementById('roundsList').innerHTML = '<div class="no-rounds">暂无记录</div>';
-                
-                // 更新汇总显示
-                const players = ['A', 'B', 'C', 'D'];
-                players.forEach(player => {
-                    const totalElement = document.getElementById(`total${player}`);
-                    if (totalElement) {
-                        totalElement.textContent = '0';
-                        totalElement.className = 'total-score-display';
-                    }
-                });
-                
-                // 保存状态
-                this.saveState();
-                
-                // 更新按钮状态
-                settleBtn.textContent = '收盘';
-                settleBtn.classList.remove('settled');
-                
-                alert('本轮对局已结束，所有记录已清零，人名已恢复默认，局数已重置为第1局。');
-            }
+            // 第一次点击：结束本轮记录
+            this.isSettled = true;
+            this.settleStartRound = this.currentRound;
+            settleBtn.textContent = '查看汇总';
+            settleBtn.classList.add('settled');
+            this.saveState();
+            alert('本轮记录已结束，可以继续添加新局，但不会计入本轮汇总。');
         } else {
             // 第二次点击：显示汇总弹窗
             this.showSettleSummary();
@@ -5223,7 +5144,7 @@ class PokerScoreManager {
         const roundsList = document.getElementById('roundsList');
         
         if (this.rounds.length === 0) {
-            roundsList.innerHTML = '<div class="no-rounds">暂无记录</div>';
+            roundsList.innerHTML = '<div class="no-rounds">祝君好运</div>';
             return;
         }
 
@@ -5234,13 +5155,8 @@ class PokerScoreManager {
             <div class="history-row">
                 <div class="history-round">第${round.number}局</div>
                 ${this.getPlayerScoresTableHTML(round)}
-                <div class="history-action">
-                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
-                </div>
             </div>
         `).join('');
-
-        // 历史记录面板已简化，移除查看全部按钮相关逻辑
     }
 
     getPlayerScoresTableHTML(round) {
