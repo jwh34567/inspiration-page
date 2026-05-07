@@ -5697,11 +5697,13 @@ class PokerScoreManager {
         const savedState = localStorage.getItem('pokerState');
         if (savedState) {
             const state = JSON.parse(savedState);
+            this.players = state.players || [{name:'甲',score:0},{name:'乙',score:0},{name:'丙',score:0},{name:'丁',score:0}];
             this.currentRound = state.currentRound || 1;
             this.isSettled = state.isSettled || false;
             this.settleStartRound = state.settleStartRound || 1;
         } else {
             // 如果没有保存的状态，根据已有的记录计算当前局数
+            this.players = [{name:'甲',score:0},{name:'乙',score:0},{name:'丙',score:0},{name:'丁',score:0}];
             this.currentRound = this.rounds.length > 0 ? this.rounds[this.rounds.length - 1].number + 1 : 1;
             this.isSettled = false;
             this.settleStartRound = 1;
@@ -5856,6 +5858,7 @@ class PokerScoreManager {
 
     savePlayerSettings() {
         this.updatePlayerLabels();
+        this.saveToLocalStorage();
         this.closePlayerSettings();
     }
 
@@ -6161,14 +6164,17 @@ class PokerScoreManager {
         this.eventsBound = true; // 标记事件已绑定
     }
 
+    // 修改后
     updatePlayerLabels() {
         const players = ['A', 'B', 'C', 'D'];
-        players.forEach(player => {
+        players.forEach((player, index) => {
             const name = document.getElementById(`player${player}`).value;
             document.getElementById(`display${player}`).textContent = name;
             document.getElementById(`scoreLabel${player}`).textContent = name;
-        });
-    }
+            // 更新 players 数组
+            this.players[index] = { name: name, score: this.players[index]?.score || 0 };
+    });
+}
 
     addRound() {
         const scores = {};
