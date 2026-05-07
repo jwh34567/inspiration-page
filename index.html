@@ -2674,8 +2674,10 @@
     /* 历史记录表格移动端优化 - 自适应布局 */
     .all-history-table {
         overflow-x: visible;
-        width: 100%; /* 保持100% */
-        margin-left: 0; /* 框架不移动 */
+        width: 100%;
+        margin-left: 0;
+        display: flex;
+        justify-content: center; 
     }
     
     .all-history-header {
@@ -2683,8 +2685,8 @@
         display: grid;
         grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
         gap: 32px;
-        width: 100%;
-        margin-left: 48px; /* 添加这一行 */
+        width: auto%;
+        margin-left: 100%; 
     }
     
     .all-history-header > div {
@@ -2715,8 +2717,8 @@
         display: grid;
         grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
         gap: 32px;
-        width: 100%;
-        margin-left: 48px;
+        width: auto; 
+        max-width: 100%;
     }
     
     .all-history-row > div {
@@ -2762,16 +2764,18 @@
         overflow-x: visible;
         width: 100%;
         margin-left: 0;
+        display: flex;
+        justify-content: center;
     }
     
     .history-row {
         display: grid;
         grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
-        gap: 1px;
-        width: 100%;
-        padding: 0 5px;
+        gap: 32px;
+        width: auto; 
+        max-width: 100%; 
+        padding: 0 15px;
         align-items: center;
-        margin-left: 48px;
     }
     
     .history-round {
