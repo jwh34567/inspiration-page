@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inspiration</title>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .course-teacher,
         .course-room-credit {
@@ -894,6 +896,462 @@
             transform:translateY(-1px);
             box-shadow:0 4px 12px rgba(0,0,0,.1);
         }
+        
+        /* 作业管理模块样式 */
+        .homework-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .homework-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        /* 移动端统计卡片合并 */
+        @media (max-width: 768px) {
+            .homework-stats {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .homework-stat-card {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 20px;
+                border-radius: 0;
+                border: none;
+                border-bottom: 1px solid rgba(218,165,32,0.2);
+                box-shadow: none;
+            }
+            
+            .homework-stat-card:first-child {
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+            }
+            
+            .homework-stat-card:last-child {
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+                border-bottom: none;
+            }
+            
+            .homework-stat-card:hover {
+                transform: none;
+                box-shadow: none;
+                background: rgba(255,215,0,0.05);
+            }
+            
+            .homework-stat-card.pending {
+                border-left: none;
+                border-left: 4px solid rgba(255,215,0,0.5);
+            }
+            
+            .homework-stat-card.completed {
+                border-left: none;
+                border-left: 4px solid rgba(34,139,34,0.5);
+            }
+            
+            .homework-stat-card.urgent {
+                border-left: none;
+                border-left: 4px solid rgba(255,165,0,0.5);
+            }
+            
+            .homework-stat-value {
+                font-size: 24px;
+                margin: 0;
+            }
+            
+            .homework-stat-label {
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+            
+            .homework-stat-card i {
+                font-size: 20px;
+            }
+        }
+        
+        .homework-stat-card {
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.3));
+            border: 2px solid rgba(218,165,32,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(200,16,46,0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .homework-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200,16,46,0.15);
+        }
+        
+        .homework-stat-card.pending {
+            border-left: 4px solid rgba(255,215,0,0.5);
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.3));
+        }
+        
+        .homework-stat-card.completed {
+            border-left: 4px solid var(--success);
+        }
+        
+        .homework-stat-card.urgent {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .homework-stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .homework-stat-value.pending {
+            color: var(--primary-dark);
+        }
+        
+        .homework-stat-value.completed {
+            color: var(--success);
+        }
+        
+        .homework-stat-value.urgent {
+            color: var(--warning);
+        }
+        
+        .homework-stat-label {
+            color: var(--primary-dark);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .homework-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .homework-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .homework-search {
+            position: relative;
+            min-width: 250px;
+        }
+        
+        .homework-search input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .homework-search input:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+        }
+        
+        .homework-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-dark);
+        }
+        
+        .homework-table {
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(200,16,46,0.1);
+        }
+        
+        .homework-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .homework-table th {
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(200,16,46,0.05));
+            color: var(--primary-dark);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid rgba(218,165,32,0.3);
+        }
+        
+        .homework-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(218,165,32,0.2);
+            vertical-align: top;
+        }
+        
+        .homework-table tr:hover {
+            background: rgba(255,215,0,0.08);
+        }
+        
+        .homework-table tr.urgent {
+            background: rgba(255,165,0,0.06);
+            border-left: 3px solid var(--warning);
+        }
+        
+        .homework-detail-cell {
+            max-width: 300px;
+            cursor: pointer;
+            color: var(--primary-dark);
+        }
+        
+        .homework-detail-cell:hover {
+            text-decoration: underline;
+        }
+        
+        .homework-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .homework-tag {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .homework-tag.channel {
+            background: rgba(128,0,128,0.08);
+            color: var(--purple);
+            border: 1px solid rgba(128,0,128,0.2);
+        }
+        
+        .homework-tag.date {
+            background: rgba(128,128,128,0.08);
+            color: var(--gray);
+            border: 1px solid rgba(128,128,128,0.2);
+        }
+        
+        .homework-tag.submit {
+            background: rgba(34,139,34,0.08);
+            color: var(--success);
+            border: 1px solid rgba(34,139,34,0.2);
+        }
+        
+        .homework-tag.deadline {
+            background: rgba(255,165,0,0.08);
+            color: var(--warning);
+            border: 1px solid rgba(255,165,0,0.2);
+        }
+        
+        .homework-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .homework-status.pending {
+            background: rgba(255,215,0,0.15);
+            color: var(--primary-dark);
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        
+        .homework-status.completed {
+            background: rgba(34,139,34,0.2);
+            color: var(--success);
+        }
+        
+        .homework-status.urgent {
+            background: rgba(255,165,0,0.2);
+            color: var(--warning);
+        }
+        
+        .homework-actions-cell {
+            text-align: right;
+        }
+        
+        .homework-action-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .homework-action-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .homework-action-btn.complete {
+            color: var(--success);
+        }
+        
+        .homework-action-btn.complete:hover {
+            background: rgba(34,139,34,0.1);
+        }
+        
+        .homework-action-btn.delete {
+            color: var(--danger);
+        }
+        
+        .homework-action-btn.delete:hover {
+            background: rgba(220,20,60,0.1);
+        }
+        
+        .homework-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .homework-modal.active {
+            display: flex;
+        }
+        
+        .homework-modal-content {
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(200,16,46,0.2);
+        }
+        
+        .homework-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .homework-modal-title {
+            color: var(--primary-dark);
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .homework-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .homework-modal-close:hover {
+            background: rgba(220,20,60,0.1);
+        }
+        
+        .homework-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .homework-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .homework-form-group input,
+        .homework-form-group select,
+        .homework-form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .homework-form-group input:focus,
+        .homework-form-group select:focus,
+        .homework-form-group textarea:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+        }
+        
+        .homework-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(218,165,32,0.3);
+        }
+        
+        .homework-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .homework-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .homework-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200,16,46,0.3);
+        }
+        
+        .homework-btn.secondary {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--border-color);
+            color: var(--primary-dark);
+        }
+        
+        .homework-btn.secondary:hover {
+            background: rgba(255,215,0,0.1);
+        }
+        
+        .homework-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--primary-dark);
+            font-style: italic;
+        }
+        
         /* 美食模块样式 */
         .food-grid {
             flex: 2;
@@ -2966,6 +3424,7 @@
         <div class="tab-bar">
             <button class="tab-btn" data-tab="memo">备忘录</button>
             <button class="tab-btn" data-tab="schedule">课程表</button>
+            <button class="tab-btn" data-tab="homework">作业管理</button>
             <button class="tab-btn" data-tab="food">小厨娘</button>
             <button class="tab-btn" data-tab="note">记事本</button>
             <button class="tab-btn" data-tab="poker">打牌记账</button>
@@ -3370,6 +3829,146 @@
                             <span class="info-label">进度：</span>
                             <span class="info-value" id="progressText">--</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="homeworkPanel">
+            <div class="homework-container">
+                <!-- 统计面板 -->
+                <div class="homework-stats">
+                    <div class="homework-stat-card pending">
+                        <div>
+                            <div class="homework-stat-label">待完成作业</div>
+                            <div id="pending-count" class="homework-stat-value pending">0</div>
+                        </div>
+                        <i class="fa fa-tasks" style="font-size:24px;color:var(--primary);"></i>
+                    </div>
+                    <div class="homework-stat-card completed">
+                        <div>
+                            <div class="homework-stat-label">已完成作业</div>
+                            <div id="completed-count" class="homework-stat-value completed">0</div>
+                        </div>
+                        <i class="fa fa-check-circle" style="font-size:24px;color:var(--success);"></i>
+                    </div>
+                    <div class="homework-stat-card urgent">
+                        <div>
+                            <div class="homework-stat-label">即将截止</div>
+                            <div id="urgent-count" class="homework-stat-value urgent">0</div>
+                        </div>
+                        <i class="fa fa-bell" style="font-size:24px;color:var(--warning);"></i>
+                    </div>
+                </div>
+
+                <!-- 操作栏 -->
+                <div class="homework-actions">
+                    <div class="homework-controls">
+                        <button id="add-task-btn" class="homework-btn primary">
+                            <i class="fa fa-plus"></i> 添加作业
+                        </button>
+                        <select id="filter-status" class="homework-form-group" style="width:auto;min-width:120px;">
+                            <option value="all">全部状态</option>
+                            <option value="pending">待完成</option>
+                            <option value="completed">已完成</option>
+                        </select>
+                    </div>
+                    <div class="homework-search">
+                        <i class="fa fa-search"></i>
+                        <input id="search-input" type="text" placeholder="搜索课程">
+                    </div>
+                </div>
+
+                <!-- 作业列表 -->
+                <div class="homework-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>作业课题</th>
+                                <th>作业详情</th>
+                                <th>要项</th>
+                                <th>状态</th>
+                                <th style="text-align:right;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-list">
+                            <tr>
+                                <td colspan="5" class="homework-empty">暂无作业，点击「添加作业」开始录入吧~</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 添加作业模态框 -->
+            <div id="task-modal" class="homework-modal">
+                <div class="homework-modal-content">
+                    <div class="homework-modal-header">
+                        <h3 class="homework-modal-title">添加新作业</h3>
+                        <button id="close-modal" class="homework-modal-close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <form id="task-form">
+                        <div class="homework-form-group">
+                            <label>课程名称 *</label>
+                            <input name="course" type="text" required>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>发布渠道 *</label>
+                            <select name="channel" required>
+                                <option value="Teams">Teams</option>
+                                <option value="Outlook">Outlook</option>
+                                <option value="YCUBoard">YCUBoard</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>提交渠道 *</label>
+                            <select name="submitChannel" required>
+                                <option value="Teams">Teams</option>
+                                <option value="Outlook">Outlook</option>
+                                <option value="YCUBoard">YCUBoard</option>
+                                <option value="Forms">Forms</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>作业标题 *</label>
+                            <input name="title" type="text" required>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>作业详情</label>
+                            <textarea name="detail" rows="3"></textarea>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>发布日期 *</label>
+                            <input name="publishDate" type="date" required>
+                        </div>
+                        <div class="homework-form-group">
+                            <label>截止日期 *</label>
+                            <input name="deadline" type="date" required>
+                        </div>
+                        <div class="homework-form-actions">
+                            <button type="button" id="cancel-btn" class="homework-btn secondary">取消</button>
+                            <button type="submit" class="homework-btn primary">保存作业</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 查看作业详情弹窗 -->
+            <div id="detail-modal" class="homework-modal">
+                <div class="homework-modal-content">
+                    <div class="homework-modal-header">
+                        <h3 class="homework-modal-title">作业详情</h3>
+                        <button id="close-detail-modal" class="homework-modal-close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="full-detail-content" class="homework-form-group" style="max-height:300px;overflow-y:auto;">
+                    </div>
+                    <div class="homework-form-actions">
+                        <button id="close-detail-btn" class="homework-btn primary">关闭</button>
                     </div>
                 </div>
             </div>
@@ -5362,6 +5961,208 @@ class PokerScoreManager {
 }
 
 // 页面加载完成后初始化
+
+// 作业管理模块功能
+class HomeworkManager {
+    constructor() {
+        this.tasks = JSON.parse(localStorage.getItem('universityTasks')) || [];
+        this.init();
+    }
+
+    init() {
+        // 绑定事件
+        document.getElementById('add-task-btn').addEventListener('click', () => this.openModal());
+        document.getElementById('close-modal').addEventListener('click', () => this.closeModal());
+        document.getElementById('cancel-btn').addEventListener('click', () => this.closeModal());
+        document.getElementById('task-form').addEventListener('submit', (e) => this.addTask(e));
+        
+        document.getElementById('close-detail-modal').addEventListener('click', () => this.closeDetailModal());
+        document.getElementById('close-detail-btn').addEventListener('click', () => this.closeDetailModal());
+        
+        document.getElementById('filter-status').addEventListener('change', () => this.filterTasks());
+        document.getElementById('search-input').addEventListener('input', () => this.filterTasks());
+
+        // 初始渲染
+        this.renderTasks();
+    }
+
+    openModal() {
+        document.getElementById('task-modal').classList.add('active');
+    }
+
+    closeModal() {
+        document.getElementById('task-modal').classList.remove('active');
+        document.getElementById('task-form').reset();
+    }
+
+    closeDetailModal() {
+        document.getElementById('detail-modal').classList.remove('active');
+    }
+
+    addTask(e) {
+        e.preventDefault();
+        const formData = new FormData(document.getElementById('task-form'));
+        const task = {
+            course: formData.get('course'),
+            channel: formData.get('channel'),
+            submitChannel: formData.get('submitChannel'),
+            title: formData.get('title'),
+            detail: formData.get('detail'),
+            publishDate: formData.get('publishDate'),
+            deadline: formData.get('deadline'),
+            completed: false
+        };
+        
+        this.tasks.unshift(task);
+        this.saveToLocalStorage();
+        this.closeModal();
+        this.renderTasks();
+    }
+
+    getTaskStatus(deadline) {
+        const now = new Date();
+        const end = new Date(deadline);
+        const diff = end - now;
+        if (diff < 5 * 24 * 60 * 60 * 1000) return 'urgent';
+        return 'pending';
+    }
+
+    sortTasks(taskList) {
+        const statusPriority = { urgent: 0, pending: 1, completed: 2 };
+        
+        return [...taskList].sort((a, b) => {
+            const statusA = a.completed ? 'completed' : this.getTaskStatus(a.deadline);
+            const statusB = b.completed ? 'completed' : this.getTaskStatus(b.deadline);
+            
+            if (statusPriority[statusA] !== statusPriority[statusB]) {
+                return statusPriority[statusA] - statusPriority[statusB];
+            }
+            
+            return new Date(a.deadline) - new Date(b.deadline);
+        });
+    }
+
+    renderTasks(filteredTasks = this.tasks) {
+        const sortedTasks = this.sortTasks(filteredTasks);
+        const taskList = document.getElementById('task-list');
+        
+        if (sortedTasks.length === 0) {
+            taskList.innerHTML = '<tr><td colspan="5" class="homework-empty">暂无匹配的作业</td></tr>';
+            this.updateStats();
+            return;
+        }
+
+        taskList.innerHTML = sortedTasks.map((task, index) => {
+            const status = task.completed ? 'completed' : this.getTaskStatus(task.deadline);
+            const publishDate = new Date(task.publishDate).toLocaleDateString('zh-CN');
+            const deadline = new Date(task.deadline).toLocaleDateString('zh-CN');
+            const taskDetail = task.detail || '无详情';
+            
+            return `
+                <tr class="${status === 'urgent' ? 'urgent' : ''}">
+                    <td class="font-medium">${task.course}</td>
+                    <td class="homework-detail-cell" onclick="homeworkManager.showFullDetail(${index})">
+                        <div style="max-height:40px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">
+                            ${task.title}：${taskDetail}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="homework-tags">
+                            <span class="homework-tag channel">渠道：${task.channel}</span>
+                            <span class="homework-tag date">发布：${publishDate}</span>
+                            <span class="homework-tag submit">提交：${task.submitChannel}</span>
+                            <span class="homework-tag deadline">截止：${deadline}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="homework-status ${status}">
+                            ${status === 'completed' ? '已完成' : status === 'urgent' ? '即将截止' : '待完成'}
+                        </span>
+                    </td>
+                    <td class="homework-actions-cell">
+                        <button onclick="homeworkManager.toggleComplete(${index})" class="homework-action-btn complete">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <button onclick="homeworkManager.deleteTask(${index})" class="homework-action-btn delete">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        
+        this.updateStats();
+    }
+
+    updateStats() {
+        const total = this.tasks.length;
+        const completed = this.tasks.filter(t => t.completed).length;
+        const urgent = this.tasks.filter(t => !t.completed && this.getTaskStatus(t.deadline) === 'urgent').length;
+        const pending = total - completed;
+
+        document.getElementById('pending-count').textContent = pending;
+        document.getElementById('completed-count').textContent = completed;
+        document.getElementById('urgent-count').textContent = urgent;
+    }
+
+    toggleComplete(index) {
+        this.tasks[index].completed = !this.tasks[index].completed;
+        this.saveToLocalStorage();
+        this.renderTasks();
+    }
+
+    deleteTask(index) {
+        if (confirm('确定要删除该作业吗？')) {
+            this.tasks.splice(index, 1);
+            this.saveToLocalStorage();
+            this.renderTasks();
+        }
+    }
+
+    showFullDetail(index) {
+        const task = this.tasks[index];
+        const content = `
+            <p><strong>课程名称：</strong>${task.course}</p>
+            <p><strong>作业标题：</strong>${task.title}</p>
+            <p><strong>发布渠道：</strong>${task.channel}</p>
+            <p><strong>提交渠道：</strong>${task.submitChannel}</p>
+            <p><strong>发布日期：</strong>${new Date(task.publishDate).toLocaleDateString('zh-CN')}</p>
+            <p><strong>截止日期：</strong>${new Date(task.deadline).toLocaleDateString('zh-CN')}</p>
+            <p><strong>详细内容：</strong></p>
+            <div style="background:rgba(255,250,205,0.3);padding:10px;border-radius:8px;margin-top:10px;">
+                ${task.detail || '无详细内容'}
+            </div>
+        `;
+        document.getElementById('full-detail-content').innerHTML = content;
+        document.getElementById('detail-modal').classList.add('active');
+    }
+
+    filterTasks() {
+        const status = document.getElementById('filter-status').value;
+        const keyword = document.getElementById('search-input').value.toLowerCase();
+
+        let filtered = this.tasks;
+        if (status !== 'all') {
+            filtered = filtered.filter(t => {
+                if (status === 'completed') return t.completed;
+                if (status === 'pending') return !t.completed;
+                return true;
+            });
+        }
+        if (keyword) {
+            filtered = filtered.filter(t => 
+                t.title.toLowerCase().includes(keyword) || 
+                t.course.toLowerCase().includes(keyword)
+            );
+        }
+        this.renderTasks(filtered);
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('universityTasks', JSON.stringify(this.tasks));
+    }
+}
+
 // 云端同步相关
     document.getElementById('saveSyncConfig').onclick = () => syncManager.saveConfig();
     document.getElementById('uploadToCloud').onclick = () => syncManager.upload();
@@ -5373,9 +6174,13 @@ class PokerScoreManager {
 
 // 初始化打牌记账管理器
 let pokerManager;
+// 初始化作业管理器
+let homeworkManager;
+
 window.addEventListener('DOMContentLoaded', function() {
     init();
     pokerManager = new PokerScoreManager();
+    homeworkManager = new HomeworkManager();
 });
 </script>
 </body>
