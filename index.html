@@ -3177,19 +3177,19 @@
                             <div class="players-container">
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelA">甲</span>
-                                    <input type="text" id="scoreA" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                    <input type="text" id="scoreA" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelB">乙</span>
-                                    <input type="text" id="scoreB" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                    <input type="text" id="scoreB" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelC">丙</span>
-                                    <input type="text" id="scoreC" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                    <input type="text" id="scoreC" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelD">丁</span>
-                                     <input type="text" id="scoreD" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                     <input type="text" id="scoreD" placeholder="分数" class="score-input-inline">
                                 </div>
                             </div>
                             <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
@@ -5267,18 +5267,21 @@ class PokerScoreManager {
         let isValid = true;
 
         // 获取分数并验证
-        players.forEach(player => {
-            const scoreInput = document.getElementById(`score${player}`);
-            const score = Number(scoreInput.value) || 0;
-            scores[player] = score;
-            
-            if (scoreInput.value === '') {
-                scoreInput.style.borderColor = '#DC143C';
-                isValid = false;
-            } else {
-                scoreInput.style.borderColor = '#DAA520';
-            }
-        });
+    players.forEach(player => {
+        const scoreInput = document.getElementById(`score${player}`);
+        const scoreValue = scoreInput.value.trim();
+        
+        // 手动验证输入格式（允许负数和正数）
+        if (!/^-?\d*$/.test(scoreValue)) {
+            scoreInput.style.borderColor = '#DC143C';
+            isValid = false;
+            return;
+        }
+        
+        const score = Number(scoreValue) || 0;
+        scores[player] = score;
+        scoreInput.style.borderColor = '#DAA520';
+    });
 
         if (!isValid) {
             alert('请填写所有玩家的分数！');
