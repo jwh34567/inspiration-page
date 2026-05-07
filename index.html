@@ -1176,6 +1176,7 @@
             padding: 15px;
             border-bottom: 1px solid rgba(218,165,32,0.2);
             vertical-align: top;
+            font-size: 13px;
         }
         
         .homework-table tr:hover {
@@ -1191,6 +1192,7 @@
             max-width: 300px;
             cursor: pointer;
             color: var(--primary-dark);
+            font-size: 13px;
         }
         
         .homework-detail-cell:hover {
@@ -1207,7 +1209,7 @@
         .homework-tag {
             padding: 3px 8px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 500;
         }
         
@@ -4192,25 +4194,12 @@
 
                 <!-- 操作栏 -->
                 <div class="homework-actions">
-                    <div class="homework-controls">
-                        <button id="add-task-btn" class="homework-btn primary">
-                            <i class="fa fa-plus"></i> 添加作业
-                        </button>
-                        <div class="homework-select-wrapper">
-                            <select id="filter-status" class="homework-form-group">
-                                <option value="all">全部状态</option>
-                                <option value="pending">待完成</option>
-                                <option value="completed">已完成</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="homework-search">
-                        <i class="fa fa-search"></i>
-                        <input id="search-input" type="text" placeholder="搜索课程">
-                    </div>
+                    <button id="add-task-btn" class="homework-btn primary">
+                        <i class="fa fa-plus"></i> 添加作业
+                    </button>
                 </div>
 
-                <!-- 作业列表 -->
+                <!-- 作业列表（桌面端表格） -->
                 <div class="homework-table">
                     <table>
                         <thead>
@@ -4228,6 +4217,11 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- 作业列表（移动端卡片） -->
+                <div id="task-card-list" class="homework-card-list">
+                    <div class="homework-empty">暂无作业，点击「添加作业」开始录入吧~</div>
                 </div>
             </div>
 
@@ -6306,9 +6300,6 @@ class HomeworkManager {
         document.getElementById('task-form').addEventListener('submit', (e) => this.addTask(e));
         
         document.getElementById('close-detail-modal').addEventListener('click', () => this.closeDetailModal());
-        
-        document.getElementById('filter-status').addEventListener('change', () => this.filterTasks());
-        document.getElementById('search-input').addEventListener('input', () => this.filterTasks());
 
         // 初始渲染
         this.renderTasks();
@@ -6373,13 +6364,16 @@ class HomeworkManager {
     renderTasks(filteredTasks = this.tasks) {
         const sortedTasks = this.sortTasks(filteredTasks);
         const taskList = document.getElementById('task-list');
+        const taskCardList = document.getElementById('task-card-list');
         
         if (sortedTasks.length === 0) {
             taskList.innerHTML = '<tr><td colspan="5" class="homework-empty">暂无匹配的作业</td></tr>';
+            taskCardList.innerHTML = '<div class="homework-empty">暂无匹配的作业</div>';
             this.updateStats();
             return;
         }
 
+        // 渲染桌面端表格
         taskList.innerHTML = sortedTasks.map((task, index) => {
             const status = task.completed ? 'completed' : this.getTaskStatus(task.deadline);
             const publishDate = new Date(task.publishDate).toLocaleDateString('zh-CN');
@@ -6416,6 +6410,46 @@ class HomeworkManager {
                         </button>
                     </td>
                 </tr>
+            `;
+        }).join('');
+
+        // 渲染移动端卡片
+        taskCardList.innerHTML = sortedTasks.map((task, index) => {
+            const status = task.completed ? 'completed' : this.getTaskStatus(task.deadline);
+            const publishDate = new Date(task.publishDate).toLocaleDateString('zh-CN');
+            const deadline = new Date(task.deadline).toLocaleDateString('zh-CN');
+            const taskDetail = task.detail || '无详情';
+            const statusText = status === 'completed' ? '已完成' : status === 'urgent' ? '即将截止' : '待完成';
+            
+            return `
+                <div class="homework-card ${status}">
+                    <div class="homework-card-header">
+                        <span class="homework-card-title">${task.title}</span>
+                        <span class="homework-card-status ${status}">${statusText}</span>
+                    </div>
+                    <div class="homework-card-meta">
+                        <div class="homework-card-meta-item">
+                            <i class="fa fa-book"></i>${task.course}
+                        </div>
+                        <div class="homework-card-meta-item">
+                            <i class="fa fa-calendar"></i>${deadline}
+                        </div>
+                    </div>
+                    <div class="homework-card-desc">${taskDetail}</div>
+                    <div class="homework-card-tags">
+                        <span class="homework-card-tag">${task.channel}</span>
+                        <span class="homework-card-tag">发布：${publishDate}</span>
+                        <span class="homework-card-tag">提交：${task.submitChannel}</span>
+                    </div>
+                    <div class="homework-card-actions">
+                        <button onclick="homeworkManager.toggleComplete(${index})" class="homework-card-action-btn complete">
+                            <i class="fa fa-check"></i>完成
+                        </button>
+                        <button onclick="homeworkManager.deleteTask(${index})" class="homework-card-action-btn delete">
+                            <i class="fa fa-trash"></i>删除
+                        </button>
+                    </div>
+                </div>
             `;
         }).join('');
         
