@@ -5310,7 +5310,7 @@ class PokerScoreManager {
         }
 
         // 只显示最近10局，倒序显示（最新的在最上面）
-        const recentRounds = this.rounds.slice(-10).reverse();
+        const recentRounds = this.rounds.slice().reverse();
         
         roundsList.innerHTML = recentRounds.map(round => `
             <div class="history-row">
