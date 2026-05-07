@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inspiration</title>
     <style>
         .course-teacher,
@@ -20,83 +20,39 @@
 }
         *{margin:0;padding:0;box-sizing:border-box;font-family:"KaiTi","SimSun","Microsoft YaHei",serif}
         :root {
-            --primary: #C4A484;       /* 宣纸色 - 传统宣纸质感 */
-            --primary-dark: #8B4513;  /* 徽墨色 - 深棕色墨色 */
-            --success: #87A96B;       /* 竹青色 - 清新竹叶绿 */
-            --warning: #D4AF37;       /* 鎏金色 - 传统描金色 */
-            --purple: #B19CD9;        /* 藕荷色 - 淡雅紫调 */
-            --danger: #C93756;         /* 胭脂色 - 传统胭脂红 */
-            --gray: #5D4037;          /* 黛色 - 深灰带棕 */
-            --light-gray: #F5F0E6;    /* 素绢色 - 米白绢质感 */
-            --border-color: #D4AF37;  /* 描金边框 */
-            --bg-img: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y1ZjBlNiIvPjxwYXRoIGQ9Ik0xMDAgNTBjMjcuNiAwIDUwIDIyLjQgNTAgNTBzLTIyLjQgNTAtNTAgNTAtNTAtMjIuNC01MC01MCAyMi40LTUwIDUwLTUweiIgZmlsbD0iI2M0YTQ4NCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=');
+            --primary: #FFD700;       /* 金色 */
+            --primary-dark: #C8102E;  /* 中国红 */
+            --success: #228B22;       /* 绿色 */
+            --warning: #FFA500;       /* 橙色 */
+            --purple: #800080;        /* 紫色 */
+            --danger: #DC143C;        /* 红色 */
+            --gray: #2F4F4F;          /* 深灰 */
+            --light-gray: #F5F5DC;    /* 米色 */
+            --border-color: #DAA520;  /* 金色边框 */
+            --bg-img: url('https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/48848370d3e741028d374212eccab22d.png~tplv-a9rns2rl98-24:720:720.png');
         }
         body{
-            background: 
-                linear-gradient(135deg, #F5F0E6 0%, #E8DCCA 25%, #D9C8A9 50%, #C4A484 75%, #A68B6F 100%),
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212,175,55,0.02) 10px, rgba(212,175,55,0.02) 20px);
+            background: linear-gradient(135deg, #FFD700 0%, #C8102E 50%, #228B22 100%);
             padding:24px;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(139,69,19,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(135,169,107,0.03) 0%, transparent 50%),
-                var(--bg-img);
-            background-size: 400px, 400px, 180px;
-            background-position: left top, right bottom, center 80px;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-image:var(--bg-img);
+            background-size:180px;
+            background-position:center 80px;
+            background-repeat:no-repeat;
+            background-attachment:fixed;
             opacity:0.98;
             min-height:100vh;
             overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
-            touch-action: pan-y;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(212,175,55,0.02) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(177,156,217,0.02) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: -1;
         }
         .container{
             max-width:1400px;
             width: 100%;
             margin:0 auto;
-            background: 
-                linear-gradient(145deg, rgba(255,255,255,.95), rgba(245,240,230,.8)),
-                url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idHJhbnNwYXJlbnQiLz48cGF0aCBkPSJNNTAgMTBjMjIgMCA0MCAxOCA0MCA0MHMtMTggNDAtNDAgNDAtNDAtMTgtNDAtNDAgMTgtNDAgNDAtNDB6IiBmaWxsPSIjZjVmMGU2IiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==') repeat;
+            background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(218,165,32,.1));
             border-radius:20px;
-            box-shadow: 
-                0 8px 32px rgba(139,69,19,.15),
-                inset 0 1px 0 rgba(255,255,255,.6),
-                inset 0 -1px 0 rgba(139,69,19,.1);
+            box-shadow:0 8px 32px rgba(200,16,46,.2);
             padding:28px;
-            backdrop-filter:blur(20px);
-            border: 2px solid #D4AF37;
-            position: relative;
-            border-image: linear-gradient(45deg, #D4AF37, #C4A484, #D4AF37) 1;
-        }
-        
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(212,175,55,0.05) 0%, transparent 30%),
-                radial-gradient(circle at 90% 90%, rgba(135,169,107,0.05) 0%, transparent 30%);
-            border-radius: 20px;
-            pointer-events: none;
+            backdrop-filter:blur(10px);
+            border: 2px solid #DAA520;
         }
         .header{
             text-align:center;
@@ -110,26 +66,12 @@
         .header h1{
             font-size:32px;
             font-weight:700;
-            letter-spacing:3px;
-            color: #8B4513;
-            text-shadow: 
-                2px 2px 4px rgba(139,69,19,0.3),
-                0 0 20px rgba(212,175,55,0.3);
-            background: linear-gradient(45deg, #8B4513, #D4AF37, #8B4513);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            font-family: "KaiTi", "SimSun", "Microsoft YaHei", serif;
+            letter-spacing:2px;
+            color: #C8102E;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .header h1::before {
-            content: '❀ ';
-            color: #D4AF37;
-            text-shadow: 0 0 10px rgba(212,175,55,0.5);
-        }
-        .header h1::after {
-            content: ' ❀';
-            color: #D4AF37;
-            text-shadow: 0 0 10px rgba(212,175,55,0.5);
+            content: '🐉 ';
         }
         .header-logo{
             width:44px;
@@ -151,38 +93,20 @@
             padding:12px 28px;
             border:none;
             border-radius:12px;
-            background: linear-gradient(145deg, #F5F0E6, #E8DCCA);
-            color: #5D4037;
+            background:var(--light-gray);
+            color:var(--gray);
             cursor:pointer;
             font-size:16px;
             font-weight:600;
             transition:all 0.3s ease;
-            border:1px solid rgba(212,175,55,0.3);
-            position: relative;
-            overflow: hidden;
-            font-family: "KaiTi", "SimSun", "Microsoft YaHei", serif;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 2px 4px rgba(139,69,19,.1);
-        }
-        .tab-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .tab-btn:hover::before {
-            left: 100%;
+            border:1px solid transparent;
         }
         .tab-btn.active{
-            background: linear-gradient(135deg, #D4AF37, #C4A484);
-            color: #F5F0E6;
-            border:2px solid #D4AF37;
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            color: #C8102E;
+            border:2px solid #C8102E;
             transform:translateY(-2px);
-            box-shadow:0 4px 12px rgba(139,69,19,.3), inset 0 1px 0 rgba(255,255,255,.3);
-            text-shadow: 0 1px 2px rgba(139,69,19,.5);
+            box-shadow:0 4px 12px rgba(200,16,46,0.3);
         }
         .tab-btn:hover:not(.active){
             background:#F3F4F6;
@@ -201,33 +125,14 @@
         .calendar,.todo-panel{
             flex:1;
             min-width:360px;
-            border:2px solid #D4AF37;
+            border:2px solid #DAA520;
             border-radius:16px;
             padding:20px;
-            background: 
-                linear-gradient(145deg, rgba(255,255,255,.95), rgba(245,240,230,.8)),
-                url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSJ0cmFuc3BhcmVudCIvPjxwYXRoIGQ9Ik0yNSAxNWM1LjUgMCAxMCA0LjUgMTAgMTBzLTQuNSAxMC0xMCAxMC0xMC00LjUtMTAtMTAgNC41LTEwIDEwLTEweiIgZmlsbD0iI2Y1ZjBlNiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=') repeat;
+            background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
             display:flex;
             flex-direction:column;
-            box-shadow:0 4px 16px rgba(139,69,19,.1), inset 0 1px 0 rgba(255,255,255,.6);
+            box-shadow:0 4px 16px rgba(200,16,46,0.1);
             transition:all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .calendar::before, .todo-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 70%);
-            animation: float 8s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(5px, 5px) rotate(120deg); }
-            66% { transform: translate(-5px, -5px) rotate(240deg); }
         }
         .calendar {
             touch-action: pan-y;
@@ -334,16 +239,15 @@
             gap:2px;
         }
         .day:hover{
-            background: linear-gradient(135deg, #D4AF37, #C4A484);
+            background: linear-gradient(135deg, #FFD700, #DAA520);
             transform:scale(0.96);
-            color: #F5F0E6;
-            text-shadow: 0 1px 2px rgba(139,69,19,.5);
+            color: #C8102E;
         }
         .day.active{
-            background: linear-gradient(135deg, #8B4513, #5D4037);
-            color: #F5F0E6!important;
+            background: linear-gradient(135deg, #C8102E, #DC143C);
+            color:white!important;
             font-weight:600;
-            box-shadow:0 2px 8px rgba(139,69,19,.3), inset 0 1px 0 rgba(255,255,255,.3);
+            box-shadow:0 2px 8px rgba(200,16,46,0.3);
         }
         .day.has-todo::after{
             content:'';
@@ -427,27 +331,12 @@
         .work-income {
             white-space: normal;
         }
-@media (max-width: 768px) {
-    .summary-display {
-        gap: 20px;
-        margin-bottom: 20px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 10px 0;
-    }
-    
-    .summary-player {
-        min-width: 80px;
-        flex: 0 0 auto;
-    }
-}
-    
-    .summary-player {
-        min-width: 80px;          /* 设置最小宽度 */
-        flex: 0 0 auto;          /* 不伸缩，自动宽度 */
-    }
-}
+        @media (max-width: 768px) {
+            .work-income {
+                display: block;
+                margin-top: 4px;
+            }
+        }
         .stats-btn{
             margin-top: 12px;
             padding: 8px 16px;
@@ -586,25 +475,13 @@
         .todo-list::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:3px}
         .todo-item{
             padding:14px;
-            border-left:4px solid #D4AF37;
-            background: linear-gradient(145deg, #F5F0E6, #FFFFFF);
+            border-left:4px solid #C8102E;
+            background: linear-gradient(145deg, #F5F5DC, #FFFACD);
             margin-bottom:10px;
             border-radius:10px;
             cursor:pointer;
             transition:all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(139,69,19,.1), inset 0 1px 0 rgba(255,255,255,.8);
-            position: relative;
-            border: 1px solid rgba(212,175,55,0.2);
-        }
-        .todo-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #D4AF37, #C4A484);
-            border-radius: 10px 0 0 10px;
+            box-shadow: 0 2px 4px rgba(200,16,46,0.1);
         }
         .todo-item:hover{
             transform:translateX(4px);
@@ -634,54 +511,6 @@
         .type-exam { background: var(--warning); }
         .type-meeting { background: var(--purple); }
         .type-other { background: var(--gray); }
-        
-        /* 添加古风装饰元素 */
-        .container::after {
-            content: '❀';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            color: #D4AF37;
-            opacity: 0.6;
-            text-shadow: 0 0 10px rgba(212,175,55,0.3);
-        }
-        
-        .tab-bar::before {
-            content: '❁';
-            position: absolute;
-            left: 10px;
-            font-size: 18px;
-            color: #D4AF37;
-            opacity: 0.7;
-        }
-        
-        .tab-bar::after {
-            content: '❁';
-            position: absolute;
-            right: 10px;
-            font-size: 18px;
-            color: #D4AF37;
-            opacity: 0.7;
-        }
-        
-        .header::before {
-            content: '『';
-            position: absolute;
-            left: -30px;
-            font-size: 24px;
-            color: #D4AF37;
-            opacity: 0.8;
-        }
-        
-        .header::after {
-            content: '』';
-            position: absolute;
-            right: -30px;
-            font-size: 24px;
-            color: #D4AF37;
-            opacity: 0.8;
-        }
         
         .modal-overlay{
             position:fixed;
@@ -872,9 +701,6 @@
             font-size:16px;
             color:var(--success);
             font-weight:600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
         .print-btn {
             position: absolute;
@@ -1378,25 +1204,15 @@
         }
         /* 移动端响应式优化 */
         @media (max-width: 768px) {
-            html, body {
-                padding: 0;
-                margin: 0;
+            body {
+                padding: 8px;
                 overflow-x: hidden;
-                width: 100%;
-                min-width: 100vw;
-                box-sizing: border-box;
-                position: relative;
             }
             .container {
                 padding: 16px;
-                border-radius: 0;
+                border-radius: 16px;
                 width: 100%;
                 margin: 0 auto;
-                max-width: 100vw;
-                box-sizing: border-box;
-                position: relative;
-                left: 0;
-                right: 0;
             }
             .header h1 {
                 font-size: 22px;
@@ -1512,13 +1328,6 @@
             head, title, meta {
                 display: none !important;
                 visibility: hidden !important;
-            }
-            .total-credit {
-                font-size: 14px;
-                white-space: normal;
-                line-height: 1.3;
-                text-align: center;
-                padding: 0 10px;
             }
             #schedulePanel, .schedule-container, .schedule-table,
             .schedule-table-content, .schedule-title, .total-credit,
@@ -1742,51 +1551,19 @@
     padding: 20px;
 }
 
-@media (max-width: 768px) {
-    .poker-container {
-        padding: 15px 10px;
-        overflow-x: hidden;
-    }
-    
-    .summary-display {
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .summary-player {
-        min-width: 45%;
-        flex: 0 0 calc(50% - 7.5px);
-    }
-    
-    .player-name-display {
-        font-size: 14px;
-    }
-    
-    .total-score-display {
-        font-size: 18px;
-    }
-    
-    .divider-line {
-        margin: 15px 0;
-    }
-}
-
 .poker-header {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
     position: relative;
-    flex-wrap: wrap;
 }
 
 .poker-title {
-    color: #8B4513;
+    color: #C8102E;
     font-size: 28px;
     margin: 0;
     text-align: center;
-    flex: 1;
-    min-width: 200px;
 }
 
 .header-buttons {
@@ -1795,42 +1572,6 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    flex-wrap: wrap;
-}
-
-@media (max-width: 768px) {
-    .poker-header {
-        flex-direction: row;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-        text-align: left;
-        margin-bottom: 20px;
-        flex-wrap: nowrap;
-    }
-    
-    .poker-title {
-        font-size: 18px;
-        margin: 0;
-        flex: 0 0 auto;
-        white-space: nowrap;
-        text-align: left;
-    }
-    
-    .header-buttons {
-        position: static;
-        flex-wrap: nowrap;
-        justify-content: flex-end;
-        gap: 10px;
-        flex: 1;
-        width: auto;
-    }
-    
-    .player-settings-link, .settle-btn {
-        font-size: 13px;
-        padding: 6px 10px;
-        white-space: nowrap;
-    }
 }
 
 .player-settings-link, .history-link {
@@ -1854,17 +1595,6 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-@media (max-width: 768px) {
-    .settle-btn {
-    padding: 8px 10px;
-    font-size: 13px;
-    }
-    
-    .player-settings-link {
-    font-size: 13px;
-    }
 }
 
 .settle-btn:hover {
@@ -1894,29 +1624,6 @@
     gap: 60px;
 }
 
-@media (max-width: 768px) {
-    .summary-display {
-        flex-wrap: nowrap;
-        gap: 8px;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 10px 0;
-    }
-    
-    .summary-player {
-        min-width: 55px;
-        flex: 0 0 auto;
-    }
-    
-    .player-name-display {
-        font-size: 16px;
-    }
-    
-    .total-score-display {
-        font-size: 20px;
-    }
-}
-
 .summary-player {
     display: flex;
     flex-direction: column;
@@ -1934,23 +1641,20 @@
 .total-score-display {
     font-size: 24px;
     font-weight: 700;
-    color: #D87093;
+    color: #C8102E;
     text-align: center;
     min-height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .total-score-display.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.2);
+    color: #228B22;
 }
 
 .total-score-display.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.2);
+    color: #DC143C;
 }
 
 /* 分割线 */
@@ -1961,67 +1665,12 @@
     border-radius: 2px;
 }
 
-@media (max-width: 768px) {
-    .divider-line {
-    margin: 20px 0;
-    }
-}
-
 /* 历史记录表格样式 */
 .history-table {
-    background: transparent;
-}
-
-@media (max-width: 768px) {
-    .history-table {
-        font-size: 12px;
-        overflow-x: hidden;
-    }
-    
-    .history-header {
-        display: none;
-    }
-    
-    .history-body {
-        max-height: 250px;
-    }
-    
-    .history-row {
-        flex-wrap: wrap;
-        gap: 5px;
-        padding: 10px 8px;
-        background: rgba(255,255,255,0.8);
-        margin-bottom: 5px;
-        border-radius: 6px;
-        border: 1px solid #F5F5DC;
-    }
-    
-    .history-round {
-        flex: 0.4;
-        text-align: right;
-        padding: 6px 4px;
-        font-size: 13px;
-        min-width: 55px;
-        white-space: nowrap;
-    }
-    
-    .history-scores-container {
-        flex: 2;
-        gap: 5px;
-        justify-content: flex-start;
-    }
-    
-    .history-score {
-        flex: 0 0 calc(25% - 4px);
-        min-width: 45px;
-        padding: 6px 3px;
-        font-size: 12px;
-        text-align: center;
-    }
-    
-    .history-action {
-        display: none;
-    }
+    border: 1px solid #DAA520;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,250,205,.5));
 }
 
 
@@ -2083,13 +1732,22 @@
     background: rgba(255,250,205,0.3);
 }
 
-@media (max-width: 768px) {
-    .history-footer {
-        display: none;
-    }
+.view-all-history-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 1px solid #C8102E;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-
+.view-all-history-btn:hover {
+    background: linear-gradient(135deg, #DAA520, #FFD700);
+    color: white;
+}
 
 /* 收盘汇总弹窗样式 */
 .settle-modal {
@@ -2137,18 +1795,15 @@
 .settle-total {
     font-weight: 700;
     font-size: 18px;
-    color: #D87093;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #C8102E;
 }
 
 .settle-total.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.2);
+    color: #228B22;
 }
 
 .settle-total.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.2);
+    color: #DC143C;
 }
 
 .settle-info {
@@ -2308,13 +1963,11 @@
 }
 
 .detail-score.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.1);
+    color: #228B22;
 }
 
 .detail-score.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.1);
+    color: #DC143C;
 }
 
 .no-records {
@@ -2342,57 +1995,6 @@
     display: none;
 }
 
-@media (max-width: 768px) {
-    .all-history-modal {
-        width: 98%;
-        max-height: 95vh;
-        top: 2%;
-        left: 1%;
-        transform: none;
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-        position: fixed;
-    }
-    
-    .all-history-header {
-        font-size: 11px;
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-    
-    .all-history-header > div {
-        padding: 8px 3px;
-        font-size: 10px;
-        min-width: 40px;
-    }
-    
-    .all-history-body {
-        max-height: 75vh;
-        overflow-y: auto;
-    }
-    
-    .all-history-row {
-        min-width: max-content;
-    }
-    
-    .all-history-row > div {
-        padding: 6px 3px;
-        font-size: 11px;
-        min-width: 40px;
-    }
-    
-    .all-history-action {
-        display: none;
-    }
-    
-    .all-history-table {
-        margin: 5px;
-        overflow-x: auto;
-    }
-}
-
 .all-history-modal.active {
     display: block;
 }
@@ -2403,12 +2005,6 @@
     overflow: hidden;
     background: white;
     margin: 10px;
-    overflow-x: auto;
-}
-
-.all-history-table-inner {
-    display: flex;
-    min-width: max-content;
 }
 
 .all-history-header {
@@ -2416,7 +2012,6 @@
     background: linear-gradient(135deg, #FFD700, #DAA520);
     color: #C8102E;
     font-weight: 600;
-    min-width: max-content;
 }
 
 .all-history-header > div {
@@ -2488,13 +2083,11 @@
 }
 
 .all-history-score.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.1);
+    color: #228B22;
 }
 
 .all-history-score.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.1);
+    color: #DC143C;
 }
 
 .all-history-action {
@@ -2503,59 +2096,66 @@
 
 .history-row {
     display: flex;
+    transition: background 0.2s ease;
     align-items: center;
-    gap: 10px;
-    padding: 6px 10px;
+    gap: 16px; /* 约8个汉字宽度 */
+    padding: 0 10px;
+}
+
+.history-row:hover {
+    background: rgba(255,250,205,0.3);
 }
 
 .history-round {
-    flex: 0.6;
+    flex: 1;
     font-weight: 600;
     color: #C8102E;
-    text-align: right;
-    padding: 8px 5px;
-    min-width: 55px;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.history-scores-container {
-    flex: 3;
-    display: flex;
-    gap: 8px;
-    padding: 0;
+    text-align: center;
+    padding: 10px 5px;
+    min-width: 70px;
 }
 
 .history-score {
     flex: 1;
     font-weight: 500;
     text-align: center;
-    padding: 4px 4px;
-    min-width: 45px;
-    font-size: 13px;
+    padding: 10px 5px;
+    min-width: 60px;
 }
 
 .history-action {
-    flex: 0.6;
+    flex: 1;
     text-align: center;
-    padding: 8px 5px;
+    padding: 10px 5px;
     min-width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .history-score.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.1);
+    color: #228B22;
 }
 
 .history-score.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.1);
+    color: #DC143C;
 }
 
+.history-action {
+    flex: 0.8;
+}
 
+.delete-history-btn {
+    background: #DC143C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s ease;
+}
+
+.delete-history-btn:hover {
+    background: #B22222;
+}
 
 .player-settings-btn {
     padding: 8px 16px;
@@ -2591,45 +2191,6 @@
     width: 90%;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     display: none;
-}
-
-@media (max-width: 768px) {
-    .player-settings-modal {
-        width: 95%;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-    
-    .modal-header {
-        padding: 15px 15px 10px;
-    }
-    
-    .modal-header h3 {
-        font-size: 18px;
-    }
-    
-    .modal-body {
-        padding: 15px;
-    }
-    
-    .players-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .player-name {
-        max-width: 100%;
-    }
-    
-    .modal-footer {
-        padding: 10px 15px 15px;
-    }
-    
-    .modal-footer .save-btn,
-    .modal-footer .cancel-btn {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
 }
 
 .player-settings-modal.active {
@@ -2746,15 +2307,13 @@
 .player-input {
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: 100%;
-    margin-bottom: 12px;
+    gap: 10px;
 }
 
 .player-input label {
-    min-width: 30px;
     font-weight: 600;
     color: #2F4F4F;
+    min-width: 30px;
 }
 
 .player-name {
@@ -2765,9 +2324,6 @@
     background: white;
     color: #2F4F4F;
     font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    max-width: 200px;
 }
 
 .player-name:focus {
@@ -2803,18 +2359,15 @@
 .total-score {
     font-weight: 700;
     font-size: 18px;
-    color: #D87093;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #C8102E;
 }
 
 .total-score.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.2);
+    color: #228B22;
 }
 
 .total-score.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.2);
+    color: #DC143C;
 }
 
 .score-inputs-row {
@@ -2825,7 +2378,6 @@
     gap: 30px;
     margin-bottom: 0;
     width: 100%;
-    flex-wrap: wrap;
 }
 
 .score-input-combined {
@@ -2833,72 +2385,21 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    min-width: 60px;
 }
 
 .score-inputs-row .add-round-btn-small {
     margin-left: 1px;
-    flex-shrink: 0;
 }
 
 .score-inputs-row .players-container {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 80px;
     flex: 1;
-    margin-left: 0;
-    flex-wrap: wrap;
+    margin-left: 128px; /* 约8个汉字的宽度 */
 }
 .score-inputs-row .players-container .score-input-combined:first-child {
-    margin-left: 0;
-}
-
-@media (max-width: 768px) {
-    .score-inputs-row {
-        flex-direction: column;
-        gap: 20px;
-        align-items: stretch;
-    }
-    
-    .score-inputs-row .players-container {
-        margin-left: 0;
-        gap: 15px;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        width: 100%;
-        overflow-x: auto;
-        padding: 10px 0;
-    }
-    
-    .score-inputs-row .players-container .score-input-combined:first-child {
-        margin-left: 0;
-    }
-    
-    .score-input-combined {
-        min-width: 70px;
-        flex: 0 0 auto;
-        margin-bottom: 0;
-    }
-    
-    .score-input-inline {
-        width: 80px;
-        font-size: 16px;
-        padding: 8px;
-        box-sizing: border-box;
-    }
-    
-    .player-label-display {
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-    
-    .add-round-btn-small {
-        width: 100%;
-        max-width: 200px;
-        padding: 12px;
-        font-size: 16px;
-        margin-top: 10px;
-    }
+    margin-left: 24px; /* 约3个汉字宽度 */
 }
 
 .players-row {
@@ -2943,39 +2444,22 @@
 
 .add-round-btn-small {
     padding: 6px 12px;
-    background: linear-gradient(135deg, #FFB6C1, #D8BFD8);
-    color: #D87093;
-    border: 2px solid #FFB6C1;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 2px solid #C8102E;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    position: relative;
-    overflow: hidden;
-}
-
-.add-round-btn-small::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s;
-}
-
-.add-round-btn-small:hover::before {
-    left: 100%;
 }
 
 .add-round-btn-small:hover {
-    background: linear-gradient(135deg, #D8BFD8, #FFB6C1);
+    background: linear-gradient(135deg, #DAA520, #FFD700);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(216,112,147,0.3);
+    box-shadow: 0 4px 12px rgba(200,16,46,0.3);
 }
 
 .score-input-field {
@@ -2998,38 +2482,21 @@
 .add-round-btn {
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, #FFB6C1, #D8BFD8);
-    color: #D87093;
-    border: 2px solid #FFB6C1;
+    background: linear-gradient(135deg, #FFD700, #DAA520);
+    color: #C8102E;
+    border: 2px solid #C8102E;
     border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.add-round-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s;
-}
-
-.add-round-btn:hover::before {
-    left: 100%;
 }
 
 .add-round-btn:hover {
-    background: linear-gradient(135deg, #D8BFD8, #FFB6C1);
+    background: linear-gradient(135deg, #DAA520, #FFD700);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(216,112,147,0.3);
+    box-shadow: 0 4px 12px rgba(200,16,46,0.3);
 }
 
 .history-list {
@@ -3057,7 +2524,7 @@
 
 .round-number {
     font-weight: 600;
-    color: #D87093;
+    color: #C8102E;
 }
 
 .delete-round {
@@ -3091,17 +2558,15 @@
 }
 
 .round-score-value {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .round-score-value.positive {
-    color: #32CD32;
-    text-shadow: 1px 1px 2px rgba(50,205,50,0.1);
+    color: #228B22;
 }
 
 .round-score-value.negative {
-    color: #FF1493;
-    text-shadow: 1px 1px 2px rgba(255,20,147,0.1);
+    color: #DC143C;
 }
 
 .no-rounds {
@@ -3337,7 +2802,7 @@
                             <button type="submit" class="add-btn">添加打工</button>
                         </form>
                         <div class="work-stats" id="workStats">
-                            🪪 本月打工：0次　 🕒 总工时：0.0h<br><span class="work-income">💰 预估收入：0円　 🇨🇳 ：0元</span>
+                            🪪 本月打工：0次　 🕒 总工时：0.0h　 <span class="work-income">💰 预估收入：0円　 🇨🇳 ：0元</span>
                         </div>
                         <button class="stats-btn" id="workStatsBtn">统计打工数据</button>
                     </div>
@@ -3437,6 +2902,7 @@
                     <h2 class="poker-title">🃏 打牌记账</h2>
                     <div class="header-buttons">
                         <span class="player-settings-link" id="playerSettingsBtn">修改人名</span>
+                        <span class="history-link" id="historyLinkBtn">历史记录</span>
                         <button class="settle-btn" id="settleBtn">收盘</button>
                     </div>
                 </div>
@@ -3506,19 +2972,19 @@
                             <div class="players-container">
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelA">甲</span>
-                                    <input type="number" id="scoreA" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreA" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelB">乙</span>
-                                    <input type="number" id="scoreB" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreB" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelC">丙</span>
-                                    <input type="number" id="scoreC" placeholder="分数" class="score-input-inline">
+                                    <input type="text" id="scoreC" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
                                 <div class="score-input-combined">
                                     <span class="player-label-display" id="scoreLabelD">丁</span>
-                                     <input type="number" id="scoreD" placeholder="分数" class="score-input-inline">
+                                     <input type="text" id="scoreD" inputmode="numeric" pattern="-?[0-9]*" placeholder="分数" class="score-input-inline">
                                 </div>
                             </div>
                             <button type="submit" class="add-round-btn-small">添加第 <span id="roundNumber">1</span> 局</button>
@@ -3529,9 +2995,11 @@
                 <!-- 历史记录 -->
                 <div class="history-table">
                     <div class="history-body" id="roundsList">
-                        <div class="no-rounds">祝君好运</div>
+                        <div class="no-rounds">暂无记录</div>
                     </div>
-
+                    <div class="history-footer" id="historyFooter" style="display: none;">
+                        <button class="view-all-history-btn" id="viewAllHistoryBtn">查看全部历史记录</button>
+                    </div>
                 </div>
 
                 <!-- 全部历史记录弹窗 -->
@@ -3564,7 +3032,102 @@
                 </div>
             </div>
         </div>
-               
+
+                <!-- 收盘汇总弹窗 -->
+                <div class="modal-overlay" id="settleOverlay"></div>
+                <div class="settle-modal" id="settleModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>本轮汇总分数</h3>
+                            <button class="close-modal" id="closeSettle">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="settle-summary">
+                                <div class="settle-player" data-player="A">
+                                    <span class="settle-label" id="settleLabelA">甲：</span>
+                                    <span class="settle-total" id="settleTotalA">0</span>
+                                </div>
+                                <div class="settle-player" data-player="B">
+                                    <span class="settle-label" id="settleLabelB">乙：</span>
+                                    <span class="settle-total" id="settleTotalB">0</span>
+                                </div>
+                                <div class="settle-player" data-player="C">
+                                    <span class="settle-label" id="settleLabelC">丙：</span>
+                                    <span class="settle-total" id="settleTotalC">0</span>
+                                </div>
+                                <div class="settle-player" data-player="D">
+                                    <span class="settle-label" id="settleLabelD">丁：</span>
+                                    <span class="settle-total" id="settleTotalD">0</span>
+                                </div>
+                            </div>
+                            <div class="settle-info">
+                                <p>本轮共进行了 <span id="settleRoundsCount">0</span> 局</p>
+                                <p>收盘时间：<span id="settleTime"></span></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="new-round-btn" id="newRoundBtn">开始新的一轮</button>
+                            <button class="close-btn" id="closeSettleBtn">关闭</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 详细流水记录弹窗 -->
+                <div class="modal-overlay" id="detailHistoryOverlay"></div>
+                <div class="detail-history-modal" id="detailHistoryModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>详细流水记录</h3>
+                            <button class="close-modal" id="closeDetailHistory">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="detail-history-tabs">
+                                <button class="tab-btn active" data-tab="rounds">每局流水</button>
+                                <button class="tab-btn" data-tab="settlements">收盘记录</button>
+                            </div>
+                            
+                            <!-- 每局流水面板 -->
+                            <div class="tab-panel active" id="roundsPanel">
+                                <div class="detail-rounds-table">
+                                    <div class="detail-header">
+                                        <div class="col-round">局数</div>
+                                        <div class="col-player">甲</div>
+                                        <div class="col-player">乙</div>
+                                        <div class="col-player">丙</div>
+                                        <div class="col-player">丁</div>
+                                        <div class="col-time">记录时间</div>
+                                        <div class="col-action">操作</div>
+                                    </div>
+                                    <div class="detail-body" id="detailRoundsList">
+                                        <div class="no-records">暂无记录</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 收盘记录面板 -->
+                            <div class="tab-panel" id="settlementsPanel">
+                                <div class="settlements-table">
+                                    <div class="detail-header">
+                                        <div class="col-rounds">局数范围</div>
+                                        <div class="col-player">甲</div>
+                                        <div class="col-player">乙</div>
+                                        <div class="col-player">丙</div>
+                                        <div class="col-player">丁</div>
+                                        <div class="col-time">收盘时间</div>
+                                        <div class="col-action">操作</div>
+                                    </div>
+                                    <div class="detail-body" id="settlementsList">
+                                        <div class="no-records">暂无记录</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="close-btn" id="closeDetailHistoryBtn">关闭</button>
+                        </div>
+                    </div>
+                </div>
+
         <!-- 在留卡倒计时面板 -->
         <div class="panel" id="countdownPanel">
             <div class="countdown-container">
@@ -3886,7 +3449,7 @@ const renderWorkStats = () => {
     const totalHours = monthlyWorks.reduce((sum, w) => sum + parseFloat(w.hours || 0), 0);
     const totalIncome = monthlyWorks.reduce((sum, w) => sum + (parseFloat(w.hourlyWage || 0) * parseFloat(w.hours || 0)), 0);
     const incomeCNY = totalIncome * exchangeRate;
-    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h<br><span class="work-income">💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元</span><br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
+    dom.workStats.innerHTML = `🪪 本月打工：${totalWorks}次　 🕒 总工时：${totalHours.toFixed(1)}h　 <span class="work-income">💰 预估收入：🇯🇵${totalIncome.toFixed(0)}円 🇨🇳 ${incomeCNY.toFixed(2)}元</span><br>汇率: 1円=${exchangeRate.toFixed(4)}元`;
 };
 // 显示打工详情弹窗
 const showWorkDetail = (date) => {
@@ -4101,7 +3664,7 @@ const calcTotalCredit = () => {
 const updateTotalCredit = () => {
     const total = calcTotalCredit();
     const finalCredit = total + 3;
-    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已获学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
+    dom.totalCredit.innerHTML = `本学期选课总学分：${total} 分+已学分3分=<span style="color:red; font-weight:bold;">${finalCredit}</span>学分`;
 };
 // 弹窗拖拽
 const dragModal = modal => {
@@ -4698,32 +4261,64 @@ if (old.length && !scheduleBySemester[currentSemester]) {
         window.tabEventBound = true;
     }
     // 日历月份切换
-    const bindCalendarButtons = () => {
-        if (dom.prevMonth && !dom.prevMonth._bound) {
-            dom.prevMonth.onclick = () => { 
-                currentDate.setMonth(currentDate.getMonth() - 1); 
-                renderCalendar();
-                renderWorkStats();
-            };
-            dom.prevMonth._bound = true;
-        }
-        if (dom.nextMonth && !dom.nextMonth._bound) {
-            dom.nextMonth.onclick = () => { 
-                currentDate.setMonth(currentDate.getMonth() + 1); 
-                renderCalendar();
-                renderWorkStats();
-            };
-            dom.nextMonth._bound = true;
-        }
+    dom.prevMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); renderWorkStats(); };
+    dom.nextMonth.onclick = () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); renderWorkStats(); };
+    // 手机端日历滑动
+    let touchStartX = null;
+    let touchDeltaX = 0;
+    const resetCalendarTransform = () => {
+        dom.calendarDays.style.transition = 'transform 0.25s ease';
+        dom.calendarDays.style.transform = 'translateX(0)';
     };
-    
-    // 立即绑定一次
-    bindCalendarButtons();
-    
-    // 如果按钮不存在，延迟重试
-    if (!dom.prevMonth || !dom.nextMonth) {
-        setTimeout(bindCalendarButtons, 100);
-    }
+
+    dom.calendarDays.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        dom.calendarDays.style.transition = 'none';
+    });
+
+    dom.calendarDays.addEventListener('touchmove', (e) => {
+        if (touchStartX === null || e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        touchDeltaX = touch.clientX - touchStartX;
+        if (Math.abs(touchDeltaX) > 10) {
+            e.preventDefault();
+        }
+        dom.calendarDays.style.transform = `translateX(${touchDeltaX}px)`;
+    }, { passive: false });
+
+    dom.calendarDays.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const touch = e.changedTouches[0];
+        touchDeltaX = touch.clientX - touchStartX;
+        const threshold = 60;
+
+        if (Math.abs(touchDeltaX) < threshold) {
+            resetCalendarTransform();
+        } else {
+            const direction = touchDeltaX < 0 ? 'left' : 'right';
+            const slideDistance = direction === 'left' ? -window.innerWidth * 0.7 : window.innerWidth * 0.7;
+            dom.calendarDays.style.transition = 'transform 0.25s ease';
+            dom.calendarDays.style.transform = `translateX(${slideDistance}px)`;
+            setTimeout(() => {
+                if (direction === 'left') {
+                    // 左滑代表下月
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                } else {
+                    // 右滑代表上月
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                }
+                renderCalendar();
+                renderWorkStats();
+                dom.calendarDays.style.transition = 'none';
+                dom.calendarDays.style.transform = 'translateX(0)';
+            }, 220);
+        }
+
+        touchStartX = null;
+    });
+
     dom.addForm.onsubmit = (e) => {
     e.preventDefault();
     if (!selectedDate) return alert('请先选择日期！');
@@ -5001,18 +4596,7 @@ class PokerScoreManager {
             this.isSettled = false;
             this.settleStartRound = 1;
         }
-        // 从localStorage恢复人名
-const savedPlayerNames = localStorage.getItem('playerNames');
-if (savedPlayerNames) {
-    const playerNames = JSON.parse(savedPlayerNames);
-    const players = ['A', 'B', 'C', 'D'];
-    players.forEach(player => {
-        const input = document.getElementById(`player${player}`);
-        if (input && playerNames[player]) {
-            input.value = playerNames[player];
-        }
-    });
-}
+        
         // 事件绑定状态跟踪
         this.eventsBound = false;
         this.modalEventsBound = false;
@@ -5027,9 +4611,14 @@ if (savedPlayerNames) {
         this.calculateTotals();
         
         // 设置按钮状态
-const settleBtn = document.getElementById('settleBtn');
-settleBtn.textContent = '收盘';
-settleBtn.classList.remove('settled');
+        const settleBtn = document.getElementById('settleBtn');
+        if (this.isSettled) {
+            settleBtn.textContent = '查看汇总';
+            settleBtn.classList.add('settled');
+        } else {
+            settleBtn.textContent = '收盘';
+            settleBtn.classList.remove('settled');
+        }
         
         // 设置当前局数显示
         document.getElementById('roundNumber').textContent = this.currentRound;
@@ -5064,7 +4653,33 @@ settleBtn.classList.remove('settled');
             this.savePlayerSettings();
         });
 
+        // 打开详细历史记录弹窗
+        document.getElementById('historyLinkBtn').addEventListener('click', () => {
+            this.openDetailHistory();
+        });
 
+        // 关闭详细历史记录弹窗
+        document.getElementById('closeDetailHistory').addEventListener('click', () => {
+            this.closeDetailHistory();
+        });
+
+        document.getElementById('closeDetailHistoryBtn').addEventListener('click', () => {
+            this.closeDetailHistory();
+        });
+
+        document.getElementById('detailHistoryOverlay').addEventListener('click', () => {
+            this.closeDetailHistory();
+        });
+
+        // 查看全部历史记录
+        document.getElementById('viewAllHistoryBtn').addEventListener('click', () => {
+            this.openAllHistory();
+        });
+
+        // 关闭全部历史记录弹窗
+        document.getElementById('closeAllHistory').addEventListener('click', () => {
+            this.closeAllHistory();
+        });
 
         document.getElementById('closeAllHistoryBtn').addEventListener('click', () => {
             this.closeAllHistory();
@@ -5075,16 +4690,27 @@ settleBtn.classList.remove('settled');
         });
 
         // 收盘功能
-document.getElementById('settleBtn').addEventListener('click', () => {
-    this.confirmAndClear();
-});
+        document.getElementById('settleBtn').addEventListener('click', () => {
+            this.toggleSettle();
+        });
 
+        // 关闭收盘弹窗
+        document.getElementById('closeSettle').addEventListener('click', () => {
+            this.closeSettleModal();
+        });
 
-        // 刷新面板显示
-        this.calculateTotals();
-        this.renderRounds();
-        this.clearForm();
+        document.getElementById('closeSettleBtn').addEventListener('click', () => {
+            this.closeSettleModal();
+        });
 
+        document.getElementById('settleOverlay').addEventListener('click', () => {
+            this.closeSettleModal();
+        });
+
+        // 开始新的一轮
+        document.getElementById('newRoundBtn').addEventListener('click', () => {
+            this.startNewRound();
+        });
     }
 
     openPlayerSettings() {
@@ -5112,44 +4738,7 @@ document.getElementById('settleBtn').addEventListener('click', () => {
         document.getElementById('allHistoryModal').classList.remove('active');
         document.getElementById('allHistoryOverlay').classList.remove('active');
     }
-    confirmAndClear() {
-    if (confirm('需要结束这轮记分吗？')) {
-        // 清空所有局数记录
-        this.rounds = [];
-        this.currentRound = 1;
-        
-        // 清空所有分数
-        this.totals = { A: 0, B: 0, C: 0, D: 0 };
-        
-        // 重置人名为默认值
-        const defaultNames = { A: '甲', B: '乙', C: '丙', D: '丁' };
-        const players = ['A', 'B', 'C', 'D'];
-        players.forEach(player => {
-            const input = document.getElementById(`player${player}`);
-            if (input) {
-                input.value = defaultNames[player];
-            }
-        });
-        
-        // 清空localStorage中的玩家人名和状态
-        localStorage.removeItem('playerNames');
-        localStorage.removeItem('pokerState');
-        
-        // 保存空的 rounds 到 localStorage
-        localStorage.setItem('pokerRounds', JSON.stringify(this.rounds));
-        
-        // 刷新显示
-        this.updatePlayerLabels();
-        this.calculateTotals();
-        this.renderRounds();
-        this.clearForm();
-        
-        // 确保局数按钮复位为第1局
-        document.getElementById('roundNumber').textContent = '1';
-        
-        alert('数据已清零，人名已恢复默认值！');
-    }
-}
+
     renderAllRounds() {
         const allRoundsList = document.getElementById('allRoundsList');
         
@@ -5165,7 +4754,9 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             <div class="all-history-row">
                 <div class="all-history-round">第${round.number}局</div>
                 ${this.getAllPlayerScoresTableHTML(round)}
-
+                <div class="all-history-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
             </div>
         `).join('');
     }
@@ -5178,6 +4769,231 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             
             return `<div class="all-history-score ${scoreClass}">${score > 0 ? '+' : ''}${score}</div>`;
         }).join('');
+    }
+
+    // 详细历史记录功能
+    openDetailHistory() {
+        this.renderDetailRounds();
+        this.renderSettlements();
+        document.getElementById('detailHistoryModal').classList.add('active');
+        document.getElementById('detailHistoryOverlay').classList.add('active');
+    }
+
+    closeDetailHistory() {
+        document.getElementById('detailHistoryModal').classList.remove('active');
+        document.getElementById('detailHistoryOverlay').classList.remove('active');
+    }
+
+    switchDetailTab(tab) {
+        // 切换标签按钮状态
+        document.querySelectorAll('.detail-history-tabs .tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`.detail-history-tabs .tab-btn[data-tab="${tab}"]`).classList.add('active');
+        
+        // 切换面板显示
+        document.querySelectorAll('.tab-panel').forEach(panel => {
+            panel.classList.remove('active');
+        });
+        document.getElementById(`${tab}Panel`).classList.add('active');
+    }
+
+    renderDetailRounds() {
+        const detailRoundsList = document.getElementById('detailRoundsList');
+        
+        if (this.rounds.length === 0) {
+            detailRoundsList.innerHTML = '<div class="no-records">暂无记录</div>';
+            return;
+        }
+        
+        const reversedRounds = [...this.rounds].reverse();
+        
+        detailRoundsList.innerHTML = reversedRounds.map(round => `
+            <div class="detail-round">
+                <div class="col-round">第${round.number}局</div>
+                ${this.getDetailPlayerScoresHTML(round)}
+                <div class="col-time">${round.timestamp}</div>
+                <div class="col-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    getDetailPlayerScoresHTML(round) {
+        const players = ['A', 'B', 'C', 'D'];
+        return players.map(player => {
+            const score = round.scores[player];
+            const scoreClass = score > 0 ? 'positive' : score < 0 ? 'negative' : '';
+            return `<div class="col-player detail-score ${scoreClass}">${score > 0 ? '+' : ''}${score}</div>`;
+        }).join('');
+    }
+
+    renderSettlements() {
+        const settlementsList = document.getElementById('settlementsList');
+        
+        // 获取收盘记录
+        const settlements = this.loadSettlements();
+        
+        if (settlements.length === 0) {
+            settlementsList.innerHTML = '<div class="no-records">暂无收盘记录</div>';
+            return;
+        }
+        
+        const reversedSettlements = [...settlements].reverse();
+        
+        settlementsList.innerHTML = reversedSettlements.map((settlement, index) => `
+            <div class="settlement-item">
+                <div class="col-rounds">第${settlement.startRound}-${settlement.endRound}局</div>
+                ${this.getSettlementScoreHTML(settlement)}
+                <div class="col-time">${settlement.timestamp}</div>
+                <div class="col-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteSettlement(${index})">删除</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    getSettlementScoreHTML(settlement) {
+        const players = ['A', 'B', 'C', 'D'];
+        return players.map(player => {
+            const score = settlement.scores[player];
+            const scoreClass = score > 0 ? 'positive' : score < 0 ? 'negative' : '';
+            return `<div class="col-player detail-score ${scoreClass}">${score > 0 ? '+' : ''}${score}</div>`;
+        }).join('');
+    }
+
+    loadSettlements() {
+        const saved = localStorage.getItem('pokerSettlements');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    saveSettlement(settlement) {
+        const settlements = this.loadSettlements();
+        settlements.push(settlement);
+        localStorage.setItem('pokerSettlements', JSON.stringify(settlements));
+    }
+
+    deleteSettlement(index) {
+        const settlements = this.loadSettlements();
+        settlements.splice(index, 1);
+        localStorage.setItem('pokerSettlements', JSON.stringify(settlements));
+        this.renderSettlements();
+    }
+
+    toggleSettle() {
+        const settleBtn = document.getElementById('settleBtn');
+        
+        if (!this.isSettled) {
+            // 第一次点击：结束本轮记录
+            this.isSettled = true;
+            this.settleStartRound = this.currentRound;
+            settleBtn.textContent = '查看汇总';
+            settleBtn.classList.add('settled');
+            this.saveState();
+            alert('本轮记录已结束，可以继续添加新局，但不会计入本轮汇总。');
+        } else {
+            // 第二次点击：显示汇总弹窗
+            this.showSettleSummary();
+        }
+    }
+
+    showSettleSummary() {
+        console.log('开始计算汇总分数...');
+        console.log('settleStartRound:', this.settleStartRound);
+        console.log('currentRound:', this.currentRound);
+        console.log('所有局数:', this.rounds.map(r => r.number));
+        
+        // 计算本轮汇总分数
+        const settleRounds = this.rounds.filter(round => 
+            round.number >= this.settleStartRound
+        );
+        
+        console.log('本轮局数:', settleRounds.map(r => r.number));
+        
+        const totals = { A: 0, B: 0, C: 0, D: 0 };
+        
+        settleRounds.forEach(round => {
+            console.log(`第${round.number}局分数:`, round.scores);
+            Object.keys(round.scores).forEach(player => {
+                totals[player] += round.scores[player];
+            });
+        });
+        
+        console.log('汇总分数:', totals);
+
+        // 更新弹窗显示
+        const players = ['A', 'B', 'C', 'D'];
+        players.forEach(player => {
+            const totalElement = document.getElementById(`settleTotal${player}`);
+            const labelElement = document.getElementById(`settleLabel${player}`);
+            const playerName = document.getElementById(`player${player}`).value;
+            
+            console.log(`更新玩家${player}:`, totals[player]);
+            
+            if (totalElement && labelElement) {
+                totalElement.textContent = totals[player];
+                totalElement.className = 'settle-total ' + (totals[player] > 0 ? 'positive' : totals[player] < 0 ? 'negative' : '');
+                labelElement.textContent = `${playerName}：`;
+            } else {
+                console.error(`找不到元素: settleTotal${player} 或 settleLabel${player}`);
+            }
+        });
+
+        if (document.getElementById('settleRoundsCount')) {
+            document.getElementById('settleRoundsCount').textContent = settleRounds.length;
+        }
+        if (document.getElementById('settleTime')) {
+            document.getElementById('settleTime').textContent = new Date().toLocaleString();
+        }
+
+        // 显示弹窗
+        document.getElementById('settleModal').classList.add('active');
+        document.getElementById('settleOverlay').classList.add('active');
+        
+        console.log('汇总弹窗已显示');
+    }
+
+    closeSettleModal() {
+        document.getElementById('settleModal').classList.remove('active');
+        document.getElementById('settleOverlay').classList.remove('active');
+    }
+
+    startNewRound() {
+        // 计算本轮汇总分数
+        const settleRounds = this.rounds.filter(round => 
+            round.number >= this.settleStartRound
+        );
+        
+        const totals = { A: 0, B: 0, C: 0, D: 0 };
+        
+        settleRounds.forEach(round => {
+            Object.keys(round.scores).forEach(player => {
+                totals[player] += round.scores[player];
+            });
+        });
+        
+        // 保存收盘记录
+        const settlement = {
+            startRound: this.settleStartRound,
+            endRound: this.currentRound - 1,
+            scores: totals,
+            timestamp: new Date().toLocaleString()
+        };
+        
+        this.saveSettlement(settlement);
+        
+        // 重置状态
+        this.isSettled = false;
+        this.settleStartRound = this.currentRound;
+        this.saveState();
+        
+        const settleBtn = document.getElementById('settleBtn');
+        settleBtn.textContent = '收盘';
+        settleBtn.classList.remove('settled');
+        
+        this.closeSettleModal();
+        alert('新的一轮已开始！');
     }
 
     rebindEvents() {
@@ -5207,24 +5023,21 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             e.preventDefault();
             this.addRound();
         });
-  
+
+        // 重新绑定弹窗事件
+        this.bindModalEvents();
+        
         this.eventsBound = true; // 标记事件已绑定
     }
 
     updatePlayerLabels() {
-    const players = ['A', 'B', 'C', 'D'];
-    const playerNames = {};
-    
-    players.forEach(player => {
-        const name = document.getElementById(`player${player}`).value;
-        playerNames[player] = name;
-        document.getElementById(`display${player}`).textContent = name;
-        document.getElementById(`scoreLabel${player}`).textContent = name;
-    });
-    
-    // 保存人名到localStorage
-    localStorage.setItem('playerNames', JSON.stringify(playerNames));
-}
+        const players = ['A', 'B', 'C', 'D'];
+        players.forEach(player => {
+            const name = document.getElementById(`player${player}`).value;
+            document.getElementById(`display${player}`).textContent = name;
+            document.getElementById(`scoreLabel${player}`).textContent = name;
+        });
+    }
 
     addRound() {
         const scores = {};
@@ -5321,15 +5134,25 @@ document.getElementById('settleBtn').addEventListener('click', () => {
             return;
         }
 
-        // 显示所有对局记录，倒序显示（最新的在最上面）
-        const allRounds = [...this.rounds].reverse();
+        // 只显示最近10局，倒序显示（最新的在最上面）
+        const recentRounds = this.rounds.slice(-10).reverse();
         
-        roundsList.innerHTML = allRounds.map(round => `
+        roundsList.innerHTML = recentRounds.map(round => `
             <div class="history-row">
                 <div class="history-round">第${round.number}局</div>
                 ${this.getPlayerScoresTableHTML(round)}
+                <div class="history-action">
+                    <button class="delete-history-btn" onclick="pokerManager.deleteRound(${round.number})">删除</button>
+                </div>
             </div>
         `).join('');
+
+        // 如果总记录超过10局，显示查看全部按钮
+        if (this.rounds.length > 10) {
+            historyFooter.style.display = 'block';
+        } else {
+            historyFooter.style.display = 'none';
+        }
     }
 
     getPlayerScoresTableHTML(round) {
