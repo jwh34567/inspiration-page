@@ -1613,25 +1613,21 @@
 }
 
 /* 汇总结果简化显示 */
+/* 移动端响应式布局 - 调整分数输入区域和历史记录面板 */
 @media (max-width: 768px) {
-    /* 现有的打牌记账表头样式 */
-    .poker-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    
-    /* 在这里添加分数输入区域的移动端样式 */
+    /* 分数输入区域移动端样式 - 在同一行显示 */
     .score-inputs-row {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
     
     .score-inputs-row .players-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
     }
     
     .player-spacer {
@@ -1639,18 +1635,59 @@
     }
     
     .score-input-combined {
-        min-width: 60px;
+        min-width: 0;
+        flex: 1;
+        max-width: 22%;
     }
     
     .score-input-inline {
-        width: 60px;
+        width: 100%;
         font-size: 14px;
-        padding: 4px 8px;
+        padding: 6px 4px;
+        text-align: center;
+        min-width: 0;
+    }
+    
+    .player-label-display {
+        font-size: 14px;
+        white-space: nowrap;
     }
     
     .add-round-btn-small {
         width: 100%;
         margin-top: 10px;
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+    
+    /* 历史记录面板移动端样式 */
+    .history-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .history-body {
+        min-width: 100%;
+        overflow-x: visible;
+    }
+    
+    .history-row {
+        display: flex;
+        min-width: 100%;
+        gap: 8px;
+        padding: 8px 4px;
+    }
+    
+    .history-round {
+        min-width: 60px;
+        font-size: 14px;
+    }
+    
+    .history-score {
+        flex: 1;
+        min-width: 50px;
+        font-size: 14px;
+        text-align: center;
     }
 }
 
