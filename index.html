@@ -2680,14 +2680,14 @@
     .all-history-header {
         min-width: auto;
         display: grid;
-        grid-template-columns: 0.6fr 0.8fr 0.8fr 0.8fr 0.8fr 0.6fr;
-        gap: 2px;
+        grid-template-columns: 0.5fr 0.7fr 0.7fr 0.7fr 0.7fr 0.5fr;
+        gap: 1px;
         width: 100%;
     }
     
     .all-history-header > div {
-        padding: 6px 1px;
-        font-size: 9px;
+        padding: 4px 0px;
+        font-size: 8px;
         min-width: auto;
         text-align: center;
         word-break: keep-all;
@@ -2711,14 +2711,14 @@
     .all-history-row {
         min-width: auto;
         display: grid;
-        grid-template-columns: 0.6fr 0.8fr 0.8fr 0.8fr 0.8fr 0.6fr;
-        gap: 2px;
+        grid-template-columns: 0.5fr 0.7fr 0.7fr 0.7fr 0.7fr 0.5fr;
+        gap: 1px;
         width: 100%;
     }
     
     .all-history-row > div {
-        padding: 4px 1px;
-        font-size: 9px;
+        padding: 3px 0px;
+        font-size: 8px;
         min-width: auto;
         text-align: center;
         word-break: keep-all;
@@ -2752,6 +2752,56 @@
     
     .all-history-modal .modal-body {
         padding: 5px;
+    }
+    
+    /* 主历史记录表格移动端优化 */
+    .history-table {
+        overflow-x: visible;
+        width: 100%;
+    }
+    
+    .history-row {
+        display: grid;
+        grid-template-columns: 0.5fr 0.7fr 0.7fr 0.7fr 0.7fr 0.5fr;
+        gap: 1px;
+        width: 100%;
+        padding: 0 5px;
+        align-items: center;
+    }
+    
+    .history-round {
+        grid-column: 1;
+        padding: 3px 0px;
+        font-size: 8px;
+        font-weight: 600;
+        color: #C8102E;
+        text-align: center;
+        min-width: auto;
+    }
+    
+    .history-score {
+        grid-column: span 1;
+        padding: 3px 0px;
+        font-size: 8px;
+        font-weight: 500;
+        text-align: center;
+        min-width: auto;
+    }
+    
+    .history-action {
+        grid-column: 6;
+        padding: 3px 0px;
+        font-size: 8px;
+        text-align: center;
+        min-width: auto;
+    }
+    
+    .history-score.positive {
+        color: #228B22;
+    }
+    
+    .history-score.negative {
+        color: #DC143C;
     }
 }
     </style>
@@ -5219,7 +5269,7 @@ class PokerScoreManager {
         // 获取分数并验证
         players.forEach(player => {
             const scoreInput = document.getElementById(`score${player}`);
-            const score = parseInt(scoreInput.value) || 0;
+            const score = Number(scoreInput.value) || 0;
             scores[player] = score;
             
             if (scoreInput.value === '') {
