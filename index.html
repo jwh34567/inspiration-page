@@ -5214,12 +5214,18 @@ const syncManager = {
 
         const data = {
             todo: JSON.parse(localStorage.getItem('collegeTodo')) || [],
-            scheduleBySemester: JSON.parse(localStorage.getItem('collegeScheduleBySemester')) || {}, // ✅ 修改这里
+            scheduleBySemester: JSON.parse(localStorage.getItem('collegeScheduleBySemester')) || {},
             guide: localStorage.getItem('collegeGuide') || '',
             food: JSON.parse(localStorage.getItem('collegeFood')) || [],
             note: JSON.parse(localStorage.getItem('collegeNote')) || [],
             work: JSON.parse(localStorage.getItem('collegeWork')) || [],
             visaExpiryDate: localStorage.getItem('visaExpiryDate') || '',
+            // ✅ 作业管理数据
+            universityTasks: JSON.parse(localStorage.getItem('universityTasks')) || [],
+            // ✅ 打牌记账数据
+            pokerRounds: JSON.parse(localStorage.getItem('pokerRounds')) || [],
+            pokerState: JSON.parse(localStorage.getItem('pokerState')) || {},
+            pokerSettlements: JSON.parse(localStorage.getItem('pokerSettlements')) || [],
             lastSync: new Date().toISOString()
         };
 
@@ -5283,21 +5289,43 @@ const syncManager = {
 
             // 更新内存数据
             todoList = data.todo || [];
-            scheduleBySemester = data.scheduleBySemester || {}; // ✅ 修改这里
+            scheduleBySemester = data.scheduleBySemester || {};
             guideContent = data.guide || '';
             foodList = data.food || [];
             noteList = data.note || [];
             workList = data.work || [];
             const savedExpiry = data.visaExpiryDate || '';
 
+            // ✅ 更新作业管理数据
+            if (homeworkManager) {
+                homeworkManager.tasks = data.universityTasks || [];
+            }
+
+            // ✅ 更新打牌记账数据
+            if (pokerManager) {
+                pokerManager.rounds = data.pokerRounds || [];
+                const pokerState = data.pokerState || {};
+                pokerManager.currentRound = pokerState.currentRound || 1;
+                pokerManager.players = pokerState.players || [{name:'甲',score:0},{name:'乙',score:0},{name:'丙',score:0},{name:'丁',score:0}];
+                pokerManager.isSettled = pokerState.isSettled || false;
+                pokerManager.settleStartRound = pokerState.settleStartRound || 1;
+            }
+
             // 写入本地
             saveTodo();
-            saveScheduleBySemester(); // ✅ 使用新的保存函数
+            saveScheduleBySemester();
             localStorage.setItem('collegeGuide', guideContent);
             localStorage.setItem('visaExpiryDate', savedExpiry);
             saveFood();
             saveNote();
             saveWork();
+            // ✅ 保存作业管理和打牌记账数据
+            if (homeworkManager) {
+                homeworkManager.saveToLocalStorage();
+            }
+            if (pokerManager) {
+                pokerManager.saveToLocalStorage();
+            }
 
             // 刷新界面
             loadVisaExpiry();
