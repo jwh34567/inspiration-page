@@ -1613,6 +1613,47 @@
 }
 
 /* 汇总结果简化显示 */
+@media (max-width: 768px) {
+    /* 现有的打牌记账表头样式 */
+    .poker-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    /* 在这里添加分数输入区域的移动端样式 */
+    .score-inputs-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .score-inputs-row .players-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .player-spacer {
+        display: none;
+    }
+    
+    .score-input-combined {
+        min-width: 60px;
+    }
+    
+    .score-input-inline {
+        width: 60px;
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+    
+    .add-round-btn-small {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
 .summary-display {
     display: flex;
     justify-content: center;
