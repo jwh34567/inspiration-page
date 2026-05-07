@@ -6310,6 +6310,7 @@ class PokerScoreManager {
 
     saveState() {
         const state = {
+            players: this.players,
             currentRound: this.currentRound,
             isSettled: this.isSettled,
             settleStartRound: this.settleStartRound
