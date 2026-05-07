@@ -2674,13 +2674,14 @@
     /* 历史记录表格移动端优化 - 自适应布局 */
     .all-history-table {
         overflow-x: visible;
-        width: 100%;
+        width: calc(100% - 48px);
+        margin-left: 48px;
     }
     
     .all-history-header {
         min-width: auto;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
         gap: 32px;
         width: 100%;
     }
@@ -2711,7 +2712,7 @@
     .all-history-row {
         min-width: auto;
         display: grid;
-        grid-template-columns: 0.5fr 0.7fr 0.7fr 0.7fr 0.7fr 0.5fr;
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
         gap: 32px;
         width: 100%;
     }
@@ -2757,12 +2758,13 @@
     /* 主历史记录表格移动端优化 */
     .history-table {
         overflow-x: visible;
-        width: 100%;
+        width: calc(100% - 48px);
+        margin-left: 48px;
     }
     
     .history-row {
         display: grid;
-        grid-template-columns: 0.5fr 0.7fr 0.7fr 0.7fr 0.7fr 0.5fr;
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
         gap: 1px;
         width: 100%;
         padding: 0 5px;
