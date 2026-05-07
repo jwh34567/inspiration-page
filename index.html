@@ -4197,6 +4197,9 @@
                     <button id="add-task-btn" class="homework-btn primary">
                         <i class="fa fa-plus"></i> 添加作业
                     </button>
+                    <button id="show-completed-btn" class="homework-btn secondary">
+                        <i class="fa fa-eye"></i> 显示已完成
+                    </button>
                 </div>
 
                 <!-- 作业列表（桌面端表格） -->
@@ -6289,6 +6292,7 @@ class PokerScoreManager {
 class HomeworkManager {
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('universityTasks')) || [];
+        this.showCompleted = false;
         this.init();
     }
 
@@ -6300,8 +6304,21 @@ class HomeworkManager {
         document.getElementById('task-form').addEventListener('submit', (e) => this.addTask(e));
         
         document.getElementById('close-detail-modal').addEventListener('click', () => this.closeDetailModal());
+        
+        document.getElementById('show-completed-btn').addEventListener('click', () => this.toggleShowCompleted());
 
         // 初始渲染
+        this.renderTasks();
+    }
+
+    toggleShowCompleted() {
+        this.showCompleted = !this.showCompleted;
+        const btn = document.getElementById('show-completed-btn');
+        if (this.showCompleted) {
+            btn.innerHTML = '<i class="fa fa-eye-slash"></i> 隐藏已完成';
+        } else {
+            btn.innerHTML = '<i class="fa fa-eye"></i> 显示已完成';
+        }
         this.renderTasks();
     }
 
@@ -6362,7 +6379,9 @@ class HomeworkManager {
     }
 
     renderTasks(filteredTasks = this.tasks) {
-        const sortedTasks = this.sortTasks(filteredTasks);
+        // 默认隐藏已完成的作业
+        let tasksToRender = this.showCompleted ? filteredTasks : filteredTasks.filter(t => !t.completed);
+        const sortedTasks = this.sortTasks(tasksToRender);
         const taskList = document.getElementById('task-list');
         const taskCardList = document.getElementById('task-card-list');
         
@@ -6414,12 +6433,13 @@ class HomeworkManager {
         }).join('');
 
         // 渲染移动端卡片
-        taskCardList.innerHTML = sortedTasks.map((task, index) => {
+        taskCardList.innerHTML = sortedTasks.map((task) => {
             const status = task.completed ? 'completed' : this.getTaskStatus(task.deadline);
             const publishDate = new Date(task.publishDate).toLocaleDateString('zh-CN');
             const deadline = new Date(task.deadline).toLocaleDateString('zh-CN');
             const taskDetail = task.detail || '无详情';
             const statusText = status === 'completed' ? '已完成' : status === 'urgent' ? '即将截止' : '待完成';
+            const originalIndex = this.tasks.indexOf(task);
             
             return `
                 <div class="homework-card ${status}">
@@ -6440,10 +6460,10 @@ class HomeworkManager {
                         <span class="homework-card-tag">截止：${deadline}</span>
                     </div>
                     <div class="homework-card-actions">
-                        <button onclick="homeworkManager.toggleComplete(${index})" class="homework-card-action-btn complete">
+                        <button onclick="homeworkManager.toggleComplete(${originalIndex})" class="homework-card-action-btn complete">
                             <i class="fa fa-check"></i>完成
                         </button>
-                        <button onclick="homeworkManager.deleteTask(${index})" class="homework-card-action-btn delete">
+                        <button onclick="homeworkManager.deleteTask(${originalIndex})" class="homework-card-action-btn delete">
                             <i class="fa fa-trash"></i>删除
                         </button>
                     </div>
