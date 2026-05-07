@@ -6424,22 +6424,20 @@ class HomeworkManager {
             return `
                 <div class="homework-card ${status}">
                     <div class="homework-card-header">
-                        <span class="homework-card-title">${task.title}</span>
+                        <span class="homework-card-title">${task.course}</span>
                         <span class="homework-card-status ${status}">${statusText}</span>
                     </div>
                     <div class="homework-card-meta">
                         <div class="homework-card-meta-item">
-                            <i class="fa fa-book"></i>${task.course}
-                        </div>
-                        <div class="homework-card-meta-item">
-                            <i class="fa fa-calendar"></i>${deadline}
+                            <i class="fa fa-file-text"></i>${task.title}
                         </div>
                     </div>
                     <div class="homework-card-desc">${taskDetail}</div>
                     <div class="homework-card-tags">
-                        <span class="homework-card-tag">${task.channel}</span>
+                        <span class="homework-card-tag">渠道：${task.channel}</span>
                         <span class="homework-card-tag">发布：${publishDate}</span>
                         <span class="homework-card-tag">提交：${task.submitChannel}</span>
+                        <span class="homework-card-tag">截止：${deadline}</span>
                     </div>
                     <div class="homework-card-actions">
                         <button onclick="homeworkManager.toggleComplete(${index})" class="homework-card-action-btn complete">
