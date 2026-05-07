@@ -5322,20 +5322,23 @@ const syncManager = {
             // ✅ 保存作业管理和打牌记账数据
             if (homeworkManager) {
                 homeworkManager.saveToLocalStorage();
+                homeworkManager.renderTasks();  // ✅ 添加这行，刷新作业列表
             }
             if (pokerManager) {
                 pokerManager.saveToLocalStorage();
+                pokerManager.renderRounds();    // ✅ 添加这行，刷新打牌记录
+                pokerManager.renderSettlements(); // ✅ 添加这行，刷新收盘记录
             }
 
-            // 刷新界面
-            loadVisaExpiry();
-            renderCalendar();
-            renderTodoList();
-            renderSchedule();
-            renderFood();
-            renderNote();
-            renderWorkStats();
-            dom.guideContent.value = guideContent;
+           // 刷新界面
+           loadVisaExpiry();
+           renderCalendar();
+           renderTodoList();
+           renderSchedule();
+           renderFood();
+           renderNote();
+           renderWorkStats();
+           dom.guideContent.value = guideContent;
 
             // ✅ 更新学期选择器
             const semesterSelect = document.getElementById('semesterSelect');
@@ -6421,8 +6424,9 @@ class HomeworkManager {
         }
 
         // 渲染桌面端表格
-        taskList.innerHTML = sortedTasks.map((task, index) => {
+        taskList.innerHTML = sortedTasks.map((task) => {
             const status = task.completed ? 'completed' : this.getTaskStatus(task.deadline);
+            const originalIndex = this.tasks.indexOf(task);
             const publishDate = new Date(task.publishDate).toLocaleDateString('zh-CN');
             const deadline = new Date(task.deadline).toLocaleDateString('zh-CN');
             const taskDetail = task.detail || '无详情';
