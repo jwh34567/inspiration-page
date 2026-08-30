@@ -338,8 +338,16 @@ a{color:inherit;text-decoration:none}
 }
 .sch-content{flex:1;color:var(--deep)}
 .sch-content strong{font-weight:600}
+.sch-content b{font-weight:600}
 .sch-note{
   display:block;margin-top:4px;font-size:12px;color:var(--muted);
+}
+.sch-note *{font-size:12px !important;color:var(--muted) !important;font-weight:400 !important}
+.sch-content strong[contenteditable="true"]{display:inline-block;min-width:30px}
+.sch-note[contenteditable="true"]{display:block;min-height:14px}
+.sch-content strong[contenteditable="true"]:empty::before,
+.sch-note[contenteditable="true"]:empty::before{
+  content:'编辑';opacity:0.35;color:inherit;font-weight:400;
 }
 @media(max-width:768px){
   .timeline{padding-left:36px}
@@ -425,6 +433,76 @@ a{color:inherit;text-decoration:none}
   border-top:1px solid rgba(255,255,255,0.1);
   padding-top:24px;margin-top:30px;
 }
+
+/* 编辑模式 */
+.edit-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;padding:10px 28px;
+  background:transparent;border:1px solid rgba(255,255,255,0.45);
+  color:#fff;border-radius:30px;cursor:pointer;
+  font-family:inherit;font-size:13px;letter-spacing:3px;
+  transition:all .3s ease;
+}
+.edit-btn:hover{
+  background:#fff;color:var(--night);
+  border-color:#fff;transform:translateY(-2px);
+}
+.edit-btn .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);transition:all .3s;
+}
+body.editing .edit-btn{
+  background:var(--gold);color:var(--night);
+  border-color:var(--gold);
+}
+body.editing .edit-btn .dot{background:var(--night)}
+
+[contenteditable="true"]{
+  outline:2px dashed rgba(58,110,165,0.55);
+  outline-offset:4px;
+  background:rgba(255,213,128,0.18);
+  border-radius:6px;cursor:text;
+  transition:outline .15s,background .15s;
+}
+[contenteditable="true"]:focus{
+  outline:2px solid var(--blue);
+  background:rgba(58,110,165,0.08);
+}
+body.editing .day-banner-info [contenteditable],
+body.editing .day-banner-name,
+body.editing .day-banner-jp,
+body.editing .day-banner-desc{
+  display:inline-block;
+}
+.day-banner-name[contenteditable="true"],
+.day-banner-jp[contenteditable="true"]{display:inline-block}
+
+.add-item-btn{
+  display:none;margin-top:14px;padding:8px 20px;
+  background:var(--snow);border:1px dashed var(--blue);
+  color:var(--blue);border-radius:20px;cursor:pointer;
+  font-family:inherit;font-size:13px;letter-spacing:1px;
+  transition:all .2s ease;
+}
+.add-item-btn:hover{
+  background:var(--blue);color:#fff;
+  border-style:solid;
+}
+body.editing .add-item-btn{display:inline-block}
+body.editing .day-schedule li{
+  position:relative;
+}
+body.editing .day-schedule li .del-item{
+  display:inline-flex;
+}
+.del-item{
+  display:none;align-items:center;justify-content:center;
+  width:22px;height:22px;margin-left:8px;
+  border-radius:50%;background:#fee;color:#c45670;
+  border:none;cursor:pointer;font-size:14px;
+  flex-shrink:0;transition:all .2s;
+}
+.del-item:hover{background:#c45670;color:#fff}
 
 .reveal{opacity:0;transform:translateY(40px);transition:all .8s ease}
 .reveal.active{opacity:1;transform:translateY(0)}
@@ -1137,10 +1215,15 @@ a{color:inherit;text-decoration:none}
     <div class="footer-meta">
       © 2026 Winter Journey · Inspired by Japan · Made with snow
     </div>
+    <button class="edit-btn" id="editBtn" type="button">
+      <span class="dot"></span>
+      <span id="editBtnText">Edit</span>
+    </button>
   </div>
 </footer>
 
 <script>
+// 滚动渐显
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1149,9 +1232,9 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// 导航栏滚动
 const nav = document.querySelector('.nav');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
@@ -1162,6 +1245,198 @@ window.addEventListener('scroll', () => {
     nav.style.background = 'rgba(255,255,255,0.85)';
   }
 });
+
+// ===== 编辑功能 =====
+const EDITABLE = '.day-banner-eyebrow,.day-banner-name,.day-banner-jp,.day-banner-desc,.day-title,.sch-time,.sch-content strong,.sch-note,.tip-title,.tip-content,.quote-text,.quote-by,.section-title,.section-desc,.footer-logo,.footer-desc,.footer-meta';
+const SAVE_MAP = { timeline: '.timeline', tips: '.tips-grid', quote: '.quote-content' };
+
+const editBtn = document.getElementById('editBtn');
+const editBtnText = document.getElementById('editBtnText');
+let editing = false;
+
+// 给每个 day-schedule 注入"+添加行程项"按钮和每项的删除按钮
+function initScheduleTools(){
+  document.querySelectorAll('.day-schedule').forEach(sch=>{
+    if(!sch.querySelector('.add-item-btn')){
+      const btn = document.createElement('button');
+      btn.className = 'add-item-btn';
+      btn.type = 'button';
+      btn.textContent = '+ 添加行程项';
+      sch.appendChild(btn);
+    }
+  });
+  document.querySelectorAll('.day-schedule li').forEach(li=>{
+    if(!li.querySelector('.del-item')){
+      const del = document.createElement('button');
+      del.className = 'del-item';
+      del.type = 'button';
+      del.textContent = '×';
+      del.title = '删除此项';
+      li.appendChild(del);
+    }
+  });
+}
+
+// 新增一行行程
+function addItem(schedule){
+  const li = document.createElement('li');
+  const time = document.createElement('span');
+  time.className = 'sch-time';
+  time.textContent = '新时间';
+  const content = document.createElement('span');
+  content.className = 'sch-content';
+  content.innerHTML = '<strong>新增行程</strong><span class="sch-note">点击编辑备注</span>';
+  const del = document.createElement('button');
+  del.className = 'del-item';
+  del.type = 'button';
+  del.textContent = '×';
+  del.title = '删除此项';
+  li.appendChild(time);
+  li.appendChild(content);
+  li.appendChild(del);
+  schedule.insertBefore(li, schedule.querySelector('.add-item-btn'));
+  // 编辑模式下,新行的时间、行程名、备注各自独立可编辑
+  if(editing){
+    time.setAttribute('contenteditable','true');
+    const strong = content.querySelector('strong');
+    const note = content.querySelector('.sch-note');
+    if(strong) strong.setAttribute('contenteditable','true');
+    if(note) note.setAttribute('contenteditable','true');
+  }
+}
+
+// 事件委托(应对 innerHTML 替换后仍生效)
+document.addEventListener('click', (e)=>{
+  const addBtn = e.target.closest('.add-item-btn');
+  if(addBtn){
+    const sch = addBtn.closest('.day-schedule');
+    if(sch) addItem(sch);
+    return;
+  }
+  const delBtn = e.target.closest('.del-item');
+  if(delBtn){
+    const li = delBtn.closest('li');
+    if(li) li.remove();
+  }
+});
+
+// 粘贴时只插入纯文本,避免带入 inline style / 格式标签破坏备注样式
+document.addEventListener('paste', (e)=>{
+  if(!editing) return;
+  const target = e.target.closest('[contenteditable="true"]');
+  if(!target) return;
+  const text = (e.clipboardData || window.clipboardData).getData('text');
+  e.preventDefault();
+  document.execCommand('insertText', false, text);
+});
+
+function setEditing(state){
+  editing = state;
+  document.body.classList.toggle('editing', state);
+  document.querySelectorAll(EDITABLE).forEach(el=>{
+    if(state) el.setAttribute('contenteditable','true');
+    else el.removeAttribute('contenteditable');
+  });
+  editBtnText.textContent = state ? '完成编辑' : 'Edit';
+}
+
+function saveContent(){
+  const data = {};
+  for(const [key, sel] of Object.entries(SAVE_MAP)){
+    const el = document.querySelector(sel);
+    if(el) data[key] = el.innerHTML;
+  }
+  try{ localStorage.setItem('hokkaido_edit_v1', JSON.stringify(data)); }catch(e){}
+}
+
+// 解析时间文本为分钟数,用于排序
+function parseTime(text){
+  if(!text) return 999999;
+  const m = text.match(/(\d{1,2}):(\d{2})/);
+  if(m) return parseInt(m[1],10)*60 + parseInt(m[2],10);
+  return 999999; // 无时间格式(如"机场""夜宿""新时间")排最后
+}
+
+// 按时间先后排序某个日程的各项
+function sortSchedule(schedule){
+  const items = [...schedule.querySelectorAll('li')];
+  items.sort((a,b)=>{
+    const ta = parseTime(a.querySelector('.sch-time')?.textContent);
+    const tb = parseTime(b.querySelector('.sch-time')?.textContent);
+    if(ta !== tb) return ta - tb;
+    // 时间相同时保持原顺序(稳定排序兜底:用 DOM 顺序)
+    return 0;
+  });
+  items.forEach(li=>schedule.appendChild(li));
+  // 添加按钮挪回末尾
+  const btn = schedule.querySelector('.add-item-btn');
+  if(btn) schedule.appendChild(btn);
+}
+
+function restoreContent(){
+  try{
+    const saved = localStorage.getItem('hokkaido_edit_v1');
+    if(!saved) return;
+    const data = JSON.parse(saved);
+    for(const [key, sel] of Object.entries(SAVE_MAP)){
+      const el = document.querySelector(sel);
+      if(el && data[key]) el.innerHTML = data[key];
+    }
+  }catch(e){}
+}
+
+// 修复被破坏的备注结构:把 sch-content 里 strong 之后的游离文本统一移入 .sch-note
+// 并清除粘贴/编辑带入的格式标签与 inline style,保证备注样式一致
+function normalizeContent(){
+  document.querySelectorAll('.sch-content').forEach(content=>{
+    const strong = content.querySelector(':scope > strong, :scope > b');
+    if(!strong) return;
+    let note = content.querySelector(':scope > .sch-note');
+    const toMove = [];
+    let node = strong.nextSibling;
+    while(node){
+      const next = node.nextSibling;
+      if(node.nodeType === 1 && node.classList && node.classList.contains('sch-note')){
+        node = next; continue; // 已有 sch-note 跳过
+      }
+      toMove.push(node);
+      node = next;
+    }
+    const hasText = toMove.some(n => n.nodeType === 3 ? n.textContent.trim() !== '' : true);
+    if(hasText){
+      if(!note){
+        note = document.createElement('span');
+        note.className = 'sch-note';
+        content.appendChild(note);
+      }
+      const frag = document.createDocumentFragment();
+      toMove.forEach(n=>frag.appendChild(n));
+      note.insertBefore(frag, note.firstChild);
+    }
+    // 统一为纯文本,清除所有子标签与 inline style,继承 .sch-note / strong 样式
+    if(strong) strong.textContent = strong.textContent;
+    if(note) note.textContent = note.textContent;
+  });
+}
+
+editBtn.addEventListener('click', ()=>{
+  if(editing){
+    setEditing(false);   // 先移除 contenteditable,避免保存进 localStorage
+    document.querySelectorAll('.day-schedule').forEach(sortSchedule); // 按时间排序
+    normalizeContent();  // 修复备注结构
+    saveContent();
+    initScheduleTools(); // 确保恢复后按钮仍在
+  }else{
+    setEditing(true);
+    editBtn.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+});
+
+// 初始化:先恢复,再修复备注结构,再补按钮,再重新监听渐显
+restoreContent();
+normalizeContent();
+initScheduleTools();
+document.querySelectorAll('.reveal:not(.active)').forEach(el=>observer.observe(el));
 </script>
 
 </body>
