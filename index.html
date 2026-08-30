@@ -1010,6 +1010,12 @@ body.editing .day-schedule li .del-item{
         <h3 class="day-title">富士山下 · 忠灵塔与河口湖</h3>
         <ul class="day-schedule">
           <li>
+            <span class="sch-time">7:00</span>
+            <span class="sch-content"><strong>民宿 → 莺谷站 → 东京站</strong>
+              <span class="sch-note">坐从东京站八重洲口发车的富士山线巴士,距离民宿 2 站路,比新宿发车近。早班车 8:10 始发(2300 日元)。莺谷站山手线往上野东京方向约 10 分钟,下车后从八重洲南口出站外面就是 JR 高速巴士总站,找 8 号站台。回东京站最晚班次约 18:30-19:30 之间。提前购票 japanbusonline.com 预订</span>
+            </span>
+          </li>
+          <li>
             <span class="sch-time">08:30-10:30</span>
             <span class="sch-content"><strong>新宿 → 河口湖</strong>
               <span class="sch-note">大巴(火车 200 RMB,大巴 120 RMB)</span>
@@ -1064,22 +1070,64 @@ body.editing .day-schedule li .del-item{
           <span class="day-tag tokyo">DAY 9 · 2月2日</span>
           <span class="day-loc">东京 Tokyo</span>
         </div>
-        <h3 class="day-title">东京漫游 · 浅草 · 秋叶原 · 皇居 · 银座</h3>
+        <h3 class="day-title">东京漫游：浅草寺·日本桥·银座·皇居外苑夜景</h3>
         <ul class="day-schedule">
           <li>
             <span class="sch-time">10:00-11:00</span>
             <span class="sch-content"><strong>午餐(超市食材)</strong></span>
           </li>
           <li>
-            <span class="sch-time">11:30-18:00</span>
-            <span class="sch-content"><strong>东京 Citywalk</strong>
-              <span class="sch-note">浅草寺 → 秋叶原 → 皇居 → 银座。皇居提前预约</span>
+            <span class="sch-time">11:30-13:30</span>
+            <span class="sch-content"><strong>浅草寺</strong>
+              <span class="sch-note">雷门 → 仲见世通 → 本堂参拜 → 五重塔</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">13:30-14:00</span>
+            <span class="sch-content"><strong>浅草寺 → 日本桥(老城商业街)</strong>
+              <span class="sch-note">银座线 3 站约 10 分钟</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">14:00-16:00</span>
+            <span class="sch-content"><strong>日本桥老商业街漫步</strong>
+              <span class="sch-note">这里现代摩天楼与百年老铺并存,能一口气看全和服店 → 百货公司 → 现代商业综合体演变脉络。</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">16:00-16:20</span>
+            <span class="sch-content"><strong>日本桥 → 银座</strong>
+              <span class="sch-note">地铁 2-9 分钟,1.5-1.9 公里步行 20 分钟。</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">16:20-19:30</span>
+            <span class="sch-content"><strong>银座</strong>
+              <span class="sch-note">闲逛百货 + 品牌店,傍晚看灯光夜景</span>
             </span>
           </li>
           <li>
             <span class="sch-time">19:00</span>
-            <span class="sch-content"><strong>晚餐随机</strong>
+            <span class="sch-content"><strong>晚餐随机(日本桥与银座都有吃的)</strong>
               <span class="sch-note">回民宿再买点食材次日早中饭</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">19:30-20:30</span>
+            <span class="sch-content"><strong>银座 → 皇居外苑</strong>
+              <span class="sch-note">步行 20-25 分钟,二重桥 + 伏见橹在夜景灯光下拍照很美,楠木正成铜像和樱田门也是打卡点</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">20:30-20:50</span>
+            <span class="sch-content"><strong>东京站 → 莺谷站</strong>
+              <span class="sch-note">皇居外苑步行到东京站,坐山手线约 20 分钟,170 日元</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">21:00</span>
+            <span class="sch-content"><strong>LIFE 东日暮里店 9:00-24:00</strong>
+              <span class="sch-note">出站沿山手线往南走,过铁路天桥到东日暮里方向,约 7 分钟</span>
             </span>
           </li>
         </ul>
@@ -1341,12 +1389,12 @@ function saveContent(){
     const el = document.querySelector(sel);
     if(el) data[key] = el.innerHTML;
   }
-  try{ localStorage.setItem('hokkaido_edit_v2', JSON.stringify(data)); }catch(e){}
+  try{ localStorage.setItem('hokkaido_edit_v3', JSON.stringify(data)); }catch(e){}
 }
 
 function restoreContent(){
   try{
-    const saved = localStorage.getItem('hokkaido_edit_v2');
+    const saved = localStorage.getItem('hokkaido_edit_v3');
     if(!saved) return;
     const data = JSON.parse(saved);
     for(const [key, sel] of Object.entries(SAVE_MAP)){
@@ -1356,9 +1404,53 @@ function restoreContent(){
   }catch(e){}
 }
 
+// 粘贴时清除富文本格式,使文字继承所在元素的样式(如备注小字灰色)
+document.addEventListener('paste', (e)=>{
+  const el = e.target;
+  if(!el || !el.isContentEditable) return;
+  e.preventDefault();
+  const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+  const sel = window.getSelection();
+  if(!sel || !sel.rangeCount) return;
+  sel.deleteFromDocument();
+  const lines = text.split(/\r?\n/);
+  const frag = document.createDocumentFragment();
+  lines.forEach((line, i)=>{
+    if(i>0) frag.appendChild(document.createElement('br'));
+    frag.appendChild(document.createTextNode(line));
+  });
+  const range = sel.getRangeAt(0);
+  range.insertNode(frag);
+  range.collapse(false);
+  sel.removeAllRanges();
+  sel.addRange(range);
+});
+
+// 按时间字段对当日行程排序
+function parseScheduleTime(text){
+  if(!text) return 99999;
+  const m = text.match(/(\d{1,2}):(\d{2})/);
+  if(!m) return 99999;
+  return parseInt(m[1],10)*60 + parseInt(m[2],10);
+}
+function sortSchedule(schedule){
+  const addBtn = schedule.querySelector('.add-item-btn');
+  const items = Array.from(schedule.querySelectorAll('li'));
+  items.sort((a,b)=>{
+    const ta = parseScheduleTime(a.querySelector('.sch-time')?.textContent || '');
+    const tb = parseScheduleTime(b.querySelector('.sch-time')?.textContent || '');
+    return ta - tb;
+  });
+  items.forEach(li=>{
+    if(addBtn) schedule.insertBefore(li, addBtn);
+    else schedule.appendChild(li);
+  });
+}
+
 editBtn.addEventListener('click', ()=>{
   if(editing){
     setEditing(false);   // 先移除 contenteditable,避免保存进 localStorage
+    document.querySelectorAll('.day-schedule').forEach(sortSchedule); // 按时间排序
     saveContent();
     initScheduleTools(); // 确保恢复后按钮仍在
   }else{
