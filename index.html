@@ -338,16 +338,8 @@ a{color:inherit;text-decoration:none}
 }
 .sch-content{flex:1;color:var(--deep)}
 .sch-content strong{font-weight:600}
-.sch-content b{font-weight:600}
 .sch-note{
   display:block;margin-top:4px;font-size:12px;color:var(--muted);
-}
-.sch-note *{font-size:12px !important;color:var(--muted) !important;font-weight:400 !important}
-.sch-content strong[contenteditable="true"]{display:inline-block;min-width:30px}
-.sch-note[contenteditable="true"]{display:block;min-height:14px}
-.sch-content strong[contenteditable="true"]:empty::before,
-.sch-note[contenteditable="true"]:empty::before{
-  content:'编辑';opacity:0.35;color:inherit;font-weight:400;
 }
 @media(max-width:768px){
   .timeline{padding-left:36px}
@@ -576,27 +568,15 @@ body.editing .day-schedule li .del-item{
         <h3 class="day-title">启程 · 跨越东海的漫长一夜</h3>
         <ul class="day-schedule">
           <li>
-            <span class="sch-time">21:10</span>
-            <span class="sch-content"><strong>德清 → 上海浦东 T2</strong>
+            <span class="sch-time">15:30-18:00</span>
+            <span class="sch-content"><strong>德清 → 上海浦东</strong>
+              <span class="sch-note">米八停车场 13122651598</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">21:10-01:05</span>
+            <span class="sch-content"><strong>上海浦东 T2 → 东京羽田 T3</strong>
               <span class="sch-note">春秋航空 9C8515 航班起飞</span>
-            </span>
-          </li>
-          <li>
-            <span class="sch-time">01:05</span>
-            <span class="sch-content"><strong>抵达东京羽田机场 T3</strong>
-              <span class="sch-note">羽田重新托运行李,需在不同航站楼转机</span>
-            </span>
-          </li>
-          <li>
-            <span class="sch-time">07:05</span>
-            <span class="sch-content"><strong>羽田 T2 起飞 / 或 09:45 起飞</strong>
-              <span class="sch-note">方案A:Air Do HD57(07:05起飞,08:25到函馆);方案B:全日空 NH553(09:45起飞,11:05到函馆)</span>
-            </span>
-          </li>
-          <li>
-            <span class="sch-time">夜宿</span>
-            <span class="sch-content"><strong>夜班航班飞往函馆</strong>
-              <span class="sch-note">跨夜转机,行李重新托运,不同航站楼转机需预留充足时间</span>
             </span>
           </li>
         </ul>
@@ -611,27 +591,45 @@ body.editing .day-schedule li .del-item{
         <h3 class="day-title">初见 · 五棱郭星形要塞</h3>
         <ul class="day-schedule">
           <li>
-            <span class="sch-time">09:45-11:05</span>
-            <span class="sch-content"><strong>东京羽田 → 函馆</strong>
+            <span class="sch-time">02:05</span>
+            <span class="sch-content"><strong>羽田 T3 转场 T2 航站楼</strong>
+              <span class="sch-note">T2 航站楼休息</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">07:05 / 09:45</span>
+            <span class="sch-content"><strong>羽田 T2 起飞</strong>
+              <span class="sch-note">方案A:Air Do HD57(07:05 起飞,08:25 到函馆);方案B:全日空 NH553(09:45 起飞,11:05 到函馆)</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">09:45-11:05 / 12:50-14:10</span>
+            <span class="sch-content"><strong>羽田 T2 → 函馆</strong>
               <span class="sch-note">全日空 NH553,羽田 T2 出发,贾天羽航班,可以不带拉杆箱</span>
             </span>
           </li>
           <li>
-            <span class="sch-time">12:30</span>
-            <span class="sch-content"><strong>机场 → 酒店</strong>
-              <span class="sch-note">机场巴士至 JR 函馆站前(现金);帝产接驳巴士 770 日元 / 96 系统路线巴士 340 日元</span>
+            <span class="sch-time">12:05-12:50</span>
+            <span class="sch-content"><strong>机场 → 函馆站</strong>
+              <span class="sch-note">机场巴士至 JR 函馆站前(现金);帝产接驳巴士 700 日元(车程 27 分钟,只收现金)/ 96 系统路线巴士 340 日元(车程 33 分钟,可刷西瓜卡,班次少)</span>
             </span>
           </li>
           <li>
-            <span class="sch-time">12:30-14:00</span>
+            <span class="sch-time">13:00-13:30</span>
             <span class="sch-content"><strong>午餐 · 大门横丁</strong>
               <span class="sch-note">函馆站旁美食街,小巷烟火气</span>
             </span>
           </li>
           <li>
+            <span class="sch-time">13:30-14:00</span>
+            <span class="sch-content"><strong>函馆站 → 民宿</strong>
+              <span class="sch-note">暂定 karabao hakodate,整栋楼一楼 2 床,二楼 3 床,1986 RMB 两晚</span>
+            </span>
+          </li>
+          <li>
             <span class="sch-time">14:30</span>
             <span class="sch-content"><strong>五棱郭公园</strong>
-              <span class="sch-note">函馆站市电 →"五棱郭公园前"下车,步行约15分钟,可顺路逛丸井今井百货</span>
+              <span class="sch-note">函馆站市电 →"五棱郭公园前"下车(270 日元,能刷 Suica、ICOCA),步行约 15 分钟,可顺路逛丸井今井百货</span>
             </span>
           </li>
           <li>
@@ -643,7 +641,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">18:00</span>
             <span class="sch-content"><strong>晚餐 · MaxValu 若松店</strong>
-              <span class="sch-note">AEON 旗下超市,购买食材回民宿。民宿 karabao hakodate,一楼2床,二楼3床</span>
+              <span class="sch-note">超市地址:北海道函馆市若松町 25-1,距离 JR 函馆站步行约 3 分钟</span>
             </span>
           </li>
         </ul>
@@ -660,7 +658,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">08:00-12:00</span>
             <span class="sch-content"><strong>函馆朝市 Citywalk</strong>
-              <span class="sch-note">函馆朝市(中午后很多店关门)→ 大森海岸 → 金森红砖仓库 → 幸运小丑汉堡吃午餐 → 八幡坂下坡 → 元町公园 → 旧函馆区公会堂 → 各个元町教堂 → 十字街 → 步行到函馆山缆车山麓站。金森红砖仓库附近有足汤(免费)</span>
+              <span class="sch-note">函馆朝市(中午后很多店关门)→ 大森海岸 → 金森红砖仓库 → 幸运小丑汉堡吃午餐 → 八幡坂下坡 → 元町公园 → 旧函馆区公会堂 → 各个元町教堂 → 十字街 → 步行到函馆山缆车山麓站</span>
             </span>
           </li>
           <li>
@@ -671,14 +669,14 @@ body.editing .day-schedule li .del-item{
           </li>
           <li>
             <span class="sch-time">15:20</span>
-            <span class="sch-content"><strong>函馆山缆车</strong>
-              <span class="sch-note">缆车往返 1800 日元/人,导航到"函館山ロープウェイ山麓駅",提前官网购票(看天气),日落 16:10</span>
+            <span class="sch-content"><strong>函馆山(缆车)</strong>
+              <span class="sch-note">缆车往返 1800 日元/人,导航到"函館山ロープウェイ山麓駅",提前官网购票(看天气),约 16:10 日落</span>
             </span>
           </li>
           <li>
             <span class="sch-time">18:00</span>
-            <span class="sch-content"><strong>准备下山</strong>
-              <span class="sch-note">15 分钟一班缆车,缆车 3 分钟。山麓站-十字街步行 10 分钟,十字街-函馆站市电 5-10 分钟,或步行 15-20 分钟。函馆市电下车要按下车按钮,不然司机不停</span>
+            <span class="sch-content"><strong>函馆山(准备下山)</strong>
+              <span class="sch-note">15 分钟一班缆车,缆车下行 3 分钟。山麓站-十字街步行 10 分钟,十字街-函馆站市电 5-10 分钟(270 日元,能刷 Suica、ICOCA),或步行 15-20 分钟。函馆市电下车要按下车按钮,不然司机不停</span>
             </span>
           </li>
           <li>
@@ -714,37 +712,43 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">08:56-11:28</span>
             <span class="sch-content"><strong>函馆 → 登别 JR 特急北斗5号</strong>
-              <span class="sch-note">推荐偶数 D 座,一小时一班。官网或现场买 JR 5日周游券,提前划位</span>
+              <span class="sch-note">推荐偶数 D 座,一小时一班。官网或现场买 JR 5日周游券(海购 22000 日元,现场 23000 日元),指定席提前划位</span>
             </span>
           </li>
           <li>
             <span class="sch-time">11:28-12:30</span>
-            <span class="sch-content"><strong>登别站 → 酒店</strong>
-              <span class="sch-note">乘道南巴士往登别温泉总站或旅馆附近站。巴士班次间隔大,提前查时刻表,车程 15-27 分钟</span>
+            <span class="sch-content"><strong>登别站 → 酒店(第一滝本馆)</strong>
+              <span class="sch-note">登别站少吃点午餐后乘道南巴士往登别温泉总站或旅馆附近站(450 日元,只收现金不找零)。巴士班次间隔大,提前查时刻表,车程 15-27 分钟</span>
             </span>
           </li>
           <li>
             <span class="sch-time">12:30-13:00</span>
-            <span class="sch-content"><strong>寄存行李与午餐</strong>
-              <span class="sch-note">少吃点,晚上有自助餐</span>
+            <span class="sch-content"><strong>酒店寄存行李</strong>
+              <span class="sch-note">自助早晚:49248 日元(3 人间榻榻米地铺)+ 37152 日元(两人间榻榻米地铺)。14:00 后才能办入住</span>
             </span>
           </li>
           <li>
             <span class="sch-time">13:00-15:00</span>
-            <span class="sch-content"><strong>Citywalk · 地狱谷 → 大汤沼川天然足汤</strong>
-              <span class="sch-note">温泉街步行到地狱谷入口约 10 分钟</span>
+            <span class="sch-content"><strong>Citywalk · 地狱谷绕一圈约 2 小时</strong>
+              <span class="sch-note">出门 1 分钟到泉源公园,5 分钟到地狱谷,10 分钟到商店街,整个温泉街的精华都在步行 10 分钟半径内</span>
             </span>
           </li>
           <li>
             <span class="sch-time">15:00-16:30</span>
-            <span class="sch-content"><strong>办理入住 · 第一滝本馆</strong>
-              <span class="sch-note">酒店泡温泉</span>
+            <span class="sch-content"><strong>办理入住 · 第一滝本馆(浴池开放 4:00-24:00)</strong>
+              <span class="sch-note">泡汤步骤:1、房间换上浴衣,带上房卡钥匙 + 一条小毛巾,穿馆内拖鞋出门。2、跟着指示牌走,晚上地狱谷方向那条路就几分钟。3、到了浴场门口会看到男汤 / 女汤两个分开的入口,不是混浴。4、在更衣室入口脱掉馆内拖鞋再往里走,把浴衣、内衣等脱进免费的 SMALL LOCKER,包括房卡、手表、眼镜、首饰等贵重物品务必锁好。5、浴场入口柜台备有浴巾和面巾。6、全裸进入浴区,先冲洗再下池,在冲洗区(洗い場)的小凳子上坐下,用淋浴彻底冲洗全身、打好香皂/沐浴露洗干净,把身上的泡沫完全冲净后,才能下池。7、离开浴区前,用小毛巾把身上的水擦干,再进更衣室</span>
             </span>
           </li>
           <li>
             <span class="sch-time">17:30-20:00</span>
             <span class="sch-content"><strong>酒店自助晚餐</strong>
-              <span class="sch-note">酒店官网预定,自助晚餐本馆3楼 17:30-20:00。19:00 入场也是 20:00 结束,选 17:30 场</span>
+              <span class="sch-note">酒店官网预定,自助晚餐本馆 3 楼 17:30-20:00。19:00 入场也是 20:00 结束,选 17:30 场</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">20:00-21:30</span>
+            <span class="sch-content"><strong>温泉街闲逛</strong>
+              <span class="sch-note">泉源公园夜景</span>
             </span>
           </li>
         </ul>
@@ -784,14 +788,16 @@ body.editing .day-schedule li .del-item{
             </span>
           </li>
           <li>
-            <span class="sch-time">10:15-11:29</span>
+            <span class="sch-time">10:12-11:20</span>
             <span class="sch-content"><strong>登别 → 札幌 JR 特急</strong>
-              <span class="sch-note">特急北斗5号,推荐 D 座</span>
+              <span class="sch-note">使用 JR 周游券免费乘车,时间表:10:12-11:20 / 11:25-12:41</span>
             </span>
           </li>
           <li>
             <span class="sch-time">12:30-13:00</span>
-            <span class="sch-content"><strong>酒店 · 行李寄存或入住</strong></span>
+            <span class="sch-content"><strong>民宿 · 行李寄存或入住</strong>
+              <span class="sch-note">3000 RMB 3 晚,卧室有移门</span>
+            </span>
           </li>
           <li>
             <span class="sch-time">13:00-14:00</span>
@@ -806,7 +812,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">15:40-16:00</span>
             <span class="sch-content"><strong>交通 · 大通站 → 圆山公园站</strong>
-              <span class="sch-note">地铁 8 分钟</span>
+              <span class="sch-note">地铁 8 分钟,支持 Suica、ICOCA</span>
             </span>
           </li>
           <li>
@@ -858,7 +864,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">09:00-10:00</span>
             <span class="sch-content"><strong>札幌 → 小樽</strong>
-              <span class="sch-note">JR 函馆本线快速列车约 30-35 分钟,南小樽站下车开始逛</span>
+              <span class="sch-note">使用 JR 周游券免费乘车,JR 函馆本线快速列车约 30-35 分钟,南小樽站下车开始逛</span>
             </span>
           </li>
           <li>
@@ -891,7 +897,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">08:30-09:00</span>
             <span class="sch-content"><strong>交通 · 札幌站 → 宫之泽</strong>
-              <span class="sch-note">大通换东西线 → 宫之泽,约 20 分钟。札幌地铁 / 市电一日券(1000 日元)</span>
+              <span class="sch-note">大通换东西线 → 宫之泽,约 20 分钟(210 日元)。看最终行程是否购买札幌地铁 / 市电一日券(1000 日元)</span>
             </span>
           </li>
           <li>
@@ -903,13 +909,13 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">11:00-12:00</span>
             <span class="sch-content"><strong>札幌啤酒博物馆</strong>
-              <span class="sch-note">东区役所前站,旧红砖厂房,参观北海道啤酒历史 + 3 杯试饮套餐,室内暖和</span>
+              <span class="sch-note">东区役所前站(210 日元),旧红砖厂房,参观北海道啤酒历史 + 3 杯试饮套餐,室内暖和</span>
             </span>
           </li>
           <li>
             <span class="sch-time">12:00-12:30</span>
             <span class="sch-content"><strong>交通 · 东区役所前站 → 札幌站</strong>
-              <span class="sch-note">地铁东丰线</span>
+              <span class="sch-note">地铁东丰线(210 日元)</span>
             </span>
           </li>
           <li>
@@ -948,38 +954,31 @@ body.editing .day-schedule li .del-item{
         <ul class="day-schedule">
           <li>
             <span class="sch-time">08:00-09:30</span>
-            <span class="sch-content"><strong>酒店 → 新千岁机场</strong>
+            <span class="sch-content"><strong>民宿 → 札幌站 → 新千岁机场</strong>
               <span class="sch-note">札幌站搭乘 JR 机场特快 37 分钟,札幌站 6 号月台,行李多可以选指定席</span>
-            </span>
-          </li>
-          <li>
-            <span class="sch-time">机场</span>
-            <span class="sch-content"><strong>新千岁机场购物</strong>
-              <span class="sch-note">国内航站楼(2-4F)商店街,2楼核心购物区,是税前店铺,凭护照可以现场办理免税(Tax-Free),购物一定要安检之前逛完</span>
             </span>
           </li>
           <li>
             <span class="sch-time">11:35-13:20</span>
             <span class="sch-content"><strong>新千岁 → 东京羽田</strong>
-              <span class="sch-note">羽田机场</span>
+              <span class="sch-note">羽田机场(机票 359 含 1 托运)。国内航站楼(2-4F)商店街,2 楼核心购物区,是税前店铺,凭护照可以现场办理免税(Tax-Free),购物一定要安检之前逛完</span>
             </span>
           </li>
           <li>
             <span class="sch-time">14:20</span>
-            <span class="sch-content"><strong>酒店入住</strong>
-              <span class="sch-note">15:00 后入住,莺谷站附近</span>
+            <span class="sch-content"><strong>民宿入住</strong>
+              <span class="sch-note">15:00 后入住,莺谷站附近,1899 RMB 3 晚,卧室有移门</span>
             </span>
           </li>
           <li>
             <span class="sch-time">17:00</span>
-            <span class="sch-content"><strong>闲逛 · 上野横町商业街</strong>
-              <span class="sch-note">看有没有合适晚餐</span>
+            <span class="sch-content"><strong>闲逛 · 谷根千下町散步</strong>
             </span>
           </li>
           <li>
             <span class="sch-time">18:00</span>
             <span class="sch-content"><strong>晚餐 · THE PLATINUM Tokyo Solamachi</strong>
-              <span class="sch-note">Solamachi 商场 6 楼东区 10 号,晴空塔周边西洋自助餐厅,周末晚 3628 日元一位</span>
+              <span class="sch-note">上野站 → 浅草 → 东京晴空树站(350 日元),Solamachi 商场 6 楼东区 10 号,晴空塔周边西洋自助餐厅,周末晚 3628 日元一位</span>
             </span>
           </li>
           <li>
@@ -1024,7 +1023,7 @@ body.editing .day-schedule li .del-item{
           </li>
           <li>
             <span class="sch-time">13:12-13:30</span>
-            <span class="sch-content"><strong>午餐 · 回河口湖站周边</strong></span>
+            <span class="sch-content"><strong>午餐(罗森)· 回河口湖站周边</strong></span>
           </li>
           <li>
             <span class="sch-time">13:30-15:15</span>
@@ -1035,7 +1034,7 @@ body.editing .day-schedule li .del-item{
           <li>
             <span class="sch-time">15:15-16:10</span>
             <span class="sch-content"><strong>天上山缆车往返</strong>
-              <span class="sch-note">含排队 30-60 分 + 山顶 30 分</span>
+              <span class="sch-note">往返 1000 日元,排队 30-60 分 + 山顶 30 分</span>
             </span>
           </li>
           <li>
@@ -1052,7 +1051,7 @@ body.editing .day-schedule li .del-item{
           </li>
           <li>
             <span class="sch-time">19:30</span>
-            <span class="sch-content"><strong>晚餐 · 上野横町商业街或超市食材</strong>
+            <span class="sch-content"><strong>晚餐 · 阿美横町街区或超市食材</strong>
               <span class="sch-note">顺带食材第二日中午烧</span>
             </span>
           </li>
@@ -1068,18 +1067,20 @@ body.editing .day-schedule li .del-item{
         <h3 class="day-title">东京漫游 · 浅草 · 秋叶原 · 皇居 · 银座</h3>
         <ul class="day-schedule">
           <li>
-            <span class="sch-time">10:00-11:30</span>
-            <span class="sch-content"><strong>午餐 · 超市食材</strong></span>
+            <span class="sch-time">10:00-11:00</span>
+            <span class="sch-content"><strong>午餐(超市食材)</strong></span>
           </li>
           <li>
-            <span class="sch-time">12:00-18:00</span>
+            <span class="sch-time">11:30-18:00</span>
             <span class="sch-content"><strong>东京 Citywalk</strong>
               <span class="sch-note">浅草寺 → 秋叶原 → 皇居 → 银座。皇居提前预约</span>
             </span>
           </li>
           <li>
             <span class="sch-time">19:00</span>
-            <span class="sch-content"><strong>晚餐 · 超市食材或随机</strong></span>
+            <span class="sch-content"><strong>晚餐随机</strong>
+              <span class="sch-note">回民宿再买点食材次日早中饭</span>
+            </span>
           </li>
         </ul>
       </div>
@@ -1088,18 +1089,30 @@ body.editing .day-schedule li .del-item{
       <div class="day-item tokyo reveal">
         <div class="day-head">
           <span class="day-tag tokyo">DAY 10 · 2月3日</span>
-          <span class="day-loc">东京 → 上海</span>
+          <span class="day-loc">东京 → 上海 → 德清</span>
         </div>
         <h3 class="day-title">归程 · 成田飞浦东</h3>
         <ul class="day-schedule">
           <li>
             <span class="sch-time">10:00-11:00</span>
-            <span class="sch-content"><strong>酒店早中餐 · 超市食材</strong></span>
+            <span class="sch-content"><strong>民宿早中餐(超市食材)</strong></span>
           </li>
           <li>
             <span class="sch-time">15:00-17:25</span>
-            <span class="sch-content"><strong>成田 → 浦东</strong>
+            <span class="sch-content"><strong>东京成田 T1 → 浦东</strong>
               <span class="sch-note">国航 CA930,成田 T1</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">18:25-19:00</span>
+            <span class="sch-content"><strong>上海浦东 → 米八停车场</strong>
+              <span class="sch-note">取车、缴费(11 天约 220 元)</span>
+            </span>
+          </li>
+          <li>
+            <span class="sch-time">19:30-22:00</span>
+            <span class="sch-content"><strong>上海 → 德清</strong>
+              <span class="sch-note">22:00 平安到家</span>
             </span>
           </li>
         </ul>
@@ -1138,7 +1151,6 @@ body.editing .day-schedule li .del-item{
             <li>羽田 T3 落地需转 T2 起飞</li>
             <li>跨夜转机需重新托运行李</li>
             <li>不同航站楼转机预留充足时间</li>
-            <li>贾天羽 NH553 可不带拉杆箱</li>
           </ul>
         </div>
       </div>
@@ -1150,7 +1162,6 @@ body.editing .day-schedule li .del-item{
             <li>JR 5日周游券:函馆-登别-札幌通用</li>
             <li>札幌地铁/市电一日券:1000 日元</li>
             <li>函馆市电下车需按按钮</li>
-            <li>河口湖:大巴 120 RMB 比火车便宜</li>
           </ul>
         </div>
       </div>
@@ -1247,7 +1258,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ===== 编辑功能 =====
-const EDITABLE = '.day-banner-eyebrow,.day-banner-name,.day-banner-jp,.day-banner-desc,.day-title,.sch-time,.sch-content strong,.sch-note,.tip-title,.tip-content,.quote-text,.quote-by,.section-title,.section-desc,.footer-logo,.footer-desc,.footer-meta';
+const EDITABLE = '.day-banner-eyebrow,.day-banner-name,.day-banner-jp,.day-banner-desc,.day-title,.sch-time,.sch-content,.sch-note,.tip-title,.tip-content,.quote-text,.quote-by,.section-title,.section-desc,.footer-logo,.footer-desc,.footer-meta';
 const SAVE_MAP = { timeline: '.timeline', tips: '.tips-grid', quote: '.quote-content' };
 
 const editBtn = document.getElementById('editBtn');
@@ -1283,9 +1294,11 @@ function addItem(schedule){
   const time = document.createElement('span');
   time.className = 'sch-time';
   time.textContent = '新时间';
+  time.setAttribute('contenteditable','true');
   const content = document.createElement('span');
   content.className = 'sch-content';
   content.innerHTML = '<strong>新增行程</strong><span class="sch-note">点击编辑备注</span>';
+  content.setAttribute('contenteditable','true');
   const del = document.createElement('button');
   del.className = 'del-item';
   del.type = 'button';
@@ -1295,14 +1308,6 @@ function addItem(schedule){
   li.appendChild(content);
   li.appendChild(del);
   schedule.insertBefore(li, schedule.querySelector('.add-item-btn'));
-  // 编辑模式下,新行的时间、行程名、备注各自独立可编辑
-  if(editing){
-    time.setAttribute('contenteditable','true');
-    const strong = content.querySelector('strong');
-    const note = content.querySelector('.sch-note');
-    if(strong) strong.setAttribute('contenteditable','true');
-    if(note) note.setAttribute('contenteditable','true');
-  }
 }
 
 // 事件委托(应对 innerHTML 替换后仍生效)
@@ -1318,16 +1323,6 @@ document.addEventListener('click', (e)=>{
     const li = delBtn.closest('li');
     if(li) li.remove();
   }
-});
-
-// 粘贴时只插入纯文本,避免带入 inline style / 格式标签破坏备注样式
-document.addEventListener('paste', (e)=>{
-  if(!editing) return;
-  const target = e.target.closest('[contenteditable="true"]');
-  if(!target) return;
-  const text = (e.clipboardData || window.clipboardData).getData('text');
-  e.preventDefault();
-  document.execCommand('insertText', false, text);
 });
 
 function setEditing(state){
@@ -1346,36 +1341,12 @@ function saveContent(){
     const el = document.querySelector(sel);
     if(el) data[key] = el.innerHTML;
   }
-  try{ localStorage.setItem('hokkaido_edit_v1', JSON.stringify(data)); }catch(e){}
-}
-
-// 解析时间文本为分钟数,用于排序
-function parseTime(text){
-  if(!text) return 999999;
-  const m = text.match(/(\d{1,2}):(\d{2})/);
-  if(m) return parseInt(m[1],10)*60 + parseInt(m[2],10);
-  return 999999; // 无时间格式(如"机场""夜宿""新时间")排最后
-}
-
-// 按时间先后排序某个日程的各项
-function sortSchedule(schedule){
-  const items = [...schedule.querySelectorAll('li')];
-  items.sort((a,b)=>{
-    const ta = parseTime(a.querySelector('.sch-time')?.textContent);
-    const tb = parseTime(b.querySelector('.sch-time')?.textContent);
-    if(ta !== tb) return ta - tb;
-    // 时间相同时保持原顺序(稳定排序兜底:用 DOM 顺序)
-    return 0;
-  });
-  items.forEach(li=>schedule.appendChild(li));
-  // 添加按钮挪回末尾
-  const btn = schedule.querySelector('.add-item-btn');
-  if(btn) schedule.appendChild(btn);
+  try{ localStorage.setItem('hokkaido_edit_v2', JSON.stringify(data)); }catch(e){}
 }
 
 function restoreContent(){
   try{
-    const saved = localStorage.getItem('hokkaido_edit_v1');
+    const saved = localStorage.getItem('hokkaido_edit_v2');
     if(!saved) return;
     const data = JSON.parse(saved);
     for(const [key, sel] of Object.entries(SAVE_MAP)){
@@ -1385,45 +1356,9 @@ function restoreContent(){
   }catch(e){}
 }
 
-// 修复被破坏的备注结构:把 sch-content 里 strong 之后的游离文本统一移入 .sch-note
-// 并清除粘贴/编辑带入的格式标签与 inline style,保证备注样式一致
-function normalizeContent(){
-  document.querySelectorAll('.sch-content').forEach(content=>{
-    const strong = content.querySelector(':scope > strong, :scope > b');
-    if(!strong) return;
-    let note = content.querySelector(':scope > .sch-note');
-    const toMove = [];
-    let node = strong.nextSibling;
-    while(node){
-      const next = node.nextSibling;
-      if(node.nodeType === 1 && node.classList && node.classList.contains('sch-note')){
-        node = next; continue; // 已有 sch-note 跳过
-      }
-      toMove.push(node);
-      node = next;
-    }
-    const hasText = toMove.some(n => n.nodeType === 3 ? n.textContent.trim() !== '' : true);
-    if(hasText){
-      if(!note){
-        note = document.createElement('span');
-        note.className = 'sch-note';
-        content.appendChild(note);
-      }
-      const frag = document.createDocumentFragment();
-      toMove.forEach(n=>frag.appendChild(n));
-      note.insertBefore(frag, note.firstChild);
-    }
-    // 统一为纯文本,清除所有子标签与 inline style,继承 .sch-note / strong 样式
-    if(strong) strong.textContent = strong.textContent;
-    if(note) note.textContent = note.textContent;
-  });
-}
-
 editBtn.addEventListener('click', ()=>{
   if(editing){
     setEditing(false);   // 先移除 contenteditable,避免保存进 localStorage
-    document.querySelectorAll('.day-schedule').forEach(sortSchedule); // 按时间排序
-    normalizeContent();  // 修复备注结构
     saveContent();
     initScheduleTools(); // 确保恢复后按钮仍在
   }else{
@@ -1432,9 +1367,8 @@ editBtn.addEventListener('click', ()=>{
   }
 });
 
-// 初始化:先恢复,再修复备注结构,再补按钮,再重新监听渐显
+// 初始化:先恢复,再补按钮,再重新监听渐显
 restoreContent();
-normalizeContent();
 initScheduleTools();
 document.querySelectorAll('.reveal:not(.active)').forEach(el=>observer.observe(el));
 </script>
